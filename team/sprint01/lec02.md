@@ -8,10 +8,10 @@ Team: Anika Misra [x], Xinyao Song [x], Zhen Bi [x], Jonathan Chen [x ], Kevin C
 
 Scribed Discussion:
 
-**Zhen Bi:  **
+**Zhen Bi:**  
 I DID  
-    *Wrote personal description, PR, and merge  
-    *Helped to improve the template of logs in the google docs  
+- Wrote personal description, PR, and merge  
+- Helped to improve the template of logs in the google docs  
 I WILL DO  
     *Write "Hello World"  
     *Upload the lab1 file  
