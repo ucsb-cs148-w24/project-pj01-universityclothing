@@ -1,12 +1,12 @@
 # lab01 01-12-2024
 ## Attendance
-- Anika Misra [ ]
-- Xinyao Song [ ]
-- Zhen Bi [ ]
-- Jonathan Chen [ ]
-- Kevin Chen [ ] 
-- Ridhit Garg [ ] 
-- Justin Chung [ ]
+- Anika Misra [X]
+- Xinyao Song [X]
+- Zhen Bi [X]
+- Jonathan Chen [X]
+- Kevin Chen [X] 
+- Ridhit Garg [X] 
+- Justin Chung [X]
 
 ## Add ourselves in the organization
 ## MVP
@@ -17,3 +17,4 @@
     - check what others are selling; add a wishlist
     - login with your edu email
     - a chat page.
+- Planning to use react native since it allows us to create a mobile app easily and is very expandable.
