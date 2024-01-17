@@ -8,17 +8,17 @@ Team: Anika Misra [x], Xinyao Song [x], Zhen Bi [x], Jonathan Chen [x ], Kevin C
 
 Scribed Discussion:
 
-Zhen Bi:  
+**Zhen Bi:  **
 I DID  
-    Wrote personal description, PR, and merge  
-    Helped to improve the template of logs in the google docs  
+    *Wrote personal description, PR, and merge  
+    *Helped to improve the template of logs in the google docs  
 I WILL DO  
-    Write "Hello World"  
-    Upload the lab1 file  
+    *Write "Hello World"  
+    *Upload the lab1 file  
 BLOCKERS  
-    None  
+    *None  
 
-Kevin Chen:  
+**Kevin Chen:  ** 
 I DID  
     Uploaded branch to github with intro  
     Moved sprint01 file to team folder  
