@@ -9,7 +9,7 @@ Ridhit Garg @tihdiR <br/>
 Xinyao Song @xinyao-song <br/>
 Anika Misra @amisra0 <br/>
 Zhen Bi @zhenbi93 <br/>
-Justin Chung @ <br/>
+Justin Chung @justinchung712 <br/>
 
 ## Tech Stack
 tbd
