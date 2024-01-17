@@ -1,0 +1,1 @@
+Hello I am Ridhit, a third year CS major at UCSB. I like buying clothes but I am very bad at finding it and I have no patience so often times I will give up mid search. This is why I want to have a university resell app where I can quickly and easily find clothes that I want to buy or sell things that I own that I don't need anymore.
