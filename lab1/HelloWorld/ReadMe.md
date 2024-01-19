@@ -1,0 +1,1 @@
+This simple 'Hello World' application, developed in React Native, solely displays the text 'Hello, World'. To deploy, install Expo and a simulator like Xcode for iOS or Android Studio for Android. Download the project files, run 'npm start' in the directory, and then choose your preferred simulator to view the app.
