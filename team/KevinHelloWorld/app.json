@@ -1,0 +1,11 @@
+{
+  "expo": {
+    "name": "KevinHelloWorld",
+    "slug": "KevinHelloWorld",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  },
+  "name": "KevinHelloWorld"
+}
