@@ -1,1 +1,0 @@
-Hi, I am Anika. I am a 3rd year CS major with experience mainly in web development, HTML, CSS, and Javascript. Through school I have learned C++, Python, and Assembly, but I have never built any apps with it. I would love to have more backend experience.
