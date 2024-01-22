@@ -8,3 +8,7 @@
 
 **Scribed Discussion:**
 
+User Stories:
+
+- Authentication
+- 
