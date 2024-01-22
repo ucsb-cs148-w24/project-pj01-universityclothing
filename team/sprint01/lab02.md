@@ -51,13 +51,13 @@
 
 ## **Xinyao Song**  
 ### **I DID**  
-- 
+- Created the Hello World application on React Native 
 
 ### **I WILL DO**  
-- 
+- Consider user roles and Kanban Boards
 
 ### **BLOCKERS**  
--
+- N/A
 
 ## **Justin Chung**  
 ### **I DID**  
