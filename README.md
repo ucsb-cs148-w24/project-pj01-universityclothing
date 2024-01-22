@@ -12,7 +12,8 @@ Zhen Bi @zhenbi93 <br/>
 Justin Chung @justinchung712 <br/>
 
 ## Tech Stack
-tbd
+Frontend: React Native <br/>
+Backend: Firebase <br/>
 
 
 ## User Roles and Permissions
