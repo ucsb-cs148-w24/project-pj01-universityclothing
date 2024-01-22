@@ -61,7 +61,19 @@
 
 ## **Justin Chung**  
 ### **I DID**  
-- 
+
+
+
+## **Anika Misra**  
+### **I DID**  
+- Created the Hello World application on React Native, installed all necessary applications and fixed my git.
+
+### **I WILL DO**  
+- Work toward the next steps of the project, such as learning React and outlining what features must be implemented first.
+
+### **BLOCKERS**  
+- N/A
+
 
 ### **I WILL DO**  
 - 
