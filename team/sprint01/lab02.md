@@ -10,10 +10,10 @@
 
 ## **Zhen Bi:**  
 ### **I DID**  
-- 
-
+- Finished the file problem_scenario.md
+- Complete the README.md for hello world project
 ### **I WILL DO**  
-- 
+- Contributed to use stories on the Kanban board
 
 ### **BLOCKERS**  
 - 
