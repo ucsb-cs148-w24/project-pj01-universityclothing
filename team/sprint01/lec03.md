@@ -10,5 +10,7 @@
 
 User Stories:
 
-- Authentication
-- 
+- Google OAuth
+- Check .edu
+- Marketplace
+  - Upload items to feed
