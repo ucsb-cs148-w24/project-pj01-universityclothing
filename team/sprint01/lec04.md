@@ -4,7 +4,7 @@
 
 **Type of Meeting:** Daily Scrum
 
-**Team:** Anika Misra [x], Xinyao Song [x], Zhen Bi [x], Jonathan Chen [x], Kevin Chen [x], Ridhit Garg [x], Justin Chung [X]
+**Team:** Anika Misra [x], Xinyao Song [x], Zhen Bi [x], Jonathan Chen [x], Kevin Chen [x], Ridhit Garg [x], Justin Chung [x]
 
 **Scribed Discussion:**
 
