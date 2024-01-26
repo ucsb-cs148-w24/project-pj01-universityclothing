@@ -2,7 +2,7 @@
 
 **Meeting Time:1.24.2024(Wed)** 
 
-**Type of Meeting:** Daily Scrum
+**Type of Meeting:** Daily Standup
 
 **Team:** Anika Misra [x], Xinyao Song [x], Zhen Bi [x], Jonathan Chen [x], Kevin Chen [x], Ridhit Garg [x], Justin Chung [x]
 
@@ -73,10 +73,10 @@
 
 ## **Justin Chung**  
 ### **I DID**  
-- 
+- Set up the Firebase and add everyone as collaborators
 
 ### **I WILL DO**  
-- 
+- Design the database for clothing listing items
 
 ### **BLOCKERS**  
--
+- N/A
