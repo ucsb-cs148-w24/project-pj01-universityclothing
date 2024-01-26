@@ -1,6 +1,6 @@
 **Mentor:** Self-Mentored
 
-**Meeting Time:** 
+**Meeting Time:1.24.2024(Wed)** 
 
 **Type of Meeting:** Daily Scrum
 
