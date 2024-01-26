@@ -1,5 +1,10 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
+import HomeScreen from './src/screen/HomeScreen';
+import ChatScreen from './src/screen/ChatScreen';
+import LoginScreen from './src/screen/LoginScreen';
+import Profile from './src/screen/Profile';
+import SearchScreen from './src/screen/SearchScreen';
 
 export default function App() {
   return (
