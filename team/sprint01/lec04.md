@@ -29,6 +29,16 @@
 
 ### **BLOCKERS**  
 - None
+## *Anika MIsra:**  
+### **I DID**  
+- Completed all necessary installations for our tech stack
+
+### **I WILL DO**  
+- Start watching youtube tutorials to learn react native
+
+### **BLOCKERS**  
+- Need to learn Firebase database
+
 
 ## **Ridhit Garg:**  
 ### **I DID**  
