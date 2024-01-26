@@ -10,10 +10,11 @@
 
 ## **Zhen Bi:**  
 ### **I DID**  
-- 
+- add user story in the project page
+- add detailed descriptions for user story
 
 ### **I WILL DO**  
-- 
+- create the big structure for the project
 
 ### **BLOCKERS**  
 - 
