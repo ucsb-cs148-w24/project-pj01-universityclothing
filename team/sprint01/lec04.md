@@ -21,13 +21,14 @@
 
 ## **Kevin Chen:**  
 ### **I DID**  
-- 
+- Researched chat feature / how we can implement and steps
+- added user story and added issues to kanban board
 
 ### **I WILL DO**  
-- 
+- Work on implementing chat feature
 
 ### **BLOCKERS**  
-- 
+- None
 
 ## **Ridhit Garg:**  
 ### **I DID**  
