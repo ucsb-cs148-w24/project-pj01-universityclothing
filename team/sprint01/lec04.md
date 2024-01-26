@@ -42,13 +42,14 @@
 
 ## **Ridhit Garg:**  
 ### **I DID**  
-- 
+- Added user stories to the kanban board
+- Looked for resources to develop the chat function
 
 ### **I WILL DO**  
-- 
+- Work on chat function
 
 ### **BLOCKERS**  
-- 
+- None
 
 ## **Jonathan Chen:**  
 ### **I DID**  
