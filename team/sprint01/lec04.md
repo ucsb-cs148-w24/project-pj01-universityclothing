@@ -53,13 +53,14 @@
 
 ## **Jonathan Chen:**  
 ### **I DID**  
-- 
+- Created starter code for react native, created PR and got merged to main.
+- Starting an issue with Justin, designing databases.
 
 ### **I WILL DO**  
-- 
+- Start designing databases, learn about firebase
 
 ### **BLOCKERS**  
-- 
+- None
 
 ## **Xinyao Song**  
 ### **I DID**  
