@@ -18,9 +18,13 @@ Backend: Firebase <br/>
 
 ## User Roles and Permissions
 
-Buyers:
+Buyers: <br/>
+Buyers are able to log in using school credentials, and can browse through the marketplace to see the listings. <br/>
+Buyers are also able to search in the marketplace for the item they are looking for, and send messages to the seller if needed. <br/>
 
-Sellers:
+Sellers: <br/>
+Sellers are able to log in using school credentials, and can create listing to the marketplace for the items they are selling. <br/>
+Should also be able to contact potential buyers through the app. <br/>
 
 ## Deployment
 
