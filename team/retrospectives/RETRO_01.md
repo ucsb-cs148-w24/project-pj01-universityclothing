@@ -33,17 +33,17 @@
 * Stop pushing to main/merging PR without testing.
 * Continue reminding team members of the assignments' deadlines and requirements, and keep being helpful.
 
-## Anika
+### Anika
 * Start having each person say something they've done each meeting per person, even if it's small.
 * Stop having scrums where not everyone talks. 
 * Continue sharing in Discord helpful resources.
 
-## Xinyao 
+### Xinyao 
 * Start to be more proactive on tasks and put down unassigned issues on the Kanban board when something is in mind so there will be  always something to do in the future.
 * Continue to report to the team what you did on Discord and carry out active discussions.
 
-## Kevin 
+### Kevin 
 * Start talking to TAs more for advice.
 * Stop pushing to main immediately without doing branches
-* Continue knowing what to do next, prioritizing tasks, figuring out which should be done first and who should do it so we can continue being on track
+* Continue knowing what to do next, prioritizing tasks, and figuring out which should be done first and who should do it so we can continue being on track
 
