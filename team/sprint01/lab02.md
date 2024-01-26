@@ -31,13 +31,13 @@
 
 ## **Ridhit Garg:**  
 ### **I DID**  
-- 
+- React native hello world
 
 ### **I WILL DO**  
-- 
+- figure out user stories for the app
 
 ### **BLOCKERS**  
-- 
+- none
 
 ## **Jonathan Chen:**  
 ### **I DID**  
