@@ -47,3 +47,9 @@
 * Stop pushing to main immediately without doing branches
 * Continue knowing what to do next, prioritizing tasks, and figuring out which should be done first and who should do it so we can continue being on track
 
+## Retro Assessment
+
+* We used the start/stop/continue method in this retro.
+* I would say our first retro went pretty well despite still figuring how things work. We were able to exchanges ideas and agreeged on a common goal and experiment to do.
+* Maybe have a agenda before starting so we know what steps we are on.
+
