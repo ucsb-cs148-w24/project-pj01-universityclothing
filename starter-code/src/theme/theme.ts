@@ -11,14 +11,18 @@ interface Spacing {
   };
   
   interface Color {
-    //string
+      darkBlue: string;
+      lightBlue: string;
+      yellow: string;
+      lightYellow: string;
   }
 
   
   export const COLORS: Color = {
-    primaryWhiteHex: '#FFFFFF',
-    primaryBlackRGBA: 'rgba(12,15,20,0.5)',
-    secondaryBlackRGBA: 'rgba(0,0,0,0.7)',
+    darkBlue: '#0C356A',
+    lightBlue: '#0174BE',
+    yellow: '#FFC436',
+    lightYellow: '#FFF0CE',
   };
   
   interface FontFamily {
