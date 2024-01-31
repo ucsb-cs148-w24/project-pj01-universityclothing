@@ -1,5 +1,6 @@
 import React from 'react';
 import {StyleSheet} from 'react-native';
+
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {COLORS} from '../theme/theme';
 
@@ -14,7 +15,7 @@ const Tab = createBottomTabNavigator();
 
 const bottom_bar = () => {
   return (
-    <Tab.Navigator>
+    <Tab.Navigator screenOptions={{headerShown: false}}>
         <Tab.Screen
         name="Home"
         component={HomeScreen}
