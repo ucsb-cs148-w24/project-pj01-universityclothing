@@ -3,23 +3,23 @@ import {StyleSheet} from 'react-native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {COLORS} from '../theme/theme';
 
-import HomeScreen from '../screens/HomeScreen';
-import ChatScreen from '../screens/ChatScreen';
-import Profile from '../screens/Profile';
-import SearchScreen from '../components/SearchScreen';
-import CreateScreen from '../components/CreateScreen';
-import Icons from '../components/Icons';
+import HomeScreen from '../screen/HomeScreen';
+import ChatScreen from '../screen/ChatScreen';
+import Profile from '../screen/Profile';
+import SearchScreen from '../screen/SearchScreen';
+import CreateScreen from '../screen/CreateScreen';
+import Icons from './Icons';
 
 const Tab = createBottomTabNavigator();
 
-const botton_bar = () => {
+const bottom_bar = () => {
   return (
     <Tab.Navigator>
         <Tab.Screen
         name="Home"
         component={HomeScreen}
         options={{
-          tabBarIcon: ({focused, color, size}) => (
+          tabBarIcon: ({focused, size, color}) => (
             <Icons
               name="home"
               size={25}
@@ -85,7 +85,7 @@ const botton_bar = () => {
         options={{
           tabBarIcon: ({focused, color, size}) => (
             <Icons
-              name="three-bars"
+              name="home"
               size={25}
               color={
                 focused ? COLORS.darkBlue : COLORS.darkBlue
@@ -98,6 +98,6 @@ const botton_bar = () => {
   );
 };
 
-const styles = StyleSheet.create();
+const styles = StyleSheet.create({});
 
-export default botton_bar;
+export default bottom_bar;
