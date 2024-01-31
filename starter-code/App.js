@@ -1,25 +1,27 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
-import HomeScreen from './src/screen/HomeScreen';
-import ChatScreen from './src/screen/ChatScreen';
-import LoginScreen from './src/screen/LoginScreen';
-import Profile from './src/screen/Profile';
-import SearchScreen from './src/screen/SearchScreen';
+import { StatusBar } from "expo-status-bar";
+import { StyleSheet, Text, View } from "react-native";
+import TestDB from "./src/screen/TestDB";
+import HomeScreen from "./src/screen/HomeScreen";
+import ChatScreen from "./src/screen/ChatScreen";
+import LoginScreen from "./src/screen/LoginScreen";
+import Profile from "./src/screen/Profile";
+import SearchScreen from "./src/screen/SearchScreen";
 
 export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
+    return (
+        <View style={styles.container}>
+            {/* <Text>Open up App.js to start working on your app!</Text>
+      <StatusBar style="auto" /> */}
+            <TestDB> hello</TestDB>
+        </View>
+    );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
+    container: {
+        flex: 1,
+        backgroundColor: "#fff",
+        alignItems: "center",
+        justifyContent: "center",
+    },
 });
