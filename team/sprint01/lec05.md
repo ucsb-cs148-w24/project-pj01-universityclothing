@@ -31,13 +31,13 @@
 
 ## **Ridhit Garg:**  
 ### **I DID**  
-- 
+- Started looking into coding the item expansion page
 
 ### **I WILL DO**  
-- 
+- Finish item expansion page
 
 ### **BLOCKERS**  
-- 
+- none
 
 ## **Jonathan Chen:**  
 ### **I DID**  
