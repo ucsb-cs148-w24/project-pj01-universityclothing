@@ -33,13 +33,13 @@
 
 ## **Ridhit Garg:**  
 ### **I DID**  
-- 
+- finished up parts of lab 3
 
 ### **I WILL DO**  
-- 
+- complete item screen
 
 ### **BLOCKERS**  
-- 
+- none
 
 ## **Jonathan Chen:**  
 ### **I DID**  
