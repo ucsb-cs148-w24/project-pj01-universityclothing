@@ -1,6 +1,6 @@
 **Mentor:** Self-Mentored
 
-**Meeting Time:** 
+**Meeting Time:** Jan 29 2024
 
 **Type of Meeting:** Daily Scrum
 
@@ -10,10 +10,12 @@
 
 ## **Zhen Bi:**  
 ### **I DID**  
-- 
+- create the bottom bar
+- download native stack
+- download navigation bottom bar
 
 ### **I WILL DO**  
-- 
+- add the icons and styles for bottom bar
 
 ### **BLOCKERS**  
 - 
