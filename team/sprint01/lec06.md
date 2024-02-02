@@ -1,6 +1,6 @@
 **Mentor:** Self-Mentored
 
-**Meeting Time:** 
+**Meeting Time:** Jan 01 2024
 
 **Type of Meeting:** Daily Scrum
 
@@ -10,10 +10,11 @@
 
 ## **Zhen Bi:**  
 ### **I DID**  
-- 
+- filled in team links spreadsheet
+- figure out the headers issue and the icons issue
 
 ### **I WILL DO**  
-- 
+- finish the lab03
 
 ### **BLOCKERS**  
 - 
