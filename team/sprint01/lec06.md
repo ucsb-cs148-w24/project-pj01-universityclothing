@@ -20,13 +20,14 @@
 
 ## **Kevin Chen:**  
 ### **I DID**  
-- 
+- Made the wireframe on figma for the Item description expansion page.
+- Created and made changes to ItemScreen.js 
 
 ### **I WILL DO**  
-- 
+- Continue working on ItemScreen.js
 
 ### **BLOCKERS**  
-- 
+- HomeScreen.js header needs to be finished first for that portion to be implemented.
 
 ## **Ridhit Garg:**  
 ### **I DID**  
