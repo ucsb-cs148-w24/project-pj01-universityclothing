@@ -12,3 +12,4 @@
 * June Bi sent native navigation website https://reactnavigation.org in the mobile_help channel.
 * Xinyao Song
 * Kevin Chen sent a very helpful Figma wireframe toolkit to the #mobile_help channel!
+* Justin Chung posted a video tutorial he found in the Slack #react_native_help channel here: https://ucsb-148-w24.slack.com/archives/C06FK0HBTTN/p1706908930719579
