@@ -10,10 +10,11 @@
 
 ## **Zhen Bi:**  
 ### **I DID**  
-- 
+- participated in retro01
+- give the big structure for the project
 
 ### **I WILL DO**  
-- 
+- create the bottom bar
 
 ### **BLOCKERS**  
 - 
