@@ -30,11 +30,11 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center', 
         justifyContent: 'space-between',
-        backgroundColor: '#0F2167',
+        backgroundColor: COLORS.darkBlue,
         height: 100,
     },
     HeaderText: {
-        color: '#FFECD6',
+        color: COLORS.yellow,
         fontSize: 20,
     },
     RightContainer: {

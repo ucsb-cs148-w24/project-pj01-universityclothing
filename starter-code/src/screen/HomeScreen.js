@@ -10,7 +10,7 @@ import {
   ToastAndroid,
 } from "react-native";
 import {useBottomTabBarHeight} from '@react-navigation/bottom-tabs';
-import HeaderBar from "../components/HearderBar";
+import HeaderBar from "../components/HeaderBar";
 
 const HomeScreen = () => {
   return (
