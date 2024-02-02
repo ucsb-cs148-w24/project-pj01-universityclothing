@@ -22,13 +22,14 @@
 
 ## **Kevin Chen:**  
 ### **I DID**  
-- 
+- Posted a helpful figma link to #mobile_help in slack
+- Fix some bugs in ItemScreen.js
 
 ### **I WILL DO**  
-- 
+- Continue work on ItemScreen.js now that Homescreen branch is almost finished and will be updated once merge conflicts resolved.
 
 ### **BLOCKERS**  
-- 
+- None
 
 ## **Ridhit Garg:**  
 ### **I DID**  
