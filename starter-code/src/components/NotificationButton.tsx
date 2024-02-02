@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
-import CustomIcon from './Icons';
+import Ionicons from '@expo/vector-icons/Ionicons';
 
 
 
@@ -8,7 +8,7 @@ const NotificationButton = ({ notificationCount }) => {
   return (
     <View style={styles.container}>
       <TouchableOpacity>
-        <CustomIcon name="notification" size={24} color="#FFFFFF" />
+        <Ionicons name="notifications" size={24} color="black" />
         {notificationCount > 0 && (
           <View style={styles.badge}>
             <Text style={styles.badgeText}>{notificationCount}</Text>
@@ -23,6 +23,7 @@ const NotificationButton = ({ notificationCount }) => {
 const styles = StyleSheet.create({
   container: {
     position: 'relative',
+    marginRight: 30,
   },
   badge: {
     position: 'absolute',

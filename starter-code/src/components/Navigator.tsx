@@ -9,11 +9,12 @@ import ChatScreen from '../screen/ChatScreen';
 import Profile from '../screen/Profile';
 import SearchScreen from '../screen/SearchScreen';
 import CreateScreen from '../screen/CreateScreen';
-import Icons from './Icons';
+
+import Entypo from '@expo/vector-icons/Entypo';
 
 const Tab = createBottomTabNavigator();
 
-const bottom_bar = () => {
+const Navigator = () => {
   return (
     <Tab.Navigator screenOptions={{headerShown: false}}>
         <Tab.Screen
@@ -21,7 +22,7 @@ const bottom_bar = () => {
         component={HomeScreen}
         options={{
           tabBarIcon: ({focused, size, color}) => (
-            <Icons
+            <Entypo
               name="home"
               size={25}
               color={
@@ -37,8 +38,8 @@ const bottom_bar = () => {
         component={ChatScreen}
         options={{
           tabBarIcon: ({focused, color, size}) => (
-            <Icons
-              name="people"
+            <Entypo
+              name="chat"
               size={25}
               color={
                 focused ? COLORS.darkBlue : COLORS.darkBlue
@@ -53,8 +54,8 @@ const bottom_bar = () => {
         component={CreateScreen}
         options={{
           tabBarIcon: ({focused, color, size}) => (
-            <Icons
-              name="diff-added"
+            <Entypo
+              name="circle-with-plus"
               size={25}
               color={
                 focused ? COLORS.darkBlue : COLORS.darkBlue
@@ -69,8 +70,8 @@ const bottom_bar = () => {
         component={SearchScreen}
         options={{
           tabBarIcon: ({focused, color, size}) => (
-            <Icons
-              name="search"
+            <Entypo
+              name="magnifying-glass"
               size={25}
               color={
                 focused ? COLORS.darkBlue : COLORS.darkBlue
@@ -85,8 +86,8 @@ const bottom_bar = () => {
         component={Profile}
         options={{
           tabBarIcon: ({focused, color, size}) => (
-            <Icons
-              name="home"
+            <Entypo
+              name="user"
               size={25}
               color={
                 focused ? COLORS.darkBlue : COLORS.darkBlue
@@ -101,4 +102,4 @@ const bottom_bar = () => {
 
 const styles = StyleSheet.create({});
 
-export default bottom_bar;
+export default Navigator;

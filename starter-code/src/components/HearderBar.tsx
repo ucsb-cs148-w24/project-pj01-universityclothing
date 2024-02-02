@@ -16,7 +16,10 @@ const HeaderBar: React.FC<HeaderBarProps> = ({title}) => {
             <Text style={styles.HeaderText}>
                 {title}
             </Text>
-            <UserProfile />
+            <View style={styles.RightContainer}>
+                <NotificationButton notificationCount={3} />
+                <UserProfile />
+            </View>
         </View>
     );
 }
@@ -33,6 +36,10 @@ const styles = StyleSheet.create({
     HeaderText: {
         color: '#FFECD6',
         fontSize: 20,
+    },
+    RightContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
     },
 });
 
