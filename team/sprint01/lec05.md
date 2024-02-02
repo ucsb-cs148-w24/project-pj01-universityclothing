@@ -20,13 +20,14 @@
 
 ## **Kevin Chen:**  
 ### **I DID**  
-- 
+- Looked into tutorials about Chat creation
+- Realized that for the MVP, chat is too much of a stretch so should pivot into finishing item expansion first.
 
 ### **I WILL DO**  
-- 
+- Item expansion feature
 
 ### **BLOCKERS**  
-- 
+- None
 
 ## **Ridhit Garg:**  
 ### **I DID**  
