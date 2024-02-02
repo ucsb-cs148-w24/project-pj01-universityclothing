@@ -5,3 +5,7 @@
 * Ridhit will learn how to use React Native and integrate Firebase with it.
 * Jonathan will work on backend and databases, learn about firebase, and how to connect frontend to backend for a mobile app.
 * June will learn how to deal with the storage of static information.
+
+* June Bi sent native navigation website https://reactnavigation.org in the mobile_help channel.
+* Xinyao Song
+* 
