@@ -53,3 +53,7 @@
 * I would say our first retro went pretty well despite still figuring how things work. We were able to exchanges ideas and agreeged on a common goal and experiment to do.
 * Maybe have a agenda before starting so we know what steps we are on.
 
+## Outcome of our RETRO 1
+* We devided our group in small teams and they will do the same issue. And our small teams meet each other outside the course in person for more than three times.
+* We added three more Chanels based on various screen to record updated information for a specfic screen.
+* We communicated with each other 20+ times in discord.
