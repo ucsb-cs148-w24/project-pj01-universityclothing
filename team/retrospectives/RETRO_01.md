@@ -54,6 +54,7 @@
 * Maybe have a agenda before starting so we know what steps we are on.
 
 ## Outcome of our RETRO 1
-* We devided our group in small teams and they will do the same issue. And our small teams meet each other outside the course in person for more than three times.
-* We added three more Chanels based on various screen to record updated information for a specfic screen.
-* We communicated with each other 20+ times in discord.
+* We divided our group into small teams and they will do the same issue. And our small teams meet each other outside the course in person more than three times.
+* We added three more channels on Discord based on various features to record updated information for specific issues.
+* We communicated with each other 20+ times on Discord.
+* By utilizing our measurement techniques, we found that meeting outside of class time did help us progress in our project. 
