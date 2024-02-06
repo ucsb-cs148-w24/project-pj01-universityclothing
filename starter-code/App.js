@@ -1,6 +1,6 @@
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View } from "react-native";
-import TestDB from "./src/screen/TestDB";
+import ReadDBTest from "./src/screen/ReadDBTest";
 import HomeScreen from "./src/screen/HomeScreen";
 import ChatScreen from "./src/screen/ChatScreen";
 import LoginScreen from "./src/screen/LoginScreen";
@@ -12,7 +12,7 @@ export default function App() {
         <View style={styles.container}>
             <Text>Open up App.js to start working on your app!</Text>
             {/* <StatusBar style="auto" /> */}
-            <TestDB />
+            <ReadDBTest />
         </View>
     );
 }
