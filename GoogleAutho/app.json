@@ -1,0 +1,38 @@
+{
+  "expo": {
+    "name": "GoogleAutho",
+    "slug": "GoogleAutho",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true,
+      "googleServiceFile": "./GoogleService-Info.plist",
+      "bundleIdentifier": "UCSB.Marketplace",
+      "config": {
+        "googleSignIn": {
+          "reservedClientId": "402529839560-3vjg7ceb0u1utq3t07kc1fh65oig5c5t.apps.googleusercontent.com"
+        }
+    }
+      
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#ffffff"
+      }
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    }
+  }
+}
