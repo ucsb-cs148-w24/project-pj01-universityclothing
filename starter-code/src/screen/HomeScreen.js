@@ -15,6 +15,8 @@ import {useBottomTabBarHeight} from '@react-navigation/bottom-tabs';
 import HeaderBar from "../components/HeaderBar";
 import { useNavigation } from "@react-navigation/native"; 
 import ItemScreen from '../screen/ItemScreen';
+import Entypo from '@expo/vector-icons/Entypo';
+import { Colors } from "react-native/Libraries/NewAppScreen";
 
 const HomeScreen = ({ navigation }) => {
   // const navigation = useNavigation();
@@ -60,7 +62,7 @@ const HomeScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   ScreenContainer: {
     flex: 1,
-    backgroundColor: "#F2F1EB",
+    backgroundColor: Colors.darkBlue,
     width: "100%",
     height: "100%",
   },
