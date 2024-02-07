@@ -11,11 +11,11 @@ import {
 } from "react-native";
 
 
-const Profile = () => {
+const CreateScreen = () => {
   return (
     <View style={styles.ScreenContainer}>
       <StatusBar backgroundColor="#F2F1EB" />
-      <Text>Profile Screen</Text>
+      <Text>Create Screen</Text>
     </View>
   );
 };
@@ -33,4 +33,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Profile;
+export default CreateScreen;

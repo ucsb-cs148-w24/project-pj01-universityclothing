@@ -1,25 +1,26 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
-import HomeScreen from './src/screen/HomeScreen';
-import ChatScreen from './src/screen/ChatScreen';
-import LoginScreen from './src/screen/LoginScreen';
-import Profile from './src/screen/Profile';
-import SearchScreen from './src/screen/SearchScreen';
+import { StyleSheet, Text, View, SafeAreaView } from 'react-native';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import {NavigationContainer} from '@react-navigation/native';
+import Navigator from './src/components/Navigator';
 
-export default function App() {
+
+
+const Stack = createNativeStackNavigator();
+
+const App = () => {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <SafeAreaView style={{flex: 1, backgroundColor: 'white'}}>
+      <NavigationContainer>
+        <Stack.Navigator screenOptions={{headerShown: false}}>
+          <Stack.Screen
+            name="Tab"
+            component={Navigator}
+            options={{animation: 'slide_from_bottom'}}></Stack.Screen>
+        </Stack.Navigator>
+      </NavigationContainer>
+    </SafeAreaView>
   );
-}
+};
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default App;
