@@ -26,7 +26,7 @@ const Navigator = () => {
               name="home"
               size={25}
               color={
-                focused ? COLORS.darkBlue : COLORS.darkBlue
+                focused ? COLORS.yellow : COLORS.darkBlue
               }
             />
           ),
@@ -42,7 +42,7 @@ const Navigator = () => {
               name="chat"
               size={25}
               color={
-                focused ? COLORS.darkBlue : COLORS.darkBlue
+                focused ? COLORS.yellow : COLORS.darkBlue
               }
             />
           ),
@@ -50,7 +50,7 @@ const Navigator = () => {
         </Tab.Screen>
 
         <Tab.Screen
-        name="Create"
+        name="Post"
         component={CreateScreen}
         options={{
           tabBarIcon: ({focused, color, size}) => (
@@ -58,7 +58,7 @@ const Navigator = () => {
               name="circle-with-plus"
               size={25}
               color={
-                focused ? COLORS.darkBlue : COLORS.darkBlue
+                focused ? COLORS.yellow : COLORS.darkBlue
               }
             />
           ),
@@ -74,7 +74,7 @@ const Navigator = () => {
               name="magnifying-glass"
               size={25}
               color={
-                focused ? COLORS.darkBlue : COLORS.darkBlue
+                focused ? COLORS.yellow : COLORS.darkBlue
               }
             />
           ),
@@ -90,7 +90,7 @@ const Navigator = () => {
               name="user"
               size={25}
               color={
-                focused ? COLORS.darkBlue : COLORS.darkBlue
+                focused ? COLORS.yellow : COLORS.darkBlue
               }
             />
           ),
