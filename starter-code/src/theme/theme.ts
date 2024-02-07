@@ -1,24 +1,42 @@
 interface Spacing {
-    space_2: number;
-    /*space_4: number;
-    space_8: number; */
+    space_2: 2;
+    space_4: 4;
+    space_6: 6;
+    space_8: 8;
+    space_10: 10;
+    space_12: 12;
+    space_14: 14;
+    space_16: 16;
+    space_18: 18;
+    space_20: 20;
   }
   
   export const SPACING: Spacing = {
     space_2: 2,
-    /*space_4: 4,
-    space_8: 8, */
+    space_4: 4,
+    space_6: 6,
+    space_8: 8,
+    space_10: 10,
+    space_12: 12,
+    space_14: 14,
+    space_16: 16,
+    space_18: 18,
+    space_20: 20,
   };
   
   interface Color {
-    //string
+      darkBlue: string;
+      lightBlue: string;
+      yellow: string;
+      lightYellow: string;
   }
 
   
   export const COLORS: Color = {
-    primaryWhiteHex: '#FFFFFF',
-    primaryBlackRGBA: 'rgba(12,15,20,0.5)',
-    secondaryBlackRGBA: 'rgba(0,0,0,0.7)',
+    darkBlue: '#0C356A',
+    lightBlue: '#0174BE',
+    yellow: '#FFC436',
+    lightYellow: '#FFF0CE',
   };
   
   interface FontFamily {

@@ -1,6 +1,6 @@
 **Mentor:** Self-Mentored
 
-**Meeting Time:** Jan 29 2024
+**Meeting Time:** Jan 01 2024
 
 **Type of Meeting:** Daily Scrum
 
@@ -10,33 +10,32 @@
 
 ## **Zhen Bi:**  
 ### **I DID**  
-- create the bottom bar
-- download native stack
-- download navigation bottom bar
+- filled in team links spreadsheet
+- figure out the headers issue and the icons issue
 
 ### **I WILL DO**  
-- add the icons and styles for bottom bar
+- finish the lab03
 
 ### **BLOCKERS**  
 - 
 
 ## **Kevin Chen:**  
 ### **I DID**  
-- Looked into tutorials about Chat creation
-- Realized that for the MVP, chat is too much of a stretch so should pivot into finishing item expansion first.
+- Made the wireframe on figma for the Item description expansion page.
+- Created and made changes to ItemScreen.js 
 
 ### **I WILL DO**  
-- Item expansion feature
+- Continue working on ItemScreen.js
 
 ### **BLOCKERS**  
-- None
+- HomeScreen.js header needs to be finished first for that portion to be implemented.
 
 ## **Ridhit Garg:**  
 ### **I DID**  
-- Started looking into coding the item expansion page
+- Planned item expansion page
 
 ### **I WILL DO**  
-- Finish item expansion page
+- work on item expansion page
 
 ### **BLOCKERS**  
 - none
