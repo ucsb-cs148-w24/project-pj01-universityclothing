@@ -6,38 +6,104 @@ import {
   Text,
   TextInput,
   TouchableOpacity,
+  FlatList,
+  Image,
   View,
   ToastAndroid,
 } from "react-native";
 import {useBottomTabBarHeight} from '@react-navigation/bottom-tabs';
-import HeaderBar from "../components/HeaderBar";
-import HomeScreen from '../screen/HomeScreen';
+import ExitHeaderBar from "../components/ExitHeaderBar";
+import {COLORS} from '../theme/theme';
 
 
-const goBackHome = () => {
-  navigation.navigate('Home');
-}
 
-const ItemScreen = () => {
+
+const ItemScreen = ({ route }) => {
+  const { navigation, item } = route.params;
+
+  // const renderItem = ({ item }) => (
+  //   <View style={styles.itemContainer}>
+  //     <Image source={{ uri: item.imageUrl }} style={styles.itemImage} />
+  //     <Text style={styles.itemTitle}>{item.title}</Text>
+  //     <Text style={styles.itemPrice}>Price: ${item.price.toFixed(2)}</Text>
+  //     <Text style={styles.itemSeller}>Seller: {item.seller}</Text>
+  //     <Text style={styles.itemDescription}>Description: {item.description}</Text>
+  //   </View>
+  // );
+  const renderItem = ({ item }) => (
+    <View style={styles.itemContainer}>
+      <Image source={{ uri: item.imageUrl }} style={styles.itemImage} />
+      <View style={styles.itemDetails}>
+        <Text style={styles.itemTitle}>{item.title}</Text>
+        <Text style={styles.itemPrice}>${item.price.toFixed(2)}</Text>
+        <Text style={styles.itemSeller}>Seller: {item.seller}</Text>
+        <Text style={styles.itemDescription}>Description: {item.description}</Text>
+      </View>
+    </View>
+  );
+
+
   return (
-    <View style={styles.ScreenContainer}>
+    <View style={styles.screenContainer}>
       <StatusBar backgroundColor="#F2F1EB" />
       {/* Header Bar */}
-      <HeaderBar title="Gaucho Item" />
+      <ExitHeaderBar navigation={navigation} />
+      {/* FlatList to render the item details */}
+      <FlatList
+        data={[item]} // Wrap item in an array since FlatList expects an array of data
+        renderItem={renderItem}
+        keyExtractor={(item) => item.id.toString()}
+      />
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  ScreenContainer: {
+  screenContainer: {
     flex: 1,
-    backgroundColor: "#F2F1EB",
-    width: "100%",
-    height: "100%",
+    backgroundColor: COLORS.lightGray,
   },
-  ScrollViewFlex: {
-    flexGrow: 1,
-    justifyContent: "space-between",
+  itemContainer: {
+    backgroundColor: '#ffffff',
+    borderRadius: 8,
+    margin: 16,
+    padding: 16,
+    shadowColor: '#000000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.2,
+    shadowRadius: 2,
+    elevation: 2,
+  },
+  itemImage: {
+    width: '100%',
+    height: 300,
+    borderRadius: 8,
+    marginBottom: 16,
+  },
+  itemDetails: {
+    flex: 1,
+  },
+  itemTitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginBottom: 8,
+  },
+  itemPrice: {
+    fontSize: 16,
+    color: COLORS.primary,
+    marginBottom: 8,
+  },
+  itemSeller: {
+    fontSize: 14,
+    color: COLORS.gray,
+    marginBottom: 8,
+  },
+  itemDescription: {
+    fontSize: 14,
+    color: COLORS.gray,
   },
 });
 

@@ -21,7 +21,10 @@ const App = () => {
             options={{animation: 'slide_from_bottom'}}></Stack.Screen>
           <Stack.Screen
             name="ItemDetails"
-            component={ItemScreen}></Stack.Screen>
+            component={ItemScreen}
+            options={({ navigation }) => ({
+              navigation: navigation
+            })}></Stack.Screen>
         </Stack.Navigator>
       </NavigationContainer>
     </SafeAreaView>

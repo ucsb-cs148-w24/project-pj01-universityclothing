@@ -13,11 +13,6 @@ import CreateScreen from '../screen/CreateScreen';
 import Entypo from '@expo/vector-icons/Entypo';
 
 
-// import { NavigationContainer } from '@react-navigation/native';
-// import { createStackNavigator } from '@react-navigation/stack';
-// import ItemScreen from '../screen/ItemScreen';
-
-
 const Tab = createBottomTabNavigator();
 
 const Navigator = () => {
@@ -105,19 +100,6 @@ const Navigator = () => {
     </Tab.Navigator>
   );
 };
-
-// const Stack = createStackNavigator();
-
-// const Navigator2 = () => {
-//   return (
-//     <NavigationContainer>
-//       <Stack.Navigator>
-//         <Stack.Screen name="Home" component={HomeScreen} />
-//         <Stack.Screen name="ItemScreen" component={ItemScreen} />
-//       </Stack.Navigator>
-//     </NavigationContainer>
-//   );
-// };
 
 const styles = StyleSheet.create({});
 
