@@ -2324,6 +2324,11 @@
   dependencies:
     stacktrace-js "^2.0.2"
 
+"@react-native-picker/picker@^2.6.1":
+  version "2.6.1"
+  resolved "https://registry.npmjs.org/@react-native-picker/picker/-/picker-2.6.1.tgz"
+  integrity sha512-oJftvmLOj6Y6/bF4kPcK6L83yNBALGmqNYugf94BzP0FQGpHBwimVN2ygqkQ2Sn2ZU3pGUZMs0jV6+Gku2GyYg==
+
 "@react-native/assets-registry@~0.73.1", "@react-native/assets-registry@0.73.1":
   version "0.73.1"
   resolved "https://registry.npmjs.org/@react-native/assets-registry/-/assets-registry-0.73.1.tgz"
@@ -2588,7 +2593,6 @@
     "@types/istanbul-lib-report" "*"
 
 "@types/node@*", "@types/node@>=12.12.47", "@types/node@>=13.7.0":
-"@types/node@*":
   version "20.11.6"
   resolved "https://registry.npmjs.org/@types/node/-/node-20.11.6.tgz"
   integrity sha512-+EOokTnksGVgip2PbYbr3xnR7kZigh4LbybAfBAw5BpnQ+FqBYUsvCEjYd70IXKlbohQ64mzEYmMtlWUY8q//Q==
@@ -3279,10 +3283,6 @@ color-name@~1.1.4:
   resolved "https://registry.npmjs.org/color-name/-/color-name-1.1.4.tgz"
   integrity sha512-dOy+3AuW3a2wNbZHIuMZpTcgjGuLU/uBL/ubcZF9OXbDo8ff4O8yVp5Bf0efS8uEoYo5q4Fx7dY9OgQGXgAsQA==
 
-color-name@1.1.3:
-  version "1.1.3"
-  resolved "https://registry.npmjs.org/color-name/-/color-name-1.1.3.tgz"
-  integrity sha512-72fSenhMw2HZMTVHeCA9KCmpEIbzWiQsjN+BHcBbS9vr1mtt+vJjPdksIBNUmKAW8TFUDPJK5SUU3QhE9NEXDw==
 color-string@^1.9.0:
   version "1.9.1"
   resolved "https://registry.npmjs.org/color-string/-/color-string-1.9.1.tgz"
@@ -3822,7 +3822,7 @@ expo-status-bar@~1.11.1:
   resolved "https://registry.npmjs.org/expo-status-bar/-/expo-status-bar-1.11.1.tgz"
   integrity sha512-ddQEtCOgYHTLlFUe/yH67dDBIoct5VIULthyT3LRJbEwdpzAgueKsX2FYK02ldh440V87PWKCamh7R9evk1rrg==
 
-expo@*, expo@~50.0.3:
+expo@*, expo@>=47.0.0, expo@~50.0.3:
   version "50.0.3"
   resolved "https://registry.npmjs.org/expo/-/expo-50.0.3.tgz"
   integrity sha512-3Yk42YShkugC90S24Dbo0mhrq/N3Kfn30FscrjCk3o8ldXh9OdE5RhVi/mc5Cqp28nw5a4DfiGSDFs0mA0t2ng==
@@ -4797,15 +4797,6 @@ lightningcss-darwin-arm64@1.19.0:
   version "1.19.0"
   resolved "https://registry.npmjs.org/lightningcss-darwin-arm64/-/lightningcss-darwin-arm64-1.19.0.tgz"
   integrity sha512-wIJmFtYX0rXHsXHSr4+sC5clwblEMji7HHQ4Ub1/CznVRxtCFha6JIt5JZaNf8vQrfdZnBxLLC6R8pC818jXqg==
-lightningcss-linux-x64-gnu@1.19.0:
-  version "1.19.0"
-  resolved "https://registry.npmjs.org/lightningcss-linux-x64-gnu/-/lightningcss-linux-x64-gnu-1.19.0.tgz"
-  integrity sha512-0AFQKvVzXf9byrXUq9z0anMGLdZJS+XSDqidyijI5njIwj6MdbvX2UZK/c4FfNmeRa2N/8ngTffoIuOUit5eIQ==
-
-lightningcss-linux-x64-musl@1.19.0:
-  version "1.19.0"
-  resolved "https://registry.npmjs.org/lightningcss-linux-x64-musl/-/lightningcss-linux-x64-musl-1.19.0.tgz"
-  integrity sha512-SJoM8CLPt6ECCgSuWe+g0qo8dqQYVcPiW2s19dxkmSI5+Uu1GIRzyKA0b7QqmEXolA+oSJhQqCmJpzjY4CuZAg==
 
 lightningcss@~1.19.0:
   version "1.19.0"
@@ -5941,7 +5932,7 @@ react-native-vector-icons@^10.0.3:
     prop-types "^15.7.2"
     yargs "^16.1.1"
 
-react-native@*, react-native@0.73.2:
+react-native@*, react-native@>=0.57, react-native@0.73.2:
   version "0.73.2"
   resolved "https://registry.npmjs.org/react-native/-/react-native-0.73.2.tgz"
   integrity sha512-7zj9tcUYpJUBdOdXY6cM8RcXYWkyql4kMyGZflW99E5EuFPoC7Ti+ZQSl7LP9ZPzGD0vMfslwyDW0I4tPWUCFw==
@@ -5997,7 +5988,7 @@ react-shallow-renderer@^16.15.0:
     object-assign "^4.1.1"
     react-is "^16.12.0 || ^17.0.0 || ^18.0.0"
 
-react@*, "react@^16.0.0 || ^17.0.0 || ^18.0.0", react@>=16.8, react@>=17.0.0, react@18.2.0:
+react@*, "react@^16.0.0 || ^17.0.0 || ^18.0.0", react@>=16, react@>=16.8, react@>=17.0.0, react@18.2.0:
   version "18.2.0"
   resolved "https://registry.npmjs.org/react/-/react-18.2.0.tgz"
   integrity sha512-/3IjMdb2L9QbBdWiW5e3P2/npwMBaU9mHCSCUzNln0ZCYbcfTsGbTJrU/kGemdH2IWmB2ioZ+zkxtmq6g09fGQ==
@@ -6205,7 +6196,7 @@ run-parallel@^1.1.9:
   dependencies:
     queue-microtask "^1.2.2"
 
-safe-buffer@~5.1.0, safe-buffer@~5.1.1, safe-buffer@5.1.2:
+safe-buffer@>=5.1.0, safe-buffer@~5.1.0, safe-buffer@~5.1.1, safe-buffer@5.1.2:
   version "5.1.2"
   resolved "https://registry.npmjs.org/safe-buffer/-/safe-buffer-5.1.2.tgz"
   integrity sha512-Gd2UZBJDkXlY7GbJxfsE8/nvKkUEU1G38c1siN6QP6a9PT9MmHB8GnpscSmMJSoF8LOIrt8ud/wPtojys4G6+g==
@@ -6451,6 +6442,7 @@ source-map@0.5.6:
   version "0.5.6"
   resolved "https://registry.npmjs.org/source-map/-/source-map-0.5.6.tgz"
   integrity sha512-MjZkVp0NHr5+TPihLcadqnlVoGIoWo4IBHptutGh9wI3ttUYvCG26HkSuDi+K6lsZ25syXJXcctwgyVCt//xqA==
+
 split-on-first@^1.0.0:
   version "1.1.0"
   resolved "https://registry.npmjs.org/split-on-first/-/split-on-first-1.1.0.tgz"
