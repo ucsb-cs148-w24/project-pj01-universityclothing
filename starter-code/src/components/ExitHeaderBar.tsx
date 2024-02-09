@@ -1,24 +1,20 @@
 import {StyleSheet, Text, View} from 'react-native';
 import React from 'react';
 import {COLORS, FONTFAMILY, FONTSIZE, SPACING} from '../theme/theme';
-import UserProfile from './UserProfile';
-import NotificationButton from './NotificationButton';
+import XButton from './xButton';
+import { NavigationProp } from '@react-navigation/native';
 
 {/* Header Bar Component */}
 
-interface HeaderBarProps {
-    title?: string;
+interface ExitHeaderBarProps {
+    navigation?: NavigationProp<any>;
 }
 
-const HeaderBar: React.FC<HeaderBarProps> = ({title}) => {
+const ExitHeaderBar: React.FC<ExitHeaderBarProps> = ({ navigation }) => {
     return (
         <View style={styles.HeaderContainer}>
-            <Text style={styles.HeaderText}>
-                {title}
-            </Text>
-            <View style={styles.RightContainer}>
-                <NotificationButton notificationCount={3} />
-                <UserProfile />
+            <View style={styles.LeftContainer}>
+                <XButton navigation={navigation}/>
             </View>
         </View>
     );
@@ -33,17 +29,16 @@ const styles = StyleSheet.create({
         backgroundColor: COLORS.darkBlue,
         height: 100,
     },
-    HeaderText: {
-        color: COLORS.yellow,
-        fontSize: 20,
-    },
-    RightContainer: {
+    LeftContainer: {
         flexDirection: 'row',
         alignItems: 'center',
-    }
+    },
+    BackButtonContainer: {
+        marginRight: 10,
+    },
 });
 
-export default HeaderBar;
+export default ExitHeaderBar;
 
 
 
