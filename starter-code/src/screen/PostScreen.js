@@ -1,16 +1,17 @@
 // PostCreationScreen.js
-import React, { useState } from 'react';
-import { View, TextInput, Button, StyleSheet, Text } from 'react-native';
-import { useItems } from '../components/ItemsContext';
+import React, { useState } from "react";
+import { View, TextInput, Button, StyleSheet, Text } from "react-native";
+import { useItems } from "../components/ItemsContext";
+import { Picker } from "@react-native-picker/picker";
 
 const PostCreationScreen = ({ navigation }) => {
   const { handleNewPost } = useItems();
 
-  const [title, setTitle] = useState('');
-  const [price, setPrice] = useState('');
-  const [description, setDescription] = useState('');
-  const [category, setCategory] = useState('');
-  const [imageUrl, setImageUrl] = useState('');
+  const [title, setTitle] = useState("");
+  const [price, setPrice] = useState("");
+  const [description, setDescription] = useState("");
+  const [category, setCategory] = useState("");
+  const [imageUrl, setImageUrl] = useState("");
 
   const addNewItem = () => {
     // Create a new item object
@@ -27,14 +28,14 @@ const PostCreationScreen = ({ navigation }) => {
     handleNewPost(newItem);
 
     // Clear the form
-    setTitle('');
-    setPrice('');
-    setDescription('');
-    setCategory('');
-    setImageUrl('');
+    setTitle("");
+    setPrice("");
+    setDescription("");
+    setCategory("");
+    setImageUrl("");
 
     // Navigate back or show a success message
-    alert('Item posted successfully!');
+    alert("Item posted successfully!");
     navigation.goBack(); // Assuming you want to go back to the previous screen
   };
 
@@ -67,12 +68,16 @@ const PostCreationScreen = ({ navigation }) => {
       />
 
       <Text style={styles.label}>Category</Text>
-      <TextInput
-        placeholder="Category"
-        value={category}
-        onChangeText={setCategory}
-        style={styles.input}
-      />
+      <Picker
+        selectedValue={category}
+        onValueChange={(itemValue, itemIndex) => setCategory(itemValue)}
+        style={styles.picker}
+      >
+        <Picker.Item label="Clothing" value="Clothing" />
+        <Picker.Item label="Furniture" value="Furniture" />
+        <Picker.Item label="Electronics" value="Electronics" />
+        <Picker.Item label="Stationary" value="Stationary" />
+      </Picker>
 
       <Text style={styles.label}>Image URL</Text>
       <TextInput
@@ -91,7 +96,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
-    backgroundColor: '#fff',
+    backgroundColor: "#fff",
   },
   label: {
     fontSize: 16,
@@ -99,7 +104,7 @@ const styles = StyleSheet.create({
   },
   input: {
     borderWidth: 1,
-    borderColor: '#ddd',
+    borderColor: "#ddd",
     padding: 10,
     marginBottom: 15,
     borderRadius: 5,
