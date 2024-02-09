@@ -1,7 +1,7 @@
 import {StyleSheet, Text, View} from 'react-native';
 import React from 'react';
 import {COLORS, FONTFAMILY, FONTSIZE, SPACING} from '../theme/theme';
-import XButton from './XButton';
+import XButton from './xButton';
 import { NavigationProp } from '@react-navigation/native';
 
 {/* Header Bar Component */}
