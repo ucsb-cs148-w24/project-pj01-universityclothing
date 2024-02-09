@@ -8,7 +8,7 @@ import HomeScreen from '../screen/HomeScreen';
 import ChatScreen from '../screen/ChatScreen';
 import Profile from '../screen/Profile';
 import SearchScreen from '../screen/SearchScreen';
-import CreateScreen from '../screen/CreateScreen';
+import CreateScreen from '../screen/PostScreen';
 
 import Entypo from '@expo/vector-icons/Entypo';
 
