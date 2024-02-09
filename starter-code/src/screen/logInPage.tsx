@@ -6,7 +6,7 @@ import { StyleSheet, Text, View, Button } from 'react-native';
 import * as WebBrowser from "expo-web-browser";
 import * as Linking from "expo-linking";
 import { initializeApp } from "firebase/app";
-import  setIsLoggedIn  from '../App.js';
+import  setIsLoggedIn  from '../../App.js';
 import React, { useState } from 'react';
 
 
@@ -50,7 +50,7 @@ const result = await WebBrowser.openAuthSessionAsync(
     console.log('Google Login Success', access_token);
 
     // Set your isLoggedIn state to true or perform any other necessary actions
-    setIsLoggedIn();
+    setIsLoggedIn(true);
   } else {
     // Handle other cases (result.type === 'cancel' or result.type === 'dismiss')
     console.log('Google Login Error or Cancelled');
@@ -59,11 +59,13 @@ const result = await WebBrowser.openAuthSessionAsync(
 
 
 const GoogleSignInButton = ({ setIsLoggedIn }) => {
+  
   return (
     <View>
       <Text><Button title="Sign In with Google" onPress={() => signInWithGoogle(setIsLoggedIn)} /></Text>
     </View>
   );
+  
 };
 
 const Login = ({ setIsLoggedIn }) => {

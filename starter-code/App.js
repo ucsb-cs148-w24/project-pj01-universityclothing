@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, SafeAreaView } from 'react-native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {NavigationContainer} from '@react-navigation/native';
 import Navigator from './src/components/Navigator';
-import Login from './Components/logInPage';
+import Login from './src/screen/logInPage';
 import React, { useState } from 'react';
 
 
