@@ -4,16 +4,17 @@
 
 **Type of Meeting:** Daily Scrum
 
-**Team:** Anika Misra [x], Xinyao Song [x], Zhen Bi [x], Jonathan Chen [x], Kevin Chen [x], Ridhit Garg [x], Justin Chung [x]
+**Team:** Anika Misra [x], Xinyao Song [x], Zhen Bi [ ], Jonathan Chen [x], Kevin Chen [x], Ridhit Garg [x], Justin Chung [x]
 
 **Scribed Discussion:**
 
 ## **Zhen Bi:**  
 ### **I DID**  
-- 
+- helped to merge the search branch and made the MVP video
+- evaluated other groups' videos
 
 ### **I WILL DO**  
-- 
+- keep working on the search screen
 
 ### **BLOCKERS**  
 - 
