@@ -10,10 +10,11 @@
 
 ## **Zhen Bi:**  
 ### **I DID**  
-- 
+- implemented the search bar
+- implemented the touble button of recent search and top search
 
 ### **I WILL DO**  
-- 
+- figure out how to connect the search screen with the data base
 
 ### **BLOCKERS**  
 - 
