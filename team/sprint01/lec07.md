@@ -1,6 +1,6 @@
 **Mentor:** Self-Mentored
 
-**Meeting Time:** 
+**Meeting Time:Feb 05 2024** 
 
 **Type of Meeting:** Daily Scrum
 
@@ -10,10 +10,10 @@
 
 ## **Zhen Bi:**  
 ### **I DID**  
-- 
+- design the search screen
 
 ### **I WILL DO**  
-- 
+- implement the fundemental features in the search screen
 
 ### **BLOCKERS**  
 - 
