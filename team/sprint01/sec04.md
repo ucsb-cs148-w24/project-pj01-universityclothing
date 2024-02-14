@@ -53,10 +53,10 @@
 
 ## **Xinyao Song**  
 ### **I DID**  
-- Finished up homepage and implimented a simple post page to show the functionality of home's feed. 
+- Implimetned the feed structure of the homepage
 
 ### **I WILL DO**  
-- Worked on the basic functionality and display of the personal profile page. 
+- Worked on how post page will create an item project for home to call. 
 
 ### **BLOCKERS**  
 - Having difficulties fixing the flex issue of the homepage
