@@ -52,13 +52,13 @@
 
 ## **Xinyao Song**  
 ### **I DID**  
-- 
+- Removed the iconmoon template for icons and implimented the expo icon library
 
 ### **I WILL DO**  
-- 
+- Continue to finish the feed structure so each item is called properly. 
 
 ### **BLOCKERS**  
--
+- N/A
 
 ## **Justin Chung**  
 ### **I DID**  
