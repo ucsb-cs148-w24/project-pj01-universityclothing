@@ -53,10 +53,11 @@
 
 ## **Xinyao Song**  
 ### **I DID**  
-- 
+- Set up andriod simulator
+- Finished up header bar
 
 ### **I WILL DO**  
-- 
+- Impliment a notification system so it shows the number of notifications the user receives (no firebase ver.)
 
 ### **BLOCKERS**  
 -
