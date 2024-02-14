@@ -51,13 +51,13 @@
 
 ## **Xinyao Song**  
 ### **I DID**  
-- 
+- Finished up homepage and implimented a simple post page to show the functionality of home's feed. 
 
 ### **I WILL DO**  
-- 
+- Worked on the basic functionality and display of the personal profile page. 
 
 ### **BLOCKERS**  
--
+- CSS flex on homepage is still an issue, will work on it later. 
 
 ## **Justin Chung**  
 ### **I DID**  
