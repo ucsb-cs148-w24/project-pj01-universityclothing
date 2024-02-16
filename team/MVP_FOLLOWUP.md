@@ -1,5 +1,5 @@
 ## Feedback Grouped and Sorted
-# Evaluation about our UI design: the color, the button,..
+### Evaluation about our UI design: the color, the button,..
 - The team has good foundational features such as filtering which make the product immediately useful and effective
 I recommend toning down the accent colors a bit, maybe use grey for the tabbar icons except the active one (blue)
 - I think that the interface should be more colorful.
@@ -16,23 +16,23 @@ I recommend toning down the accent colors a bit, maybe use grey for the tabbar i
 - It is looking very nice, but the home page looks off, rest of app looks good.
 - I like the progress that the team has made so far. The UI looks easy to use and friendly for first-time shoppers, and overall their project idea looks interesting and very achievable within the quarter.
 
-# comments about the presentation
+### comments about the presentation
 - the project seems really cool! I think it might be nicer if the presentation details more use cases of the app and the need for it
 
-# structure
+### structure
 - Think the design was good, but you can probably go crazy with the CSS even more in the design.
 
-# the difference from the Facebook or other similar App
+### the difference from the Facebook or other similar App
 - For some feedback, what niche does this app provide that's different from other marketplace apps? Also, what's next for the complexity of the app?
 - It needs to add more unique features to differentiate itself from UCSB Facebook Marketplace bc otherwise I just use Facebook
 - They could have gone more into depth about the product and explored more use cases.
 - I think that the UI looks nice and the app's functionalities seem to work well. I think that it could be more clearly stated how your app differs from other resale apps like facebook marketplace and where it's niche lies.
   
-# Issues we have right now
+### Issues we have right now
 - I'm a bit confused by how a user would attach an image to their item listing, since the example item does not include an image, but the placeholder items have images attached
 - I think the dropdown glitched a little bit as everyone noticed, but it seems like a cool idea.
   
-# Feature we could consider in the future
+### Feature we could consider in the future
 - As a future feature, an offer button or way to message and negotiate a different price would be useful for any marketplace app. 
 - Great job! I'm excited to see how you guys implement the search function and what other ideas are there to come with this.
 - filter improvement: This app looks pretty cool. I'm excited to see what they can do with it in the future. I think a location aspect could be interesting and helpful for item searching.
