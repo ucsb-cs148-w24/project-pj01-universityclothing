@@ -12,19 +12,53 @@ import {
 import Entypo from '@expo/vector-icons/Entypo';
 import {COLORS,SPACING} from '../theme/theme';
 
-const SearchScreen = () => {
-  const [searchText, setSearchText] = useState('');
+const SearchScreen = ({ searchTerm, setSearchTerm, handleClick }) => {
+  const [searchTerm, setSearchTerm] = useState("");
+  const [sortedCoffee, setSortedCoffee] = useState([]);
+  const [categoryIndex, setCategoryIndex] = useState({ index: 0, category: categories[0] });
+  //const ListRef = useRef(null);
+  const ListRef: any = useRef<FlatList>();
+  const searchCoffee = (search) => {
+    if (search !== '') {
+      ListRef?.current?.scrollToOffset({
+        animated: true,
+        offset: 0,
+      });
+    setCategoryIndex({ index: 0, category: categories[0] });
+    setSortedCoffee([
+      ...CoffeeList.filter((item) =>
+      item.name.toLowerCase().includes(search.toLowerCase())
+      ),
+      ]);
+    }
+  };
+
+  const resetSearchCoffee = () => {
+    ListRef?.current?.scrollToOffset({
+      animated: true,
+      offset: 0,
+    });
+    setCategoryIndex({index: 0, category: categories[0]});
+    setSortedCoffee([...CoffeeList]);
+    setSearchText('');
+  };
+
   return(
     <View style={styles.ScreenContainer}>
       <View style = {styles.searchContainer}>
         <View style={styles.searchWrapper}>
           <TextInput
+            type = 'text'
             style = {styles.searchInput}
             placeholderTextColor={COLORS.black}
             placeholder='Search with key words'
           />
         </View>
-        <TouchableOpacity style={styles.searchBtn} onPress={()=> {}}>
+        <TouchableOpacity style={styles.searchBtn} onPress={handleClick}>
+          {/*onPress={() => {
+                setActiveJobType(item);
+                router.push(`/search/${item}`);
+              }}*/}
         <Entypo
            //style = {styles.Icon1}
            name="magnifying-glass"
@@ -39,15 +73,35 @@ const SearchScreen = () => {
       <TouchableOpacity onPress={()=> {}}>
       <Text style={styles.text2}>see more</Text>
       </TouchableOpacity>
+      <TouchableOpacity onPress={()=> {}}>
       <Text style={styles.text3}>desk lamp</Text>
+      </TouchableOpacity>
       </View>
       <Text style={styles.text}>Top Search</Text>
+      <TouchableOpacity onPress={()=> {}}>
       <Text style={styles.text3}>desk lamp</Text>
+      </TouchableOpacity>
+      <TouchableOpacity onPress={()=> {}}>
+      <Text style={styles.text3}>desk lamp</Text>
+      </TouchableOpacity>
+      <TouchableOpacity onPress={()=> {}}>
+      <Text style={styles.text3}>desk lamp</Text>
+      </TouchableOpacity>
+      <TouchableOpacity onPress={()=> {}}>
+      <Text style={styles.text3}>desk lamp</Text>
+      </TouchableOpacity>
+      <TouchableOpacity onPress={()=> {}}>
+      <Text style={styles.text3}>desk lamp</Text>
+      </TouchableOpacity>
+      <TouchableOpacity onPress={()=> {}}>
+      <Text style={styles.text3}>desk lamp</Text>
+      </TouchableOpacity>
     </View>
 
     
   )
 };
+export default SearchScreen;
 
 const styles = StyleSheet.create({
   ScreenContainer: {
@@ -100,7 +154,6 @@ const styles = StyleSheet.create({
     fontSize: 15,
     top: 20,
     left:50,
-  },
+    marginBottom:20,
+    },
 });
-
-export default SearchScreen;
