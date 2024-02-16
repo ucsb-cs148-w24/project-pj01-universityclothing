@@ -15,3 +15,7 @@ Kevin Chen:
 Justin Chung:
 - I used GitHub Copilot to learn how to successfully implement Firebase database features. This helped me accurately create tests for the Firestore functions, and now we can integrate it into the features.
 - I also used ChatGPT to research different ways to implement our features (like the chat feature that we are currently implementing).
+
+Ridhit Garg:
+- I used ChatGPT 3.5 to try different CSS styles for the items on the homescreen page. I used it to adjust how the page and items looked and made it so that the style was consistent throughout the app.
+- I found this tool to be very useful since it can give the user ideas of how they can implement the features they want.
