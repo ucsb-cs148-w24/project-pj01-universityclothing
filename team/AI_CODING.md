@@ -1,1 +1,1 @@
-
+Anika: Bing DALL-E Image Generator to create UI of the login page. This tool was very useful as it was able to create an eyecatching and engaging design that I couldn't have thought of myself. I think it will be useful going forward for any pages whose UI aren't yet designed to use Bing DALL-E to create images. In order to ensure that the AI was correct,I had to be very descriptive in my image creation.
