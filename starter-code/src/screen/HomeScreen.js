@@ -132,7 +132,7 @@ const HomeScreen = ({ navigation }) => {
       </ScrollView>
 
       {/* Item List */}
-      <View style={{ flex: 120 }}>
+      <View>
         <FlatList // !!! TODO: FIX FLEX VALUE !!!
           data={filteredItems} // Use filteredItems here
           renderItem={renderItem}
@@ -146,7 +146,7 @@ const HomeScreen = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   ScreenContainer: {
-    flex: 1,
+    // flex: 1,
     backgroundColor: "#ffffff",
     width: "100%",
     height: "100%",
@@ -206,7 +206,7 @@ const styles = StyleSheet.create({
   CategoryScrollViewStyle: {
     paddingHorizontal: 15,
     paddingVertical: 5,
-    backgroundColor: "#f2f2f2", // Light grey background
+    backgroundColor: COLORS.black, // Light grey background
   },
   CategoryScrollViewContainer: {
     marginRight: 10, // Space between category items
