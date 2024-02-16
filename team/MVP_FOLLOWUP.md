@@ -42,6 +42,9 @@ I recommend toning down the accent colors a bit, maybe use grey for the tabbar i
 ## Response Actions
 - We believe the blue and yellow theme is suitable for our school theme.
 - The app differs from other marketplace applications, such as Facebook Marketplace, by limiting its usage exclusively to UCSB users, where each school email is restricted to registering only one account. With this approach, we aim to minimize the risk of scams, ensuring that both sellers and buyers are genuine individuals; and that when there is a issue, there is someone we can reach out.
-- The post image botton for the MVP is a placeholder as we did not connect it to firebase yet; for the MVP we can only update the image by pasting the image url. 
+- The post image botton for the MVP is a placeholder as we did not connect it to firebase yet; for the MVP we can only update the image by pasting the image url.
+- Our team is considering implimenting several features that have mentioned in the feed back, including adding mroe tags and a rating sysytem. 
 ## Next Steps
 - Update the post page so that the theme aligns with the homepage, and users can post images properly.
+- Impliment a chat system where users are able to communicate with one another for purchases.
+- Edit the rest of the pages so it has the same aesthetic. 
