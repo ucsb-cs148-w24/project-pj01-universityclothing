@@ -7,7 +7,6 @@ Zhen Bi:
 - I will read some examples that are written in tsx to be fimiliar with the format of tsx.
 
 
-
 Kevin Chen:
 - I used ChatGPT 3.5 to help format the homescreen page items to look like facebook marketplace. I then asked it to tweak certain features based on how I wanted the end product to look, and as a result it changed the styling to match my needs.
-- I also tried github copilot to help while coding and it me code more efficiently since I didn't have to write a lot of code that had minimal changes, it automatically put the code for me.
+- I also tried github copilot to help while coding and it helped me code more efficiently since I didn't have to write a lot of code that had minimal changes, it automatically put the code for me.
