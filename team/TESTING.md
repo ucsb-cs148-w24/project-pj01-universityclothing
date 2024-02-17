@@ -43,7 +43,7 @@
    
 2. **HomeScreen Category Component Test**
    - **Purpose:** Ensures all defined categories are rendered correctly on the HomeScreen; validates the functionality of category selection, simulating user interaction.
-   - **File:** `HomeScreen.test.js`
+   - **File:** `HomeCategory.test.js`
    - **Description:**
      - The test initially checks for the rendering of all categories, such as "All", "Furniture", "Clothing", "Stationary", and "Electronics".
      - It then simulates a user pressing one of the categories and verifies the appropriate response of the component, whether it involves state updates, navigation, or other side effects.
