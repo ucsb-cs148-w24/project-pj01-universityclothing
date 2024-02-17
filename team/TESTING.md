@@ -46,4 +46,23 @@
    - **File:** `HomeScreen.test.js`
    - **Description:**
      - The test initially checks for the rendering of all categories, such as "All", "Furniture", "Clothing", "Stationary", and "Electronics".
-     - It then simulates a user pressing one of the categories (e.g., "Furniture") and verifies the appropriate response of the component, whether it involves state updates, navigation, or other side effects.
+     - It then simulates a user pressing one of the categories and verifies the appropriate response of the component, whether it involves state updates, navigation, or other side effects.
+
+   ```javascript
+      describe('HomeScreen Category Component', () => {
+     it('renders all categories and allows category selection', () => {
+       const { getByText } = render(<HomeScreen />);
+   
+       // Check if all categories are rendered
+       const categories = ["All", "Furniture", "Clothing", "Stationary", "Electronics"];
+       categories.forEach(category => {
+         expect(getByText(category)).toBeTruthy();
+       });
+   
+       // Simulate selecting a category
+       const categoryToSelect = 'Furniture';
+       fireEvent.press(getByText(categoryToSelect));
+   
+       ...
+     });
+   });
