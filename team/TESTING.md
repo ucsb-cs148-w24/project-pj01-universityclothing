@@ -50,7 +50,7 @@
 
    ```javascript
       describe('HomeScreen Category Component', () => {
-     it('renders all categories and allows category selection', () => {
+       it('renders all categories and allows category selection', () => {
        const { getByText } = render(<HomeScreen />);
    
        // Check if all categories are rendered
