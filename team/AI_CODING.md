@@ -19,3 +19,7 @@ Justin Chung:
 Ridhit Garg:
 - I used ChatGPT 3.5 to try different CSS styles for the items on the homescreen page. I used it to adjust how the page and items looked and made it so that the style was consistent throughout the app.
 - I found this tool to be very useful since it can give the user ideas of how they can implement the features they want.
+
+XinYao Song:
+- I used ChatGPT 4 to generating several unit tests for our homepage. These unit tests include testing whether the page compiles correctly, botton functionality, and category sorts.
+- I also worked with github coplilot when coding the user profile page. The auto-generated code, based on my previous coding patterns, enhanced my coding efficiency and significantly boosted my productivity. 
