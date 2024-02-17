@@ -25,3 +25,7 @@ Ridhit Garg:
 XinYao Song:
 - I used ChatGPT 4 to generating several unit tests for our homepage. These unit tests include testing whether the page compiles correctly, botton functionality, and category sorts.
 - I also worked with github coplilot when coding the user profile page. The auto-generated code, based on my previous coding patterns, enhanced my coding efficiency and significantly boosted my productivity. 
+
+Jonathan Chen
+- I used ChatGPT 4 and Codedium to generate functions and different CSS styles on the create page.
+- I found the tool really useful because it gives me a general template of how I can approach the problem. Instead of creating all element from scratch, Codeium and gpt4 let me know that what properties I am using and what libraries I am importing.
