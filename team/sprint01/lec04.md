@@ -64,13 +64,14 @@
 
 ## **Xinyao Song**  
 ### **I DID**  
-- 
+- Finish up the wireframe for homepage
+- Started to work on the header bar
 
 ### **I WILL DO**  
-- 
+- Finish up the header bar
 
 ### **BLOCKERS**  
--
+- N/A
 
 ## **Justin Chung**  
 ### **I DID**  

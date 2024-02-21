@@ -53,13 +53,13 @@
 
 ## **Xinyao Song**  
 ### **I DID**  
-- 
+- Implimetned the feed structure of the homepage
 
 ### **I WILL DO**  
-- 
+- Worked on how post page will create an item project for home to call. 
 
 ### **BLOCKERS**  
--
+- Having difficulties fixing the flex issue of the homepage
 
 ## **Justin Chung**  
 ### **I DID**  
