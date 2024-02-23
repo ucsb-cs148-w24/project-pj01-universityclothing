@@ -1,4 +1,4 @@
-# Date of Retrospective: 01/26/23
+# Date of Retrospective: 01/26/24
 
 * Led by: Jonathan Chen
 * Present: Anika Misra [x], Xinyao Song [x], Zhen Bi [x], Jonathan Chen [x], Kevin Chen [x], Ridhit Garg [x], Justin Chung [x]
