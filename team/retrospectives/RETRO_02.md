@@ -8,7 +8,6 @@
 
 * a goal: 
 * a change/experiment: 
-* a continue: 
 * a measurement: 
 
 ## Additional Retros
