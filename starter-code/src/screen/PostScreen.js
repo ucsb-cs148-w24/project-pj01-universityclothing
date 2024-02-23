@@ -13,8 +13,11 @@ import {
 import { useItems } from "../components/ItemsContext";
 import { firebaseApp, firestore } from "../../firebaseConfig";
 import "firebase/firestore";
-import { getAuth, signInWithEmailAndPassword, logout } from "firebase/auth";
+import { getAuth } from "firebase/auth";
 import { useAuthState } from "react-firebase-hooks/auth";
+
+import { Image } from "react-native";
+import * as ImagePicker from "expo-image-picker";
 
 const PostCreationScreen = ({ navigation }) => {
     const { handleNewPost } = useItems();
@@ -75,6 +78,28 @@ const PostCreationScreen = ({ navigation }) => {
         // Navigate back or show a success message
         alert("Item posted successfully!");
         navigation.goBack(); // Assuming you want to go back to the previous screen
+    };
+
+    // Function to handle image selection
+    const selectImage = async () => {
+        // Requesting the permission to access the camera roll
+        const { status } =
+            await ImagePicker.requestMediaLibraryPermissionsAsync();
+        if (status !== "granted") {
+            alert("Sorry, we need camera roll permissions to make this work!");
+            return;
+        }
+
+        let result = await ImagePicker.launchImageLibraryAsync({
+            mediaTypes: ImagePicker.MediaTypeOptions.Images,
+            allowsEditing: true,
+            aspect: [4, 3],
+            quality: 1,
+        });
+
+        if (!result.cancelled) {
+            setImageUrl(result.uri);
+        }
     };
 
     return (
@@ -139,13 +164,14 @@ const PostCreationScreen = ({ navigation }) => {
                     </TouchableOpacity>
                 ))}
             </View>
-            <Text style={styles.label}>Image URL</Text>
-            <TextInput
-                placeholder="Image URL"
-                value={imageUrl}
-                onChangeText={setImageUrl}
-                style={styles.input}
-            />
+            <Button title="Select Image" onPress={selectImage} />
+            {imageUrl && (
+                <Image
+                    source={{ uri: imageUrl }}
+                    style={{ width: 200, height: 200 }}
+                />
+            )}
+
             <Button title="Post Item" onPress={addNewItem} />
         </View>
     );

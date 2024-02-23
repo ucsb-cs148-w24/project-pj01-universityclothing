@@ -61,7 +61,7 @@ const signInWithGoogle = async (setIsLoggedIn) => {
             .then((userCredential) => {
                 // User signed in
                 var user = userCredential.user;
-                console.log("Signed in user:", user);
+                // console.log("Signed in user:", user);
             })
             .catch((error) => {
                 // Handle errors
