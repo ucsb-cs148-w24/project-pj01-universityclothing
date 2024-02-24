@@ -103,13 +103,11 @@ const PostCreationScreen = ({ navigation }) => {
             // if we want multiple images we can make a for loop that iterates thru
             // assets from indices 0 -> n
             setImageUrl(result.assets[0].uri);
-            console.log("pee");
             await uploadImage(result.assets[0].uri, "image");
         }
     };
 
     async function uploadImage (uri, fileType) {
-        console.log("poo");
         const response = await fetch(uri);
         const blob = await response.blob();
 
