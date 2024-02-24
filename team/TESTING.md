@@ -76,7 +76,7 @@
    ```javascript
    import React from 'react';
    import { render } from '@testing-library/react-native';
-   import UserProfile from '../components/UserProfile'; // Adjust the path as necessary
+   import UserProfile from '../components/UserProfile';
    
    describe('UserProfile Component', () => {
      it('renders correctly', () => {
