@@ -11,10 +11,12 @@ import {
     TouchableOpacity,
 } from "react-native";
 import { useItems } from "../components/ItemsContext";
-import { firebaseApp, firestore } from "../../firebaseConfig";
+import { firebaseApp, firestore, db, storage } from "../../firebaseConfig";
 import "firebase/firestore";
 import { getAuth } from "firebase/auth";
 import { useAuthState } from "react-firebase-hooks/auth";
+import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
+import { addDoc, collection, onSnapsho } from 'firebase/firestore';
 
 import { Image } from "react-native";
 import * as ImagePicker from "expo-image-picker";
@@ -98,8 +100,38 @@ const PostCreationScreen = ({ navigation }) => {
         });
 
         if (!result.cancelled) {
-            setImageUrl(result.uri);
+            // if we want multiple images we can make a for loop that iterates thru
+            // assets from indices 0 -> n
+            setImageUrl(result.assets[0].uri);
+            await uploadImage(result.assets[0].uri, "image");
         }
+    };
+
+    async function uploadImage (uri, fileType) {
+        const response = await fetch(uri);
+        const blob = await response.blob();
+
+        const storageRef = ref(storage, "Stuff/" + new Date().getTime());
+        const uploadTask = uploadBytesResumable(storageRef, blob);
+
+        uploadTask.on("state_changed", (snapshot) => {
+                console.log("Upload is five bytes at freddies");
+                const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                console.log('Upload is ' + progress + '% done');
+            },
+            (error) => {
+                // handle error
+            },
+            () => {
+                getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+                    console.log("File available at", downloadURL);
+                    // await saveRecord(fileType, downloadURL, new Date().toISOString());
+                    // Need to make a saveRecord function that will store seller, price, image/video, etc as a Record data type
+                    setImage("");
+                    // setVideo("");
+                });
+            }
+        );
     };
 
     return (
