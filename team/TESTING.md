@@ -127,7 +127,7 @@
 
 ### Short-Term Goals
 
-- **Expand Existing Test Coverage**: Our immediate goal is to increase the coverage of unit and component tests. This includes adding more comprehensive tests for new components and functionalities as they are developed.
+- **Expand Existing Test Coverage**: Our immediate goal is to increase the coverage of unit and component tests with jest. This includes adding more comprehensive tests for new components and functionalities as they are developed. We believe by increasing the coverage, it will allow us to generate a more coherent project. 
 
 ### Long-Term Goals
 
