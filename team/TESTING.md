@@ -66,3 +66,23 @@
        ...
      });
    });
+
+3. **UserProfile Component Test**
+   - **Purpose:** Ensures that the `UserProfile` component renders correctly and the image is loaded as expected.
+   - **File:** `UserProfile.test.js`
+   - **Description:**
+      - The test checks if the `UserProfile` component renders the correct user profile image without crashing.
+      - Validates that the image in the `UserProfile` component is correctly loaded from google auth.
+   ```javascript
+   import React from 'react';
+   import { render } from '@testing-library/react-native';
+   import UserProfile from '../components/UserProfile'; // Adjust the path as necessary
+   
+   describe('UserProfile Component', () => {
+     it('renders correctly', () => {
+       const { getByTestId } = render(<UserProfile />);
+       expect(getByTestId('user-profile')).toBeTruthy();
+       const userProfileImage = getByTestId('user-profile-image');
+       expect(userProfileImage.props.source).toEqual(require('../assets/images/avatar.png'));
+     });
+   });
