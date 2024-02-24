@@ -123,4 +123,14 @@
        expect(getByText('Description: This is a test description of the five nights at freddys.')).toBeTruthy();
      });
    });
+## Future Plans
+
+### Short-Term Goals
+
+- **Expand Existing Test Coverage**: Our immediate goal is to increase the coverage of unit and component tests. This includes adding more comprehensive tests for new components and functionalities as they are developed.
+
+### Long-Term Goals
+
+- **Consideration of End-to-End Testing**: In the long term, we aim to implement end-to-end testing to ensure the entire application works as expected from the user's perspective.
+
 
