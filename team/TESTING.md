@@ -134,3 +134,7 @@
 - **Consideration of End-to-End Testing**: In the long term, we aim to implement end-to-end testing to ensure the entire application works as expected from the user's perspective.
 
 
+### Higher-Level Testing
+
+- **Plans**: Want to have more cohesive tests and test all main functionalities to ensure if we ever push a change, our essential functionalities won't be interrupted by any bugs.
+
