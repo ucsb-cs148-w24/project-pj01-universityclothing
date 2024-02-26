@@ -15,8 +15,8 @@ import { firebaseApp, firestore, db, storage } from "../../firebaseConfig";
 import "firebase/firestore";
 import { getAuth } from "firebase/auth";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
-import { addDoc, collection, onSnapsho } from 'firebase/firestore';
+import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+import { addDoc, collection, onSnapsho } from "firebase/firestore";
 
 import { Image } from "react-native";
 import * as ImagePicker from "expo-image-picker";
@@ -35,27 +35,72 @@ const PostCreationScreen = ({ navigation }) => {
     const auth = getAuth(firebaseApp);
 
     const [user, loading, error] = useAuthState(auth);
+    let user_email = user.email;
 
-    if (user) {
-        console.log(user.email);
-    } else {
-        console.log("No user is signed in");
-    }
+    // if (user) {
+    //     console.log("User is signed in:", user_email);
+    // } else {
+    //     console.log("No user is signed in");
+    // }
 
     const options = [
-        { label: "New", value: "0" },
-        { label: "Used - Like New", value: "1" },
-        { label: "Used - Good", value: "2" },
-        { label: "Used - Fair", value: "3" },
+        { label: "New", value: 0 },
+        { label: "Used - Like New", value: 1 },
+        { label: "Used - Good", value: 2 },
+        { label: "Used - Fair", value: 3 },
     ];
 
     // Function to handle form submission, should add to our firebase database
     const handleSubmit = () => {
-        if (!title || !price || !description || !category || !imageUrl) {
+        if (!title || !price || !description || !category || !condition) {
             alert("Please fill in all required fields");
             return;
         }
+
+        // Validate that price, condition, and category can be converted to numbers
+        const numericPrice = Number(price);
+        const numericCondition = Number(condition);
+        const numericCategory = Number(category);
+
+        if (
+            isNaN(numericPrice) ||
+            isNaN(numericCondition) ||
+            isNaN(numericCategory)
+        ) {
+            alert("Price, condition, and category must be numeric values");
+            return;
+        }
+
+        // Construct the data object with validated numeric values
+        const data = {
+            condition: numericCondition,
+            price: numericPrice,
+            desc: description,
+            category: numericCategory,
+            isSelling: true,
+            title: title,
+            lister: user_email, // Assuming user_email is defined elsewhere in your code
+        };
+
+        // Show the data for debugging purposes
+        alert(JSON.stringify(data));
+
+        addListing(data);
     };
+    async function addListing(data) {
+        console.log("Adding listing");
+
+        // Reference to the users collection
+        const listingCol = collection(firestore, "listings");
+
+        // console.log(usersCol);
+
+        // Add a new document with a generated id and log the result
+
+        // const docRef = doc(firestore, "listings");
+        await addDoc(listingCol, data);
+    }
+
     const addNewItem = () => {
         // Create a new item object
         const newItem = {
@@ -72,9 +117,9 @@ const PostCreationScreen = ({ navigation }) => {
 
         // Clear the form
         setTitle("");
-        setPrice("");
+        setPrice(0);
         setDescription("");
-        setCategory("");
+        setCategory(-1);
         setImageUrl("");
 
         // Navigate back or show a success message
@@ -107,17 +152,20 @@ const PostCreationScreen = ({ navigation }) => {
         }
     };
 
-    async function uploadImage (uri, fileType) {
+    async function uploadImage(uri, fileType) {
         const response = await fetch(uri);
         const blob = await response.blob();
 
         const storageRef = ref(storage, "Stuff/" + new Date().getTime());
         const uploadTask = uploadBytesResumable(storageRef, blob);
 
-        uploadTask.on("state_changed", (snapshot) => {
+        uploadTask.on(
+            "state_changed",
+            (snapshot) => {
                 console.log("Upload is five bytes at freddies");
-                const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-                console.log('Upload is ' + progress + '% done');
+                const progress =
+                    (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                console.log("Upload is " + progress + "% done");
             },
             (error) => {
                 // handle error
@@ -132,7 +180,7 @@ const PostCreationScreen = ({ navigation }) => {
                 });
             }
         );
-    };
+    }
 
     return (
         // here are the inputs that users enter on the screen
@@ -151,6 +199,7 @@ const PostCreationScreen = ({ navigation }) => {
                 onChangeText={setPrice}
                 style={styles.input}
                 keyboardType="numeric"
+                inputMode="decimal"
             />
             <Text style={styles.label}>Description</Text>
             <TextInput
@@ -204,7 +253,7 @@ const PostCreationScreen = ({ navigation }) => {
                 />
             )}
 
-            <Button title="Post Item" onPress={addNewItem} />
+            <Button title="Post Item" onPress={handleSubmit} />
         </View>
     );
 };
