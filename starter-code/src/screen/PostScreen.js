@@ -57,6 +57,9 @@ const PostCreationScreen = ({ navigation }) => {
             return;
         }
 
+        // upload the image here
+        downloadURL = uploadImage(imageUrl, "image");
+
         // Validate that price, condition, and category can be converted to numbers
         const numericPrice = Number(price);
         const numericCondition = Number(condition);
@@ -79,6 +82,7 @@ const PostCreationScreen = ({ navigation }) => {
             category: numericCategory,
             isSelling: true,
             title: title,
+            imageURL: downloadURL,
             lister: user_email, // Assuming user_email is defined elsewhere in your code
         };
 
@@ -86,6 +90,14 @@ const PostCreationScreen = ({ navigation }) => {
         alert(JSON.stringify(data));
 
         addListing(data);
+
+        // Clear the form
+        setTitle("");
+        setPrice("");
+        setDescription("");
+        setCategory("");
+        setImageUrl("");
+        setDescription("");
     };
     async function addListing(data) {
         console.log("Adding listing");
@@ -100,32 +112,6 @@ const PostCreationScreen = ({ navigation }) => {
         // const docRef = doc(firestore, "listings");
         await addDoc(listingCol, data);
     }
-
-    const addNewItem = () => {
-        // Create a new item object
-        const newItem = {
-            id: Date.now().toString(), // Simple unique ID generation
-            title,
-            price: parseFloat(price),
-            description,
-            category,
-            imageUrl,
-        };
-
-        // Call the onPost function passed from the parent component
-        handleNewPost(newItem);
-
-        // Clear the form
-        setTitle("");
-        setPrice(0);
-        setDescription("");
-        setCategory(-1);
-        setImageUrl("");
-
-        // Navigate back or show a success message
-        alert("Item posted successfully!");
-        navigation.goBack(); // Assuming you want to go back to the previous screen
-    };
 
     // Function to handle image selection
     const selectImage = async () => {
@@ -144,11 +130,12 @@ const PostCreationScreen = ({ navigation }) => {
             quality: 1,
         });
 
+        // this happen when we post item
         if (!result.cancelled) {
             // if we want multiple images we can make a for loop that iterates thru
             // assets from indices 0 -> n
             setImageUrl(result.assets[0].uri);
-            await uploadImage(result.assets[0].uri, "image");
+            // await uploadImage(result.assets[0].uri, "image");
         }
     };
 
@@ -180,6 +167,7 @@ const PostCreationScreen = ({ navigation }) => {
                 });
             }
         );
+        return downloadURL;
     }
 
     return (
