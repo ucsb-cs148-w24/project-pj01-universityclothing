@@ -51,14 +51,16 @@ const PostCreationScreen = ({ navigation }) => {
     ];
 
     // Function to handle form submission, should add to our firebase database
-    const handleSubmit = () => {
+    const handleSubmit = async () => {
         if (!title || !price || !description || !category || !condition) {
             alert("Please fill in all required fields");
             return;
         }
 
         // upload the image here
-        downloadURL = uploadImage(imageUrl, "image");
+        console.log(imageUrl);
+        const downloadURL = await uploadImage(imageUrl, "image");
+        console.log(downloadURL);
 
         // Validate that price, condition, and category can be converted to numbers
         const numericPrice = Number(price);
@@ -76,20 +78,39 @@ const PostCreationScreen = ({ navigation }) => {
 
         // Construct the data object with validated numeric values
         const data = {
-            condition: numericCondition,
+            title: title,
             price: numericPrice,
             desc: description,
             category: numericCategory,
-            isSelling: true,
-            title: title,
+            condition: numericCondition,
             imageURL: downloadURL,
             lister: user_email, // Assuming user_email is defined elsewhere in your code
+            isSelling: true,
         };
 
         // Show the data for debugging purposes
-        alert(JSON.stringify(data));
 
-        addListing(data);
+        // Add the listing with the data
+        await addListing(data);
+        console.log(data);
+
+        // Format the data into a readable string
+        // const formattedData = `
+        // Listing Added:
+        // - Title: ${data.title}
+        // - Description: ${data.desc}
+        // - Price: ${data.price}
+        // - Condition: ${data.condition}
+        // - Category: ${data.category}
+        // - Is Selling: ${data.isSelling ? "Yes" : "No"}
+        // - Image URL: ${data.imageURL}
+        // - Lister: ${data.lister}
+        // `;
+
+        // Display the formatted data in an alert
+        alert("Listing Added");
+
+        // addListing(data);
 
         // Clear the form
         setTitle("");
@@ -104,12 +125,7 @@ const PostCreationScreen = ({ navigation }) => {
 
         // Reference to the users collection
         const listingCol = collection(firestore, "listings");
-
-        // console.log(usersCol);
-
-        // Add a new document with a generated id and log the result
-
-        // const docRef = doc(firestore, "listings");
+        // Add a new document with a generated id
         await addDoc(listingCol, data);
     }
 
@@ -146,28 +162,31 @@ const PostCreationScreen = ({ navigation }) => {
         const storageRef = ref(storage, "Stuff/" + new Date().getTime());
         const uploadTask = uploadBytesResumable(storageRef, blob);
 
-        uploadTask.on(
-            "state_changed",
-            (snapshot) => {
-                console.log("Upload is five bytes at freddies");
-                const progress =
-                    (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-                console.log("Upload is " + progress + "% done");
-            },
-            (error) => {
-                // handle error
-            },
-            () => {
-                getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-                    console.log("File available at", downloadURL);
-                    // await saveRecord(fileType, downloadURL, new Date().toISOString());
-                    // Need to make a saveRecord function that will store seller, price, image/video, etc as a Record data type
-                    setImage("");
-                    // setVideo("");
-                });
-            }
-        );
-        return downloadURL;
+        // Return a promise that resolves with the download URL
+        return new Promise((resolve, reject) => {
+            uploadTask.on(
+                "state_changed",
+                (snapshot) => {
+                    // Handle upload progress
+                    const progress =
+                        (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                    console.log("Upload is " + progress + "% done");
+                },
+                (error) => {
+                    // Handle unsuccessful uploads
+                    reject(error);
+                },
+                () => {
+                    // Handle successful uploads on complete
+                    getDownloadURL(uploadTask.snapshot.ref).then(
+                        (downloadURL) => {
+                            console.log("File available at", downloadURL);
+                            resolve(downloadURL); // Resolve the promise with the download URL
+                        }
+                    );
+                }
+            );
+        });
     }
 
     return (
