@@ -1,8 +1,8 @@
-import React from 'react';
-import {StyleSheet} from 'react-native';
+import React from "react";
+import { StyleSheet } from "react-native";
 
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {COLORS} from '../theme/theme';
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { COLORS } from "../theme/theme";
 
 import HomeScreen from '../screen/HomeScreen';
 import ChatScreen from '../screen/ChatScreen';
@@ -10,7 +10,7 @@ import Profile from '../screen/Profile';
 import SearchScreen from '../screen/SearchScreen';
 import CreateScreen from '../screen/PostScreen';
 
-import Entypo from '@expo/vector-icons/Entypo';
+import Entypo from "@expo/vector-icons/Entypo";
 
 
 const Tab = createBottomTabNavigator();
