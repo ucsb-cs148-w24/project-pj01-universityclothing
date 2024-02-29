@@ -35,7 +35,23 @@ const messageRooms = [
   },
 ];
 
-const ChatScreen = () => {
+const ChatRoomRow = (room, navigation) => {
+  return (
+    <TouchableOpacity
+      key={room.id}
+      style={styles.Room}
+      onPress={() => navigation.navigate("ChatRoom", { navigation, room })}
+    >
+      <Text style={{ textAlign: "center", margin: 10 }}>Image</Text>
+      <View>
+        <Text style={styles.RoomTitle}>You ∙ {room.listing}</Text>
+        <Text>Last text placeholder</Text>
+      </View>
+    </TouchableOpacity>
+  );
+};
+
+const ChatScreen = ({ navigation }) => {
   return (
     <View style={styles.ScreenContainer}>
       <StatusBar backgroundColor="#F2F1EB" />
@@ -49,19 +65,7 @@ const ChatScreen = () => {
           <Text style={styles.HeaderButton}>New</Text>
         </TouchableOpacity>
       </View>
-      {messageRooms.map((room) => {
-        return (
-          <TouchableOpacity style={styles.Room}>
-            <Text style={{ textAlign: "center", margin: 10 }}>
-              Image
-            </Text>
-            <View>
-              <Text style={styles.RoomTitle}>You ∙ {room.listing}</Text>
-              <Text>Last text placeholder</Text>
-            </View>
-          </TouchableOpacity>
-        );
-      })}
+      {messageRooms.map((room) => ChatRoomRow(room, navigation))}
     </View>
   );
 };
