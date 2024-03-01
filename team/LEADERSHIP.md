@@ -5,8 +5,8 @@
 - **Retro 1 Leader:** Jonathan Chen 
 - **Retro 2 Leader:** Justin Chung
 - **Retro 3 Leader:** 
-- **UX Coordinator:**
-- **Design Document Coordinator:** Zhen Bi 
+- **UX Coordinator:** Zhen Bi 
+- **Design Document Coordinator:** 
 - **Deployment Document Coordinator:**
 - **User Manual Coordinator:**
 - **Final Presentation Leader:**
