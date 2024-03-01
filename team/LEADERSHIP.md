@@ -1,7 +1,7 @@
 # Leadership Roles
-- **Product Owner:**
+- **Product Owner:** Jonathan Chen 
 - **Scrum Master:** XinYao Song
-- **Testing/QA Coordinator:**
+- **Testing/QA Coordinator:** Kevin 
 - **Retro 1 Leader:** Jonathan Chen 
 - **Retro 2 Leader:** Justin Chung
 - **Retro 3 Leader:** Anika Misra
