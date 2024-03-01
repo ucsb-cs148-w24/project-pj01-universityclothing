@@ -1,4 +1,4 @@
-
+import "react-native-gesture-handler"
 import Login from './src/screen/logInPage';
 import React, { useState } from 'react';
 

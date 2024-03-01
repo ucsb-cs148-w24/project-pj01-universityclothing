@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
         alignItems: 'center', 
         justifyContent: 'space-between',
         backgroundColor: COLORS.darkBlue,
-        height: 70,
+        height: 50,
     },
     HeaderText: {
         color: COLORS.yellow,

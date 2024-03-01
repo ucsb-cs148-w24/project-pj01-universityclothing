@@ -20,6 +20,7 @@ const ProfileScreen = () => {
 
   return (
     <SafeAreaView style={styles.ScreenContainer}>
+      <ProfileHeader title= "Profile"/>
       {/* User Icon, Name, ID */}
       <View style={styles.userInfoSection}>
         <View style={{ flexDirection: "row", marginTop: 15 }}>
@@ -131,7 +132,7 @@ const styles = StyleSheet.create({
   ScreenContainer: {
     flex: 1,
     color: "#f5f5f5",
-    marginTop: 20
+    // marginTop: 20
   },
   userInfoSection: {
     paddingHorizontal: 30,
