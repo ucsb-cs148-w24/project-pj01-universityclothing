@@ -1,24 +1,20 @@
 import React from "react";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createStackNavigator } from '@react-navigation/stack';
 import { COLORS } from "../theme/theme";
-import {useTheme, Avatar} from 'react-native-paper';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 
 import HomeScreen from '../screen/HomeScreen';
 import ChatScreen from '../screen/ChatScreen';
-import Profile from '../screen/ProfileScreen';
+import ProfileScreen from '../screen/ProfileScreen';
 import SearchScreen from '../screen/SearchScreen';
 import CreateScreen from '../screen/PostScreen';
-import EditProfileScreen from '../screen/EditProfileScreen';
 
 import Entypo from "@expo/vector-icons/Entypo";
 
 
-
 const Tab = createBottomTabNavigator();
-const ProfileStack = createStackNavigator();
 
 const Navigator = () => {
   return (
@@ -89,7 +85,7 @@ const Navigator = () => {
 
         <Tab.Screen
         name="Profile"
-        component={ProfileStackScreen}
+        component={ProfileScreen}
         options={{
           tabBarIcon: ({focused, color, size}) => (
             <Entypo
@@ -106,49 +102,7 @@ const Navigator = () => {
   );
 };
 
-const ProfileStackScreen = ({ navigation }) => {
-  return (
-    <ProfileStack.Navigator
-      screenOptions={{
-        headerStyle: {
-          backgroundColor: COLORS.darkBlue,
-        },
-        headerTintColor: COLORS.yellow,
-        headerTitleStyle: {
-          fontWeight: 'bold',
-        },
-      }}
-    >
-      <ProfileStack.Screen 
-        name="ProfileHome" 
-        component={Profile} 
-        options={{
-          title: 'Profile',
-          headerRight: () => (
-            <TouchableOpacity
-              onPress={() => navigation.navigate('EditProfile')}
-            >
-              <Entypo
-                name="edit"
-                size={25}
-                color={COLORS.yellow}
-                style={{marginRight: 10}}
-              />
-            </TouchableOpacity>
-          ),
-        }}
-        />
-      <ProfileStack.Screen
-        name="EditProfile"
-        component={EditProfileScreen}
-        options={{
-          title: 'Edit Profile',
-        }}
-      />
-    </ProfileStack.Navigator>
 
-  );
-};
 
 
 const styles = StyleSheet.create({});

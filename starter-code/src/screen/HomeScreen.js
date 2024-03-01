@@ -12,7 +12,7 @@ import {
   ToastAndroid,
 } from "react-native";
 import { useBottomTabBarHeight } from "@react-navigation/bottom-tabs";
-import HeaderBar from "../components/HeaderBar";
+import HeaderBar from "../components/HomeHeader";
 import { useNavigation } from "@react-navigation/native";
 import Entypo from "@expo/vector-icons/Entypo";
 import { Colors } from "react-native/Libraries/NewAppScreen";
@@ -36,7 +36,8 @@ const HomeScreen = ({ navigation }) => {
     {
       id: 1,
       title: "Freddy",
-      imageUrl: "https://static.wikia.nocookie.net/fnafapedia/images/f/f1/Ff.png/revision/latest?cb=20170527211636",
+      imageUrl:
+        "https://static.wikia.nocookie.net/fnafapedia/images/f/f1/Ff.png/revision/latest?cb=20170527211636",
       price: 499.99,
       seller: "Five Nights At",
       description: "A high-quality animatronic with advanced features.",
@@ -45,7 +46,8 @@ const HomeScreen = ({ navigation }) => {
     {
       id: 2,
       title: "Bonnie",
-      imageUrl: "https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/52671c08-c1d4-443a-871c-2bbc036d9dbe/deouvme-31d6841f-5750-478f-a664-e59377b0a6e2.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcLzUyNjcxYzA4LWMxZDQtNDQzYS04NzFjLTJiYmMwMzZkOWRiZVwvZGVvdXZtZS0zMWQ2ODQxZi01NzUwLTQ3OGYtYTY2NC1lNTkzNzdiMGE2ZTIucG5nIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.K-XIjsu8TGuPvEcfc7SjqtL5qkIOscQS_bBq2rNi9Jc",
+      imageUrl:
+        "https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/52671c08-c1d4-443a-871c-2bbc036d9dbe/deouvme-31d6841f-5750-478f-a664-e59377b0a6e2.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcLzUyNjcxYzA4LWMxZDQtNDQzYS04NzFjLTJiYmMwMzZkOWRiZVwvZGVvdXZtZS0zMWQ2ODQxZi01NzUwLTQ3OGYtYTY2NC1lNTkzNzdiMGE2ZTIucG5nIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.K-XIjsu8TGuPvEcfc7SjqtL5qkIOscQS_bBq2rNi9Jc",
       price: 349.99,
       seller: "William Afton",
       description: "A perfectly created bunny man.",
@@ -70,7 +72,6 @@ const HomeScreen = ({ navigation }) => {
     category: "All",
   });
 
-
   const [filteredItems, setFilteredItems] = useState(combinedItems); // State to hold filtered items
 
   const handleCategorySelect = (category, index) => {
@@ -94,7 +95,7 @@ const HomeScreen = ({ navigation }) => {
 
   return (
     <View style={styles.ScreenContainer}>
-      <StatusBar backgroundColor="#F2F1EB" />
+      <StatusBar backgroundColor="#f2f2f2" />
       {/* Header Bar */}
       <HeaderBar title="Gaucho Sell" />
 
@@ -147,7 +148,7 @@ const HomeScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   ScreenContainer: {
     // flex: 1,
-    backgroundColor: "#ffffff",
+    backgroundColor: "#f5f5f5",
     width: "100%",
     height: "100%",
   },
@@ -205,8 +206,8 @@ const styles = StyleSheet.create({
   // Category Selector Styles
   CategoryScrollViewStyle: {
     paddingHorizontal: 15,
-    paddingVertical: 5,
-    backgroundColor: "#f2f2f2", // Light grey background
+    paddingVertical: 10,
+    backgroundColor: "#f5f5f5",
   },
   CategoryScrollViewContainer: {
     marginRight: 10, // Space between category items

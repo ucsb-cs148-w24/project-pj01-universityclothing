@@ -16,17 +16,17 @@ const styles = StyleSheet.create({
     ImageContainer: {
         height: 36,
         width: 36,
-        borderRadius: 12,
+        borderRadius: 18, 
         borderWidth: 2,
         borderColor: '#FFFFFF',
         alignItems: 'center',
-        overflow: 'hidden',
+        justifyContent: 'center', 
+        overflow: 'hidden', 
     },
     image: {
         height: 36,
         width: 36,
     },
-
 });
 
 export default UserProfile;
