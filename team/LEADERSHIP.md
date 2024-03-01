@@ -8,7 +8,7 @@
 - **UX Coordinator:** Zhen Bi 
 - **Design Document Coordinator:** 
 - **Deployment Document Coordinator:**
-- **User Manual Coordinator:**
+- **User Manual Coordinator:**  Ridhit Garg
 - **Final Presentation Leader:**
 
 # Other Leadership Roles 
