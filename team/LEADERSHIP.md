@@ -4,7 +4,7 @@
 - **Testing/QA Coordinator:**
 - **Retro 1 Leader:** Jonathan Chen 
 - **Retro 2 Leader:** Justin Chung
-- **Retro 3 Leader:** 
+- **Retro 3 Leader:** Anika Misra
 - **UX Coordinator:** Zhen Bi 
 - **Design Document Coordinator:** 
 - **Deployment Document Coordinator:**
