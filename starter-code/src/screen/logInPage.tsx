@@ -1,6 +1,9 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, Button } from 'react-native';
 // app.tsx
+import { ImageBackground } from 'react-native';
+import { TouchableOpacity } from 'react-native';
+
 
 
 import * as WebBrowser from "expo-web-browser";
@@ -18,6 +21,8 @@ import React, { useState } from 'react';
 // import {...} from "firebase/storage";
 
 // Initialize Firebase
+
+const image = require('../assets/loginbackground.png'); // Adjust the path based on your project structure
 const firebaseConfig = {
     // move to .ens later
     apiKey: "AIzaSyDR87GgBj0aOnBJ036ajWgCGT6NSlsaHlU",
@@ -34,28 +39,61 @@ const firebaseConfig = {
 //make a public_html folder
 const signInWithGoogle = async (setIsLoggedIn) => {
   const response_type = "token";
-const client_id = "402529839560-1c1cl2ggt8aa91e079u1btc1401cb6nm.apps.googleusercontent.com";
-const redirect_uri = "https://sites.cs.ucsb.edu/~amisra/";
-const scopes = [
-  "https://www.googleapis.com/auth/userinfo.email",
-  "https://www.googleapis.com/auth/userinfo.profile",
-];
-const result = await WebBrowser.openAuthSessionAsync(
-  `https://accounts.google.com/o/oauth2/v2/auth?response_type=${response_type}&client_id=${client_id}&redirect_uri=${redirect_uri}&scope=${scopes.join("%20")}`
-);
+  const client_id = "402529839560-1c1cl2ggt8aa91e079u1btc1401cb6nm.apps.googleusercontent.com";
+  const redirect_uri = "https://sites.cs.ucsb.edu/~amisra/";
+  const scopes = [
+    "https://www.googleapis.com/auth/userinfo.email",
+    "https://www.googleapis.com/auth/userinfo.profile",
+  ];
+  
+  const result = await WebBrowser.openAuthSessionAsync(
+    `https://accounts.google.com/o/oauth2/v2/auth?response_type=${response_type}&client_id=${client_id}&redirect_uri=${redirect_uri}&scope=${scopes.join("%20")}`
+  );
+
   if (result.type === 'success') {
-    const access_token = Linking.parse(result.url).queryParams.access_token;
+    const urlParams = Linking.parse(result.url).queryParams;
+    
+    if (urlParams.access_token) {
+      const access_token = urlParams.access_token;
 
-    // Handle the successful sign-in
-    console.log('Google Login Success', access_token);
+      // Use the access_token to make a request to the Google API
+      const userInfoResponse = await fetch('https://www.googleapis.com/oauth2/v1/userinfo', {
+        headers: {
+          Authorization: `Bearer ${access_token}`,
+        },
+      });
 
-    // Set your isLoggedIn state to true or perform any other necessary actions
-    setIsLoggedIn(true);
+      if (userInfoResponse.ok) {
+        const userInfo = await userInfoResponse.json();
+
+        // Check if the user's email ends with "ucsb.edu"
+        if (userInfo.email.endsWith("ucsb.edu")) {
+          // Handle the successful sign-in for UCSB email
+          console.log('Google Login Success', access_token);
+
+          // Set your isLoggedIn state to true or perform any other necessary actions
+          setIsLoggedIn(true);
+        } else {
+          // Handle the case where the email doesn't end with "ucsb.edu"
+          console.log('Google Login Error: Not a UCSB email');
+          // You might want to display an error message to the user
+        }
+      } else {
+        // Handle the case where fetching user info fails
+        console.log('Error fetching user info from Google API');
+      }
+    } else {
+      // Handle the case where access_token is not present in URL parameters
+      console.log('Google Login Error: Access token not found');
+      // You might want to display an error message to the user
+    }
   } else {
     // Handle other cases (result.type === 'cancel' or result.type === 'dismiss')
     console.log('Google Login Error or Cancelled');
   }
 };
+
+
 
 
 const GoogleSignInButton = ({ setIsLoggedIn }) => {
@@ -71,8 +109,17 @@ const GoogleSignInButton = ({ setIsLoggedIn }) => {
 const Login = ({ setIsLoggedIn }) => {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Welcome to UCSB MarketPlace! Where only UCSB students can participate</Text>
-      <GoogleSignInButton setIsLoggedIn={setIsLoggedIn} />
+          <ImageBackground source={image} style={{width: '100%', height: '100%'}} resizeMode="cover">
+          <TouchableOpacity 
+        style={styles.googleSignInButton}
+        onPress={() => signInWithGoogle(setIsLoggedIn)}
+      >
+        <Text style={styles.googleSignInButtonText}>
+          Sign In with Google
+        </Text>
+      </TouchableOpacity>
+      </ImageBackground>
+
     </View>
   );
 };
@@ -88,6 +135,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  button: {
+    backgroundColor: '#3DCFFF',
+    borderRadius: 20,
+    width: 30,
+  },
   title: {
     fontSize: 24,
     fontWeight: 'bold',
@@ -97,5 +149,20 @@ const styles = StyleSheet.create({
   buttonContainer: {
     marginTop: 20,
     fontSize: 240
+  },
+  TouchableOpacity: {
+    alignContent: 'center',
+  },
+  googleSignInButton: {
+    backgroundColor: '#3DCFFF',  // Bright blue background
+    borderRadius: 20,            // Border-radius of 20px
+    padding: 10,                 // Add padding for better visual appearance
+    alignSelf: 'center',        // Center content horizontally
+    marginTop: '160%',
+    width: '70%',
+  },
+  googleSignInButtonText: {
+    color: '#fff',               // Text color is white
+    textAlign: 'center'
   },
 });
