@@ -3,12 +3,15 @@ import React, { useState } from "react";
 import RNPickerSelect from "react-native-picker-select";
 
 import {
+    ActivityIndicator,
     View,
     TextInput,
     Button,
     StyleSheet,
     Text,
     TouchableOpacity,
+    Keyboard,
+    TouchableWithoutFeedback,
 } from "react-native";
 import { useItems } from "../components/ItemsContext";
 import { firebaseApp, firestore, db, storage } from "../../firebaseConfig";
@@ -30,6 +33,9 @@ const PostCreationScreen = ({ navigation }) => {
     const [category, setCategory] = useState("");
     const [imageUrl, setImageUrl] = useState("");
     const [condition, setCondition] = useState("");
+    const [isPosting, setIsPosting] = useState(false);
+    const [uploadProgress, setUploadProgress] = useState(0);
+
 
     // get the auth instance
     const auth = getAuth(firebaseApp);
@@ -52,11 +58,15 @@ const PostCreationScreen = ({ navigation }) => {
 
     // Function to handle form submission, should add to our firebase database
     const handleSubmit = async () => {
+        if (isPosting) return;
+
         if (!title || !price || !description || !category || condition === "") {
             alert("Please fill in all required fields");
             return;
         }
 
+        setIsPosting(true);
+    
         // upload the image here
         console.log(imageUrl);
         const downloadURL = await uploadImage(imageUrl, "image");
@@ -119,6 +129,7 @@ const PostCreationScreen = ({ navigation }) => {
         setCategory("");
         setImageUrl("");
         setDescription("");
+        setIsPosting(false);
     };
     async function addListing(data) {
         console.log("Adding listing");
@@ -171,6 +182,7 @@ const PostCreationScreen = ({ navigation }) => {
                     const progress =
                         (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
                     console.log("Upload is " + progress + "% done");
+                    setUploadProgress(progress);
                 },
                 (error) => {
                     // Handle unsuccessful uploads
@@ -191,81 +203,140 @@ const PostCreationScreen = ({ navigation }) => {
 
     return (
         // here are the inputs that users enter on the screen
-        <View style={styles.container}>
-            <Text style={styles.label}>Title</Text>
-            <TextInput
-                placeholder="Title"
-                value={title}
-                onChangeText={setTitle}
-                style={styles.input}
-            />
-            <Text style={styles.label}>Price</Text>
-            <TextInput
-                placeholder="Price"
-                value={price}
-                onChangeText={setPrice}
-                style={styles.input}
-                keyboardType="numeric"
-                inputMode="decimal"
-            />
-            <Text style={styles.label}>Description</Text>
-            <TextInput
-                placeholder="Description"
-                value={description}
-                onChangeText={setDescription}
-                multiline
-                style={styles.input}
-            />
-
-            <Text style={styles.label}>Category</Text>
-            <RNPickerSelect
-                onValueChange={(itemValue, itemIndex) => setCategory(itemValue)}
-                items={[
-                    { label: "Clothing", value: "0" },
-                    { label: "Electronics", value: "1" },
-                    { label: "Home", value: "2" },
-                    { label: "Vehicles", value: "3" },
-                    { label: "Education", value: "4" },
-                    { label: "Collectibles", value: "5" },
-                    { label: "Health & Beauty", value: "6" },
-                    { label: "Sports & Outdoors", value: "7" },
-                    { label: "Arts & Crafts", value: "8" },
-                    { label: "Pet", value: "9" },
-                    { label: "Tools & Equipment", value: "10" },
-                    { label: "Others", value: "11" },
-                ]}
-            />
-            <Text style={styles.label}>Condition</Text>
-            <View style={styles.choicesContainer}>
-                {options.map((option, index) => (
-                    <TouchableOpacity
-                        key={index}
-                        style={[
-                            styles.choice,
-                            condition === option.value
-                                ? styles.choiceSelected
-                                : null,
-                        ]}
-                        onPress={() => setCondition(option.value)}
-                    >
-                        <Text style={styles.choiceText}>{option.label}</Text>
-                    </TouchableOpacity>
-                ))}
-            </View>
-            <Button title="Select Image" onPress={selectImage} />
-            {imageUrl && (
-                <Image
-                    source={{ uri: imageUrl }}
-                    style={{ width: 200, height: 200 }}
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
+            <View style={styles.container}>
+                {isPosting && (
+                    <View style={styles.overlayStyle}>
+                        <ActivityIndicator size="large" color="#FFF" />
+                        <Text style={styles.loadingText}>Posting 
+                        {Math.round(uploadProgress)}%</Text>
+                    </View>
+                )}
+                <Text style={styles.label}>Title</Text>
+                <TextInput
+                    placeholder="Title"
+                    value={title}
+                    onChangeText={setTitle}
+                    style={styles.input}
                 />
-            )}
+                <Text style={styles.label}>Price</Text>
+                <TextInput
+                    placeholder="Price"
+                    value={price}
+                    onChangeText={setPrice}
+                    style={styles.input}
+                    keyboardType="numeric"
+                    inputMode="decimal"
+                />
+                <Text style={styles.label}>Description</Text>
+                <TextInput
+                    placeholder="Description"
+                    value={description}
+                    onChangeText={setDescription}
+                    multiline
+                    style={styles.input}
+                />
 
-            <Button title="Post Item" onPress={handleSubmit} />
-        </View>
+                <Text style={styles.label}>Category</Text>
+                <RNPickerSelect
+                    onValueChange={(itemValue, itemIndex) => setCategory(itemValue)}
+                    items={[
+                        { label: "Clothing", value: "0" },
+                        { label: "Electronics", value: "1" },
+                        { label: "Home", value: "2" },
+                        { label: "Vehicles", value: "3" },
+                        { label: "Education", value: "4" },
+                        { label: "Collectibles", value: "5" },
+                        { label: "Health & Beauty", value: "6" },
+                        { label: "Sports & Outdoors", value: "7" },
+                        { label: "Arts & Crafts", value: "8" },
+                        { label: "Pet", value: "9" },
+                        { label: "Tools & Equipment", value: "10" },
+                        { label: "Others", value: "11" },
+                    ]}
+                />
+                <Text style={styles.label}>Condition</Text>
+                <View style={styles.choicesContainer}>
+                    {options.map((option, index) => (
+                        <TouchableOpacity
+                            key={index}
+                            style={[
+                                styles.choice,
+                                condition === option.value
+                                    ? styles.choiceSelected
+                                    : null,
+                            ]}
+                            onPress={() => setCondition(option.value)}
+                        >
+                            <Text style={styles.choiceText}>{option.label}</Text>
+                        </TouchableOpacity>
+                    ))}
+                </View>
+                <Button title="Select Image" onPress={selectImage} />
+                {imageUrl && (
+                    <Image
+                        source={{ uri: imageUrl }}
+                        style={{ width: 200, height: 200 }}
+                    />
+                )}
+
+                <TouchableOpacity style={styles.postItemButton} onPress={handleSubmit} disabled={isPosting}>
+                    {isPosting ? (
+                        <ActivityIndicator color="#FFF" />
+                    ) : (
+                        <Text style={styles.postItemButtonText}>Post Item</Text>
+                    )}
+                </TouchableOpacity>
+            </View>
+        </TouchableWithoutFeedback>
     );
 };
 
 const styles = StyleSheet.create({
+    overlayStyle: {
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        backgroundColor: 'rgba(0, 0, 0, 0.75)', // Darker overlay for better readability
+        alignItems: 'center',
+        justifyContent: 'center',
+        zIndex: 1,
+    },
+    loadingText: {
+        marginTop: 16,
+        color: '#FFFFFF',
+        fontSize: 18,
+        fontWeight: '500',
+    },
+    selectImageButton: {
+        backgroundColor: '#007bff', // Blue
+        borderRadius: 5,
+        padding: 15,
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginBottom: 20,
+    },
+    selectImageButtonText: {
+        color: '#FFF',
+        fontWeight: 'bold',
+    },
+    postItemButton: {
+        backgroundColor: '#0C356A', 
+        borderRadius: 5,
+        padding: 15,
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginTop: 10,
+    },
+    postItemButtonText: {
+        color: '#FFC436',
+        fontWeight: 'bold',
+    },
+    buttonDisabled: {
+        backgroundColor: '#ccc',
+    },
     container: {
         flex: 1,
         padding: 20,
