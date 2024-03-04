@@ -26,15 +26,14 @@ const itemConverter = {
     }
 };
 
-import db from '../firebaseConfig';
+import firestore from '../firebaseConfig';
 import { collection, query, orderBy, getDocs } from 'firebase/firestore';
 
-console.log(db); 
-const itemRef = db.collection("items").withConverter(itemConverter);
+const itemRef = collection(firestore,"items");
 
 const q = query(itemRef, orderBy("name"));
 
-async function getItems (){
+async function getItems(){
     const querySnapshot = await getDocs(q);
     const item = [];
     querySnapshot.forEach((doc) => {
