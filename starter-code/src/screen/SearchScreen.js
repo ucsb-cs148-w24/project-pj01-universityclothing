@@ -1,48 +1,43 @@
-import React, {useState} from "react";
+import React, {useState, useRef} from "react";
 import {
   View,
   Text,
   TextInput,
-  StatusBar,
   StyleSheet,
   TouchableOpacity,
   FlatList
 } from "react-native";
-//import { useRouter } from "expo-router";
 import Entypo from '@expo/vector-icons/Entypo';
-import {COLORS,SPACING} from '../theme/theme';
+import {COLORS} from '../theme/theme';
+import {getItems} from '../../data/data';
+import { useNavigation } from "@react-navigation/native";
 
-const SearchScreen = ({ searchTerm, setSearchTerm, handleClick }) => {
+const SearchScreen = () => {
   const [searchTerm, setSearchTerm] = useState("");
-  const [sortedCoffee, setSortedCoffee] = useState([]);
-  const [categoryIndex, setCategoryIndex] = useState({ index: 0, category: categories[0] });
-  //const ListRef = useRef(null);
-  const ListRef: any = useRef<FlatList>();
-  const searchCoffee = (search) => {
-    if (search !== '') {
+  const [sortedItems, setSortedItems] = useState(
+    getItems(),
+  );
+  const ListRef = useRef<FlatList>(any);
+  const searchItem = (search) => {
+    if (search != '') {
       ListRef?.current?.scrollToOffset({
         animated: true,
         offset: 0,
       });
-    setCategoryIndex({ index: 0, category: categories[0] });
-    setSortedCoffee([
-      ...CoffeeList.filter((item) =>
-      item.name.toLowerCase().includes(search.toLowerCase())
-      ),
+      setSortedItems([
+        sortedItems.filter(item => item.name.toLowerCase().includes(search.toLowerCase()),
+        ),
       ]);
     }
   };
 
-  const resetSearchCoffee = () => {
+  const resetSearch= () => {
     ListRef?.current?.scrollToOffset({
       animated: true,
       offset: 0,
     });
-    setCategoryIndex({index: 0, category: categories[0]});
-    setSortedCoffee([...CoffeeList]);
-    setSearchText('');
+    setSearchTerm('');
   };
-
   return(
     <View style={styles.ScreenContainer}>
       <View style = {styles.searchContainer}>
@@ -54,48 +49,38 @@ const SearchScreen = ({ searchTerm, setSearchTerm, handleClick }) => {
             placeholder='Search with key words'
           />
         </View>
-        <TouchableOpacity style={styles.searchBtn} onPress={handleClick}>
-          {/*onPress={() => {
-                setActiveJobType(item);
-                router.push(`/search/${item}`);
-              }}*/}
+        <TouchableOpacity style={styles.searchBtn} 
+        onPress={() => searchItem(searchTerm)}>
         <Entypo
            //style = {styles.Icon1}
            name="magnifying-glass"
            size={25}
-           color={COLORS.lightYellow
-           }
+           color={COLORS.lightYellow}
           />
         </TouchableOpacity>
+        {searchTerm.length > 0 ? (
+            <TouchableOpacity
+              onPress={() => {
+                resetSearch();
+              }}>
+              <Entypo
+                name="cross"
+                size={25}
+                color={COLORS.lightYellow}
+              />
+            </TouchableOpacity>
+          ) : (
+            <></>
+          )}
       </View>
+
       <View>
-      <Text style={styles.text}>Recent Search</Text>
-      <TouchableOpacity onPress={()=> {}}>
-      <Text style={styles.text2}>see more</Text>
-      </TouchableOpacity>
+      <Text style={styles.text}>Recent Search</Text> 
+    //recent five search
       <TouchableOpacity onPress={()=> {}}>
       <Text style={styles.text3}>desk lamp</Text>
       </TouchableOpacity>
       </View>
-      <Text style={styles.text}>Top Search</Text>
-      <TouchableOpacity onPress={()=> {}}>
-      <Text style={styles.text3}>desk lamp</Text>
-      </TouchableOpacity>
-      <TouchableOpacity onPress={()=> {}}>
-      <Text style={styles.text3}>desk lamp</Text>
-      </TouchableOpacity>
-      <TouchableOpacity onPress={()=> {}}>
-      <Text style={styles.text3}>desk lamp</Text>
-      </TouchableOpacity>
-      <TouchableOpacity onPress={()=> {}}>
-      <Text style={styles.text3}>desk lamp</Text>
-      </TouchableOpacity>
-      <TouchableOpacity onPress={()=> {}}>
-      <Text style={styles.text3}>desk lamp</Text>
-      </TouchableOpacity>
-      <TouchableOpacity onPress={()=> {}}>
-      <Text style={styles.text3}>desk lamp</Text>
-      </TouchableOpacity>
     </View>
 
     
