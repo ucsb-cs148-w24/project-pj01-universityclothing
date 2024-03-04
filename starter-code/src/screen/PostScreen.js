@@ -16,7 +16,7 @@ import "firebase/firestore";
 import { getAuth } from "firebase/auth";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
-import { addDoc, collection, onSnapsho } from "firebase/firestore";
+import { addDoc, collection, onSnapshot } from "firebase/firestore";
 
 import { Image } from "react-native";
 import * as ImagePicker from "expo-image-picker";
@@ -52,7 +52,7 @@ const PostCreationScreen = ({ navigation }) => {
 
     // Function to handle form submission, should add to our firebase database
     const handleSubmit = async () => {
-        if (!title || !price || !description || !category || !condition) {
+        if (!title || !price || !description || !category || condition === "") {
             alert("Please fill in all required fields");
             return;
         }
@@ -221,17 +221,17 @@ const PostCreationScreen = ({ navigation }) => {
             <RNPickerSelect
                 onValueChange={(itemValue, itemIndex) => setCategory(itemValue)}
                 items={[
-                    { label: "Clothing and Fashion", value: "0" },
+                    { label: "Clothing", value: "0" },
                     { label: "Electronics", value: "1" },
-                    { label: "Home and Furniture", value: "2" },
+                    { label: "Home", value: "2" },
                     { label: "Vehicles", value: "3" },
-                    { label: "Books and Education", value: "4" },
+                    { label: "Education", value: "4" },
                     { label: "Collectibles", value: "5" },
-                    { label: "Health and Beauty", value: "6" },
-                    { label: "Sports and Outdoors", value: "7" },
-                    { label: "Arts and Crafts", value: "8" },
-                    { label: "Pet Supplies", value: "9" },
-                    { label: "Tools and Equipment", value: "10" },
+                    { label: "Health & Beauty", value: "6" },
+                    { label: "Sports & Outdoors", value: "7" },
+                    { label: "Arts & Crafts", value: "8" },
+                    { label: "Pet", value: "9" },
+                    { label: "Tools & Equipment", value: "10" },
                     { label: "Others", value: "11" },
                 ]}
             />
