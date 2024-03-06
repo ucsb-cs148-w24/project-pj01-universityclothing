@@ -59,7 +59,7 @@ const signInWithGoogle = async (setIsLoggedIn) => {
     const urlParams = Linking.parse(result.url).queryParams;
     
     if (urlParams.access_token) {
-      const access_token = urlParams.access_token;
+      const access_token = Linking.parse(result.url).queryParams.access_token;
 
       // Use the access_token to make a request to the Google API
       const userInfoResponse = await fetch('https://www.googleapis.com/oauth2/v1/userinfo', {
@@ -74,6 +74,18 @@ const signInWithGoogle = async (setIsLoggedIn) => {
         // Check if the user's email ends with "ucsb.edu"
         if (userInfo.email.endsWith("ucsb.edu")) {
           // Handle the successful sign-in for UCSB email
+          let credential = GoogleAuthProvider.credential(null, access_token);
+        const auth = getAuth();
+        signInWithCredential(auth, credential)
+            .then((userCredential) => {
+                // User signed in
+                var user = userCredential.user;
+                // console.log("Signed in user:", user);
+            })
+            .catch((error) => {
+                // Handle errors
+                console.error("Authentication error:", error);
+            });
           console.log('Google Login Success', access_token);
 
           // Set your isLoggedIn state to true or perform any other necessary actions
