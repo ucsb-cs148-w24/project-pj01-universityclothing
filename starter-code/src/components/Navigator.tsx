@@ -15,7 +15,6 @@ import Entypo from "@expo/vector-icons/Entypo";
 
 
 const Tab = createBottomTabNavigator();
-// const ProfileStack = createStackNavigator();
 
 const Navigator = () => {
   return (

@@ -46,11 +46,8 @@ const ProfileScreen = () => {
             <Caption style={styles.caption}>@u_name</Caption>
             
           </View>
-              <View style={{marginLeft: 80, marginTop: 20}}>
-          <TouchableOpacity onPress={() => navigation.navigate('EditProfileScreen')}>
-              <Entypo name="edit" size={20} color={COLORS.darkBlue} />
-          </TouchableOpacity>
-          </View>
+  
+
         </View>
       </View>
 
