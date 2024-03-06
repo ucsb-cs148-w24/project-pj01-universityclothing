@@ -1,15 +1,15 @@
 # Leadership Roles
-- **Product Owner:**
+- **Product Owner:** Jonathan Chen 
 - **Scrum Master:** XinYao Song
-- **Testing/QA Coordinator:**
+- **Testing/QA Coordinator:** Kevin Chen
 - **Retro 1 Leader:** Jonathan Chen 
 - **Retro 2 Leader:** Justin Chung
-- **Retro 3 Leader:** 
-- **UX Coordinator:**
+- **Retro 3 Leader:** Anika Misra
+- **UX Coordinator:** XinYao Song
 - **Design Document Coordinator:** Zhen Bi 
-- **Deployment Document Coordinator:**
-- **User Manual Coordinator:**
-- **Final Presentation Leader:**
+- **Deployment Document Coordinator:** Justin Chung
+- **User Manual Coordinator:**  Ridhit Garg
+- **Final Presentation Leader:** 
 
 # Other Leadership Roles 
 | Date      | Name              | Activity                                               |

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import {
   ScrollView,
   StatusBar,
@@ -13,25 +13,70 @@ import {
 } from "react-native";
 import { useBottomTabBarHeight } from "@react-navigation/bottom-tabs";
 import HeaderBar from "../components/HeaderBar";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useFocusEffect } from "@react-navigation/native";
 import Entypo from "@expo/vector-icons/Entypo";
 import { Colors } from "react-native/Libraries/NewAppScreen";
 import { COLORS, FONTFAMILY, FONTSIZE, SPACING } from "../theme/theme";
 import { useItems } from "../components/ItemsContext";
+import { addDoc, collection, onSnapshot } from "firebase/firestore";
+import { db, storage } from "../../firebaseConfig";
 import { useEffect } from "react";
 
+
+
 const getItemList = (category, data) => {
+  if (category === "Clothing") {
+    categoryID = 0;
+  } else if (category === "Electronics") {
+    categoryID = 1;
+  } else if (category === "Home") {
+    categoryID = 2;
+  } else if (category === "Vehicles") {
+    categoryID = 3;
+  } else if (category === "Education") {
+    categoryID = 4;
+  } else if (category === "Collectibles") {
+    categoryID = 5;
+  } else if (category === "Health & Beauty") {
+    categoryID = 6;
+  } else if (category === "Sports & Outdoors") {
+    categoryID = 7;
+  } else if (category === "Arts & Crafts") {
+    categoryID = 8;
+  } else if (category === "Pet") {
+    categoryID = 9;
+  } else if (category === "Tools & Equipment") {
+    categoryID = 10;
+  } else if (category === "Others") {
+    categoryID = 11;
+  }
+
+
   if (category === "All") {
     return data;
   } else {
-    let itemlist = data.filter((item) => item.category === category);
-
-    return itemlist;
+    console.log("JON! YOU DID THIS ", category);
+    return data.filter((item) => item.category === categoryID);
   }
 };
 
 const HomeScreen = ({ navigation }) => {
   // const navigation = useNavigation();
+  const [listings, setFiles] = useState([]);
+
+
+  useEffect(() => {
+    const unsubscribe = onSnapshot(collection(db, "listings"), (snapshot) => {
+      snapshot.docChanges().forEach((change) => {
+        if (change.type === "added") {
+          console.log("New file", change.doc.data());
+          setFiles((prevFiles) => [...prevFiles, change.doc.data()]);
+        }
+      });
+    });
+    return () => unsubscribe();
+  }, []);
+
   const initialItems = [
     {
       id: 1,
@@ -55,20 +100,46 @@ const HomeScreen = ({ navigation }) => {
   ];
 
   const { items } = useItems();
-  const combinedItems = [...initialItems, ...items];
+  const combinedItems = [...listings, ...items];
 
   const categories = [
     "All",
-    "Furniture",
     "Clothing",
-    "Stationary",
     "Electronics",
+    "Home",
+    "Vehicles",
+    "Education",
+    "Collectibles",
+    "Health & Beauty",
+    "Sports & Outdoors",
+    "Arts & Crafts",
+    "Pet",
+    "Tools & Equipment",
+    "Others"
   ];
 
   const [categoryIndex, setCategoryIndex] = useState({
     index: 0,
     category: "All",
   });
+
+  
+  // useFocusEffect(
+  //   useCallback(() => {
+  //     // This will run on screen focus. Refresh your listings or perform any other action here.
+  //     // Here, simply filtering the items again to force a refresh on the FlatList.
+  //     setCategoryIndex((currentCategoryIndex) => {
+  //       const refreshedItems = getItemList(currentCategoryIndex.category, [...listings, ...initialItems]);
+  //       setFilteredItems(refreshedItems);
+  //       return currentCategoryIndex;
+  //     });
+  //   }, [listings, initialItems, getItemList])
+  // );
+
+  useEffect(() => {
+    // This effect will run whenever `listings` changes, including when it's first set.
+    setFilteredItems(getItemList(categoryIndex.category, [...listings, ...items]));
+  }, [listings, items, categoryIndex.category]);
 
 
   const [filteredItems, setFilteredItems] = useState(combinedItems); // State to hold filtered items
@@ -83,11 +154,11 @@ const HomeScreen = ({ navigation }) => {
       onPress={() => navigation.navigate("ItemDetails", { navigation, item })}
       style={styles.itemContainer}
     >
-      <Image source={{ uri: item.imageUrl }} style={styles.itemImage} />
+      <Image source={{ uri: item.imageURL }} style={styles.itemImage} />
       <View style={styles.itemDetails}>
         <Text style={styles.itemTitle}>{item.title}</Text>
         <Text style={styles.itemPrice}>${item.price.toFixed(2)}</Text>
-        <Text style={styles.itemSeller}>Seller: {item.seller}</Text>
+        <Text style={styles.itemSeller}>Seller: {item.lister}</Text>
       </View>
     </TouchableOpacity>
   );
@@ -132,11 +203,11 @@ const HomeScreen = ({ navigation }) => {
       </ScrollView>
 
       {/* Item List */}
-      <View>
+      <View style={{ flex: 120 }}>
         <FlatList // !!! TODO: FIX FLEX VALUE !!!
           data={filteredItems} // Use filteredItems here
           renderItem={renderItem}
-          keyExtractor={(item) => item.id.toString()}
+          keyExtractor={(item) => item.imageURL}
           style={styles.flatList}
         />
       </View>
@@ -206,7 +277,7 @@ const styles = StyleSheet.create({
   CategoryScrollViewStyle: {
     paddingHorizontal: 15,
     paddingVertical: 5,
-    backgroundColor: COLORS.black, // Light grey background
+    backgroundColor: "#f2f2f2", // Light grey background
   },
   CategoryScrollViewContainer: {
     marginRight: 10, // Space between category items

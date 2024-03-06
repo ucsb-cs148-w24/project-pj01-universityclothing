@@ -1,5 +1,5 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, Button } from 'react-native';
+import { StatusBar } from "expo-status-bar";
+import { StyleSheet, Text, View, Button } from "react-native";
 // app.tsx
 import { ImageBackground } from 'react-native';
 import { TouchableOpacity } from 'react-native';
@@ -9,9 +9,14 @@ import { TouchableOpacity } from 'react-native';
 import * as WebBrowser from "expo-web-browser";
 import * as Linking from "expo-linking";
 import { initializeApp } from "firebase/app";
-import  setIsLoggedIn  from '../../App.js';
-import React, { useState } from 'react';
-
+import setIsLoggedIn from "../../App.js";
+import React, { useState } from "react";
+import {
+    GoogleAuthProvider,
+    initializeAuth,
+    signInWithCredential,
+    getAuth,
+} from "firebase/auth";
 
 // Optionally import the services that you want to use
 // import {...} from "firebase/auth";
@@ -97,13 +102,16 @@ const signInWithGoogle = async (setIsLoggedIn) => {
 
 
 const GoogleSignInButton = ({ setIsLoggedIn }) => {
-  
-  return (
-    <View>
-      <Text><Button title="Sign In with Google" onPress={() => signInWithGoogle(setIsLoggedIn)} /></Text>
-    </View>
-  );
-  
+    return (
+        <View>
+            <Text>
+                <Button
+                    title="Sign In with Google"
+                    onPress={() => signInWithGoogle(setIsLoggedIn)}
+                />
+            </Text>
+        </View>
+    );
 };
 
 const Login = ({ setIsLoggedIn }) => {
@@ -125,8 +133,6 @@ const Login = ({ setIsLoggedIn }) => {
 };
 
 export default Login;
-
-
 
 const styles = StyleSheet.create({
   container: {
