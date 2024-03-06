@@ -12,9 +12,7 @@ import {
   ToastAndroid,
 } from "react-native";
 import { useBottomTabBarHeight } from "@react-navigation/bottom-tabs";
-
 import HomeHeader from "../components/HomeHeader";
-import HeaderBar from "../components/HeaderBar";
 import { useNavigation, useFocusEffect } from "@react-navigation/native";
 import Entypo from "@expo/vector-icons/Entypo";
 import { Colors } from "react-native/Libraries/NewAppScreen";
@@ -171,7 +169,7 @@ const HomeScreen = ({ navigation }) => {
     <View style={styles.ScreenContainer}>
       <StatusBar backgroundColor="#f2f2f2" />
       {/* Header Bar */}
-      <HeaderBar title="Gaucho Sell" />
+      <HomeHeader title="Gaucho Sell" />
 
       {/* Category Selector */}
       <ScrollView
