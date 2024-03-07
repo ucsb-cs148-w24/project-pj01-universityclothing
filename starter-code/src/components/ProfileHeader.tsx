@@ -1,16 +1,16 @@
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
 import React from 'react';
 import {COLORS, FONTFAMILY, FONTSIZE, SPACING} from '../theme/theme';
-import UserProfile from './UserProfile';
-import NotificationButton from './NotificationButton';
+import Entypo from '@expo/vector-icons/Entypo';
 
 {/* Header Bar Component */}
 
-interface HeaderBarProps {
+interface ProfileHeaderProps {
     title?: string;
+    onEditPress?: () => void;
 }
 
-const HeaderBar: React.FC<HeaderBarProps> = ({title}) => {
+const ProfileHeader: React.FC<ProfileHeaderProps> = ({title,onEditPress}) => {
     return (
         <View style={styles.HeaderContainer}>
      
@@ -18,7 +18,9 @@ const HeaderBar: React.FC<HeaderBarProps> = ({title}) => {
                 {title}
             </Text>
             <View style={styles.RightContainer}>
-                <UserProfile/>
+            <TouchableOpacity onPress={onEditPress}>
+                    <Entypo name="edit" size={25} color={COLORS.yellow} />
+                </TouchableOpacity>
             </View>
            
         </View>
@@ -47,7 +49,6 @@ const styles = StyleSheet.create({
     }
 });
 
-export default HeaderBar;
-
+export default ProfileHeader;
 
 

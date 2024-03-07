@@ -6,7 +6,7 @@ import { COLORS } from "../theme/theme";
 
 import HomeScreen from '../screen/HomeScreen';
 import ChatScreen from '../screen/ChatScreen';
-import Profile from '../screen/Profile';
+import Profile from '../screen/ProfileScreen';
 import SearchScreen from '../screen/SearchScreen';
 import CreateScreen from '../screen/PostScreen';
 

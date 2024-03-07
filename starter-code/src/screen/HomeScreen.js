@@ -218,7 +218,7 @@ const HomeScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   ScreenContainer: {
     // flex: 1,
-    backgroundColor: "#ffffff",
+    backgroundColor: "#f5f5f5",
     width: "100%",
     height: "100%",
   },
@@ -276,8 +276,8 @@ const styles = StyleSheet.create({
   // Category Selector Styles
   CategoryScrollViewStyle: {
     paddingHorizontal: 15,
-    paddingVertical: 5,
-    backgroundColor: "#f2f2f2", // Light grey background
+    paddingVertical: 10,
+    backgroundColor: "#f5f5f5", 
   },
   CategoryScrollViewContainer: {
     marginRight: 10, // Space between category items
