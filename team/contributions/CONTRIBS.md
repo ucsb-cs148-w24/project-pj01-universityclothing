@@ -2,8 +2,8 @@ This document will document and write commentary on team member code (and/or oth
 
 ## Jonathan
 My contributions for project includes
-- Designed and created databases schemas on Firebase
-- Created firebase.configs
+- Designed and created databases schemas on Firebase with Justin
+- Created firebase.configs with Justin
 - Creted temmplate for reading and writing data to/from firebase database
 - Implemented features to make sure users are logged in as a firebase users when users log in via google
 - Created Post Screen so when users create a listing, information are being stored into firebase database
@@ -40,7 +40,13 @@ I worked with Kevin Chen on the following issues:
 **UI/UX Design** : Helped with the design of the homescreen and the searchscreen in the figma
 **ButtomBar Implementation** : I developed the buttom bars navigators, so we can swich between several different main pages.
 **Search Bar Implementation**: I implemented the search bar, so users could click search bar and search items with the key words.
+
+
 ## Justin
+- Designed and created databases schemas on Firebase with Jon
+- Created firebase.configs with Jon
+- Designed database schema/backend for messaging system
+- Designed and implemented the frontend of the messaging system in the app
 
 
 ## Anika
