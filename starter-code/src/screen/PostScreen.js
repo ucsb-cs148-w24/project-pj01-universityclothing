@@ -19,7 +19,7 @@ import "firebase/firestore";
 import { getAuth } from "firebase/auth";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
-import { addDoc, collection, onSnapshot } from "firebase/firestore";
+import { addDoc, collection, onSnapshot, getDoc, doc, updateDoc } from "firebase/firestore";
 
 import { Image } from "react-native";
 import * as ImagePicker from "expo-image-picker";
@@ -136,9 +136,37 @@ const PostCreationScreen = ({ navigation }) => {
 
         // Reference to the users collection
         const listingCol = collection(firestore, "listings");
+
+        const usersCol = collection(firestore, "users");
+
+        // const imgURL = data.imageURL;
+        const userEmail = data.lister;
+        
         // Add a new document with a generated id
-        await addDoc(listingCol, data);
+        // await addDoc(listingCol, data);
+
+        const docRef = await addDoc(listingCol, data);
+        
+        console.log("After listing await");
+
+        const userDocRef = doc(usersCol, userEmail);
+        console.log("Get doc user ref: ", userDocRef);
+        const userDocSnap = await getDoc(userDocRef);
+        console.log("Get doc user ref.");
+
+        const userData = userDocSnap.data();
+        const updatedMyListings = userData.myListings || [];
+        updatedMyListings.push({ listingId: docRef.id, imageURL: data.imageURL });
+
+        console.log("Before await update doc");
+
+        // Update the user document with the updated myListings array
+        await updateDoc(userDocRef, { myListings: updatedMyListings });
+        console.log("Image URL added to myListings.");
+
+
     }
+
 
     // Function to handle image selection
     const selectImage = async () => {
