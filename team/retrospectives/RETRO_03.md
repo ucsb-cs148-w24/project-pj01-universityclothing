@@ -11,6 +11,25 @@
   * a measurement: By next Friday, the entire app has no bugs and a user can do every action they'd expect to be able to do on a Marketplace app
 
   ## Optional
+### Ridhit
+* a goal: fnish our issues
+* a change/experiment: focus on coding more now and merge everything together
+### Justin
+* goal: complete all remaining important issues
+* change/experiment: meet over the weekend to complete these issues
+### Zhen  
+* Goal: Push our project's progress better.
+* Change: We could give more information about what we will do and divided those into several specific steps.
+### Jonathan
+* Goal: Finish all missing parts on our project
+* Change/experiment: Get together as a group outside class time and work
+### June
+* a goal: finish the final project as much as possible
+* Change/experiment: see what features we want to implemented fisrt and what we can ignore
+### Xinyao 
+* a goal: accomplish all features by the desired due date
+* change: have more meetings and communications outside of class so we are on  tasks for our final product
+### Kevin 
 
 
   * # Retro Assessment
