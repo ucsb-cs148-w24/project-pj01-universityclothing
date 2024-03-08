@@ -37,9 +37,9 @@ I worked with Kevin Chen on the following issues:
 - **Post Screen Skeleton for MVP:** I developed the skeleton for the post screen as part of our Minimum Viable Product (MVP), setting the foundation for further development and feature integration.
 
 ## Zhen
-** UI/UX Design: Helped with design the homescreen and search screen in the figma
-** 
-
+**UI/UX Design** : Helped with the design of the homescreen and the searchscreen in the figma
+**ButtomBar Implementation** : I developed the buttom bars navigators, so we can swich between several different main pages.
+**Search Bar Implementation**: I implemented the search bar, so users could click search bar and search items with the key words.
 ## Justin
 
 
