@@ -1,6 +1,5 @@
 # Evaluation Response Document
 
-## Team Evaluation: Reviewer Report Response
 This document outlines our team's response to the feedback received from our reviewer and addresses the actions we plan to take in response to enhance our project.
 
 ### 1. User Satisfaction with the Classification of Items
@@ -29,3 +28,20 @@ Reviewers expressed mixed feelings about the necessity of logging in to view ite
 **Feedback Response:**
 - Assess the feasibility of allowing users to view items without logging in, balancing user privacy and accessibility.
 - Potentially implement a feature where users only need to log in for posting or interacting with sellers.
+
+---
+### Intuitiveness and UI/UX Design
+
+Our project has been recognized for its overall ease of use. The UI/UX design is straightforward, allowing users to navigate through the app without complications. 
+
+### Deployment Instructions and Repository Organization
+
+Regarding deployment, the other team successfully deployed our app by having our reviewers downloading the Expo Go application and scanning the app URL provided by our team. Additionally, our repository, including the README.md and Kanban Board, has been organized to facilitate understanding and smooth project setup.
+
+### Reviewer's Closing Thoughts
+
+**Positive Aspect:** The feedback highlighted our efficient item classification and intuitive UI as major strengths. These elements contribute significantly to the user-friendly nature of our app.
+
+**Opportunity for Improvement:** The most impactful suggestion for improvement revolves around enhancing user engagement and privacy. This could involve re-evaluating the login process to allow browsing without immediate login, thereby balancing user convenience and privacy.
+
+
