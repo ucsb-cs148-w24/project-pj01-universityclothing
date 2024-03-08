@@ -30,7 +30,9 @@
 * a goal: accomplish all features by the desired due date
 * change: have more meetings and communications outside of class so we are on  tasks for our final product
 ### Kevin 
-
+* Goal: The team should try finishing up tasks faster / asking for help if we need it so that we can finish the essential features as soon as possible.
+* Commitment: Updates every Day so we all know what we want to do.
+* Measurement: In our everyday updates say what we want to finish by when so that other team members can ensure we follow our scheduled plans. 
 
   * # Retro Assessment
 
