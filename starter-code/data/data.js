@@ -26,33 +26,15 @@ const itemConverter = {
     }
 };
 
-import firestore from '../firebaseConfig';
-import { collection, query, orderBy, getDocs } from 'firebase/firestore';
+import {db} from '../firebaseConfig';
+import { collection, query, orderBy, getDocs, doc, where } from 'firebase/firestore';
 
-const itemRef = collection(firestore,"items");
+const itemRef = collection(db,"listings");
 
-const q = query(itemRef, orderBy("name"));
+function searchByName(inputName) {
+    const q = query(itemRef, where("name", "==", "inputName"));
+    
+  }
 
-async function getItems(){
-    const querySnapshot = await getDocs(q);
-    const item = [];
-    querySnapshot.forEach((doc) => {
-        // doc.data() is never undefined for query doc snapshots
-        console.log(doc.id, " => ", doc.data().toString());
-        item.push(doc.data())
-    });
-    return item
-};
+export default searchByName;
 
-export default getItems();
-/*const listSnap = await getList(itemRef);
-
-if (listSnap.exists()) {
-  // Convert to City object
-  const item = listSnap.data();
-  // Use a City instance method
-  console.log(item.toString());
-} else {
-  console.log("No such document!");
-}
-*/

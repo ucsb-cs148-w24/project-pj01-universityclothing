@@ -9,33 +9,19 @@ import {
 } from "react-native";
 import Entypo from '@expo/vector-icons/Entypo';
 import {COLORS} from '../theme/theme';
-import {getItems} from '../../data/data';
+import searchByName from '../../data/data';
 import { useNavigation } from "@react-navigation/native";
 
 const SearchScreen = () => {
+  const navigation = useNavigation();
   const [searchTerm, setSearchTerm] = useState("");
-  const [sortedItems, setSortedItems] = useState(
-    getItems(),
-  );
-  const ListRef = useRef<FlatList>(any);
-  const searchItem = (search) => {
-    if (search != '') {
-      ListRef?.current?.scrollToOffset({
-        animated: true,
-        offset: 0,
-      });
-      setSortedItems([
-        sortedItems.filter(item => item.name.toLowerCase().includes(search.toLowerCase()),
-        ),
-      ]);
-    }
+  searchFunc = (search) => {
+    searchByName(search);
+    <TouchableOpacity
+      onPress={() => navigation.navigate("ItemDetails", { navigation, item })}
+    ></TouchableOpacity>
   };
-
-  const resetSearch= () => {
-    ListRef?.current?.scrollToOffset({
-      animated: true,
-      offset: 0,
-    });
+  const resetSearch= () => {  
     setSearchTerm('');
   };
   return(
@@ -44,13 +30,15 @@ const SearchScreen = () => {
         <View style={styles.searchWrapper}>
           <TextInput
             type = 'text'
+            value={searchTerm}
+            onChangeText={(text) => setSearchTerm(text)}
             style = {styles.searchInput}
             placeholderTextColor={COLORS.black}
             placeholder='Search with key words'
           />
         </View>
         <TouchableOpacity style={styles.searchBtn} 
-        onPress={() => searchItem(searchTerm)}>
+          onPress={() => searchByName(setSearchTerm)}>
         <Entypo
            //style = {styles.Icon1}
            name="magnifying-glass"
@@ -76,7 +64,6 @@ const SearchScreen = () => {
 
       <View>
       <Text style={styles.text}>Recent Search</Text> 
-    //recent five search
       <TouchableOpacity onPress={()=> {}}>
       <Text style={styles.text3}>desk lamp</Text>
       </TouchableOpacity>
