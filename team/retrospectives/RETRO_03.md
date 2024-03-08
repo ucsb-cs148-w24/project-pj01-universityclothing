@@ -1,4 +1,4 @@
-  # Retrospective your-nr-goes-here, date-goes-here 
+  # Retrospective 03, 03-08-24
 
   * Led by: Anika Misra
   * Present: Ridhit, Jonathan, June, Xinyao, Justin, Kevin, Anika
@@ -12,11 +12,9 @@
 
   ## Optional
 
-  * Ridhit: 
 
   * # Retro Assessment
 
-* A brief description of what retro outline or process you used.
-* A brief assessment of how it went.
-* What advice would you give to the next person leading a retro
-  based on what you learned today?
+* The retro process that we used was a modification of start, stop, and continue where everybody gives their individual input on the three items and then as a team I guide the discussion where everybody else decides ultimately which goal, commitment, and measurement is most important to note down for the retro.
+* The retro went well, it seemed that there was a unanimous concern for finishing all necessary features of the app on time, so it seems that the consensus is that we must meet in increased frequency this next week in order to finish the app.
+* I wold advise the next retro leader to encourage everybody to speak, because it's best to truly understand what the team needs when everybody weighs in, that way you can see which idea is most predominant in the group and which ones are only a few people's concern.
