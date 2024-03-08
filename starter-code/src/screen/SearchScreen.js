@@ -17,9 +17,6 @@ const SearchScreen = () => {
   const [searchTerm, setSearchTerm] = useState("");
   searchFunc = (search) => {
     searchByName(search);
-    <TouchableOpacity
-      onPress={() => navigation.navigate("ItemDetails", { navigation, item })}
-    ></TouchableOpacity>
   };
   const resetSearch= () => {  
     setSearchTerm('');

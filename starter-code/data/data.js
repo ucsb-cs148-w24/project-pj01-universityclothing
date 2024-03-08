@@ -33,7 +33,8 @@ const itemRef = collection(db,"listings");
 
 function searchByName(inputName) {
     const q = query(itemRef, where("name", "==", "inputName"));
-    
+    console.log(q);
+    return q
   }
 
 export default searchByName;
