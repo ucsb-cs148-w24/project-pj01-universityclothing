@@ -6,13 +6,13 @@
 
   ## Action item
 
-  * a goal: identify something the team wants to get better at
-  * a commitment: identify one thing that the team pledges to do to maximize productivity towards launch
-  * a measurement: identify at least one way to assess and ensure that the commitment(s) is/are kept
+  * a goal: Complete all the remaining important issues for our project
+  * a commitment: Have more meetings/weekend meetings to ensure we polish app for code freeze
+  * a measurement: By next Friday, the entire app has no bugs and a user can do every action they'd expect to be able to do on a Marketplace app
 
   ## Optional
 
-  * Record anything else you think the team might want to remember from this retro
+  * Ridhit: 
 
   * # Retro Assessment
 
