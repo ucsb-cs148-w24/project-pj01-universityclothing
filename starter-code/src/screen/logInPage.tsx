@@ -18,6 +18,9 @@ import {
     getAuth,
 } from "firebase/auth";
 
+import { firestore } from "../../firebaseConfig";
+import { collection, doc, setDoc, getDoc } from "firebase/firestore";
+
 // Optionally import the services that you want to use
 // import {...} from "firebase/auth";
 // import {...} from "firebase/database";
@@ -39,6 +42,30 @@ const firebaseConfig = {
     appId: "1:402529839560:ios:794d6ea342486d070478fd",
     // measurementId: 'G-measurement-id',
 };
+
+async function addUser(id, data) {
+    try {
+        console.log("Adding user with id:", id);
+
+        // Reference to the users collection
+        const usersCol = collection(firestore, "users");
+
+        // Check if a document with the provided email ID already exists
+        const docRef = doc(usersCol, id);
+        const docSnapshot = await getDoc(docRef);
+
+        if (docSnapshot.exists()) {
+            console.log("Email already exists.");
+            return; // Exit the function if the email already exists
+        }
+
+        // If the email doesn't exist, proceed to add the user
+        await setDoc(docRef, data);
+        console.log("User added successfully.");
+    } catch (error) {
+        console.error("Error adding user:", error);
+    }
+}
 
 //google API request to find ucsb.edu end
 //make a public_html folder
@@ -81,6 +108,10 @@ const signInWithGoogle = async (setIsLoggedIn) => {
                 // User signed in
                 var user = userCredential.user;
                 // console.log("Signed in user:", user);
+                const id = user.email;
+                const data = {name : user.displayName, myListings : [], mySaved : []}
+
+                addUser(id, data);
             })
             .catch((error) => {
                 // Handle errors
