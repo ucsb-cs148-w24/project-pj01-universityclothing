@@ -56,12 +56,13 @@ const getItemList = (category, data) => {
     }
 };
 
-const HomeScreen = ({ navigation }) => {
+const MyListings = ({ navigation }) => {
     // const navigation = useNavigation();
     const [listings, setFiles] = useState([]);
 
     useEffect(() => {
         const unsubscribe = onSnapshot(
+            // have to change this part to get the correct listings for each user
             collection(db, "listings"),
             (snapshot) => {
                 snapshot.docChanges().forEach((change) => {
@@ -125,6 +126,18 @@ const HomeScreen = ({ navigation }) => {
         index: 0,
         category: "All",
     });
+
+    // useFocusEffect(
+    //   useCallback(() => {
+    //     // This will run on screen focus. Refresh your listings or perform any other action here.
+    //     // Here, simply filtering the items again to force a refresh on the FlatList.
+    //     setCategoryIndex((currentCategoryIndex) => {
+    //       const refreshedItems = getItemList(currentCategoryIndex.category, [...listings, ...initialItems]);
+    //       setFilteredItems(refreshedItems);
+    //       return currentCategoryIndex;
+    //     });
+    //   }, [listings, initialItems, getItemList])
+    // );
 
     useEffect(() => {
         // This effect will run whenever `listings` changes, including when it's first set.
@@ -305,4 +318,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default HomeScreen;
+export default MyListings;
