@@ -15,11 +15,16 @@ import {useBottomTabBarHeight} from '@react-navigation/bottom-tabs';
 import ExitHeaderBar from "../components/ExitHeaderBar";
 import {COLORS} from '../theme/theme';
 
+import { firebaseApp, firestore} from "../../firebaseConfig";
+import { getAuth } from "firebase/auth";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { collection, doc, updateDoc, getDoc } from 'firebase/firestore';
+
 
 
 
 const ItemScreen = ({ route }) => {
-  const { navigation, item } = route.params;
+  const { navigation, item} = route.params;
 
   // const renderItem = ({ item }) => (
   //   <View style={styles.itemContainer}>
@@ -30,6 +35,39 @@ const ItemScreen = ({ route }) => {
   //     <Text style={styles.itemDescription}>Description: {item.description}</Text>
   //   </View>
   // );
+  const auth = getAuth(firebaseApp);
+
+  const [user] = useAuthState(auth);
+  // let user_email = user.email;
+
+  const saveListing = async () => {
+    try {
+      console.log("SAVE");
+      console.log("EMAIL: ", user.email);
+      const usersCol = collection(firestore, "users");
+
+      const userDocRef = doc(usersCol, user.email);
+      const userDocSnap = await getDoc(userDocRef);
+      const userData = userDocSnap.data();
+      const updatedMySaved = userData.mySaved || [];
+
+      if (updatedMySaved.some(savedItem => savedItem.imageURL === item.imageURL)) {
+        console.log("Listing already saved.");
+        return; // Exit the function if the listing is already saved
+      }
+
+      updatedMySaved.push({imageURL: item.imageURL });
+
+      console.log("Before await update doc");
+
+      // Update the user document with the updated mySaved array
+      await updateDoc(userDocRef, { mySaved: updatedMySaved});
+      console.log("SAVE SUCCESS");
+    } catch (error) {
+      console.error("Error saving listing:", error);
+    }
+  };
+
   const renderItem = ({ item }) => (
     <View style={styles.itemContainer}>
       <Image source={{ uri: item.imageURL }} style={styles.itemImage} />
@@ -38,7 +76,11 @@ const ItemScreen = ({ route }) => {
         <Text style={styles.itemPrice}>${item.price.toFixed(2)}</Text>
         <Text style={styles.itemSeller}>Seller: {item.lister}</Text>
         <Text style={styles.itemDescription}>Description: {item.desc}</Text>
+        <TouchableOpacity style={styles.saveButton} onPress={saveListing}>
+        <Text style={styles.saveButtonText}>Save Listing</Text>
+        </TouchableOpacity>
       </View>
+      
     </View>
   );
 
@@ -75,6 +117,7 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.2,
     shadowRadius: 2,
+    // height: 350,
     elevation: 2,
   },
   itemImage: {
@@ -104,6 +147,19 @@ const styles = StyleSheet.create({
   itemDescription: {
     fontSize: 14,
     color: COLORS.gray,
+  },
+  saveButton: {
+    backgroundColor: '#0C356A',
+    borderRadius: 8,
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: 8,
+  },
+  saveButtonText: {
+    color: '#FFC436',
+    fontWeight: 'bold',
   },
 });
 
