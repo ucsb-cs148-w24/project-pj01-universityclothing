@@ -75,8 +75,10 @@ const HomeScreen = ({ navigation }) => {
                 });
             }
         );
+
         return () => unsubscribe();
     }, []);
+    console.log("LISTINGS: ", listings);
 
     const initialItems = [
         {

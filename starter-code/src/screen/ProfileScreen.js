@@ -1,4 +1,4 @@
-import React from "react";
+import { React, useState, useEffect } from "react";
 import {
     StatusBar,
     SafeAreaView,
@@ -16,6 +16,19 @@ import {
     TouchableRipple,
     Switch,
 } from "react-native-paper";
+import { getAuth } from "firebase/auth";
+import { useAuthState } from "react-firebase-hooks/auth";
+
+import {
+    getDoc,
+    doc,
+    addDoc,
+    collection,
+    onSnapshot,
+    query,
+    where,
+} from "firebase/firestore";
+import { firebaseApp, firestore, db, storage } from "../../firebaseConfig";
 import { COLORS } from "../theme/theme";
 import ProfileHeader from "../components/ProfileHeader";
 import Entypo from "@expo/vector-icons/Entypo";
@@ -23,6 +36,40 @@ import { useNavigation } from "@react-navigation/native";
 
 const ProfileScreen = () => {
     const navigation = useNavigation();
+    const auth = getAuth(firebaseApp);
+    const [num_myListings, setNum_myListings] = useState(0);
+
+    const [user, loading, error] = useAuthState(auth);
+    let user_email = user.email;
+
+    // this will get the docement of the current user from the database
+    // we can extract data such like name and listing from here
+    useEffect(() => {
+        const docRef = doc(db, "users", user_email); // Construct a reference to the user document
+
+        const unsubscribe = onSnapshot(
+            docRef,
+            (docSnapshot) => {
+                if (!docSnapshot.exists()) {
+                    console.log("No matching user document found.");
+                    return;
+                }
+
+                // Print the entire user document
+                // console.log("User document:", docSnapshot.data());
+
+                // Get the 'myListings' array from the user document
+                const myListings = docSnapshot.data().myListings;
+                setNum_myListings(myListings.length);
+            },
+            (error) => {
+                console.error("Error fetching user document:", error);
+            }
+        );
+
+        return () => unsubscribe();
+    }, []);
+    console.log("num_myListings:", num_myListings);
 
     return (
         <SafeAreaView style={styles.ScreenContainer}>
@@ -83,7 +130,7 @@ const ProfileScreen = () => {
                     ]}
                     onPress={() => navigation.navigate("MyListings")}
                 >
-                    <Title>2</Title>
+                    <Title>{num_myListings}</Title>
                     <Caption>My Listings</Caption>
                 </TouchableOpacity>
 

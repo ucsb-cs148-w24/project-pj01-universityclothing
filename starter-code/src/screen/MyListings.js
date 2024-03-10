@@ -11,16 +11,23 @@ import {
     View,
     ToastAndroid,
 } from "react-native";
-import { useBottomTabBarHeight } from "@react-navigation/bottom-tabs";
+
+import { getAuth } from "firebase/auth";
 import HeaderBar from "../components/HeaderBar";
-import { useNavigation, useFocusEffect } from "@react-navigation/native";
-import Entypo from "@expo/vector-icons/Entypo";
-import { Colors } from "react-native/Libraries/NewAppScreen";
 import { COLORS, FONTFAMILY, FONTSIZE, SPACING } from "../theme/theme";
 import { useItems } from "../components/ItemsContext";
-import { addDoc, collection, onSnapshot } from "firebase/firestore";
-import { db, storage } from "../../firebaseConfig";
+import {
+    getDoc,
+    doc,
+    addDoc,
+    collection,
+    onSnapshot,
+    query,
+    where,
+} from "firebase/firestore";
+import { firebaseApp, firestore, db, storage } from "../../firebaseConfig";
 import { useEffect } from "react";
+import { useAuthState } from "react-firebase-hooks/auth";
 
 const getItemList = (category, data) => {
     if (category === "Clothing") {
@@ -60,48 +67,53 @@ const MyListings = ({ navigation }) => {
     // const navigation = useNavigation();
     const [listings, setFiles] = useState([]);
 
+    const auth = getAuth(firebaseApp);
+
+    const [user, loading, error] = useAuthState(auth);
+    let user_email = user.email;
+
     useEffect(() => {
+        const docRef = doc(db, "users", user_email); // Construct a reference to the user document
+
         const unsubscribe = onSnapshot(
-            // have to change this part to get the correct listings for each user
-            collection(db, "listings"),
-            (snapshot) => {
-                snapshot.docChanges().forEach((change) => {
-                    if (change.type === "added") {
-                        console.log("New file", change.doc.data());
-                        setFiles((prevFiles) => [
-                            ...prevFiles,
-                            change.doc.data(),
-                        ]);
-                    }
-                });
+            docRef,
+            async (docSnapshot) => {
+                if (!docSnapshot.exists()) {
+                    console.log("No matching user document found.");
+                    return;
+                }
+
+                // Print the entire user document
+                // console.log("User document:", docSnapshot.data());
+
+                // Get the 'myListings' array from the user document
+                const myListings = docSnapshot.data().myListings;
+                let listingIDs = [];
+                for (let i = 0; i < myListings.length; i++) {
+                    listingIDs.push(myListings[i].listingId);
+                    // console.log("Listing ID:", myListings[i].listingId);
+                }
+
+                // Clear the listings array
+                setFiles([]);
+
+                // You can then perform any action with the listings array, such as displaying it in your UI
+                // we go through the list of listing IDs associated with the user, and get each doc from the listings collection
+                // and add it to the listings array to display in the UI
+                for (let i = 0; i < listingIDs.length; i++) {
+                    const docRef = doc(db, "listings", listingIDs[i]);
+                    const docSnap = await getDoc(docRef);
+
+                    setFiles((prevFiles) => [...prevFiles, docSnap.data()]);
+                }
+            },
+            (error) => {
+                console.error("Error fetching user document:", error);
             }
         );
+
         return () => unsubscribe();
     }, []);
-
-    const initialItems = [
-        {
-            id: 1,
-            title: "Freddy",
-            imageUrl:
-                "https://static.wikia.nocookie.net/fnafapedia/images/f/f1/Ff.png/revision/latest?cb=20170527211636",
-            price: 499.99,
-            seller: "Five Nights At",
-            description: "A high-quality animatronic with advanced features.",
-            category: "Furniture",
-        },
-        {
-            id: 2,
-            title: "Bonnie",
-            imageUrl:
-                "https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/52671c08-c1d4-443a-871c-2bbc036d9dbe/deouvme-31d6841f-5750-478f-a664-e59377b0a6e2.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcLzUyNjcxYzA4LWMxZDQtNDQzYS04NzFjLTJiYmMwMzZkOWRiZVwvZGVvdXZtZS0zMWQ2ODQxZi01NzUwLTQ3OGYtYTY2NC1lNTkzNzdiMGE2ZTIucG5nIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.K-XIjsu8TGuPvEcfc7SjqtL5qkIOscQS_bBq2rNi9Jc",
-            price: 349.99,
-            seller: "William Afton",
-            description: "A perfectly created bunny man.",
-            category: "Clothing",
-        },
-        // Add more items as needed
-    ];
 
     const { items } = useItems();
     const combinedItems = [...listings, ...items];
@@ -126,18 +138,6 @@ const MyListings = ({ navigation }) => {
         index: 0,
         category: "All",
     });
-
-    // useFocusEffect(
-    //   useCallback(() => {
-    //     // This will run on screen focus. Refresh your listings or perform any other action here.
-    //     // Here, simply filtering the items again to force a refresh on the FlatList.
-    //     setCategoryIndex((currentCategoryIndex) => {
-    //       const refreshedItems = getItemList(currentCategoryIndex.category, [...listings, ...initialItems]);
-    //       setFilteredItems(refreshedItems);
-    //       return currentCategoryIndex;
-    //     });
-    //   }, [listings, initialItems, getItemList])
-    // );
 
     useEffect(() => {
         // This effect will run whenever `listings` changes, including when it's first set.
@@ -173,7 +173,7 @@ const MyListings = ({ navigation }) => {
         <View style={styles.ScreenContainer}>
             <StatusBar backgroundColor="#F2F1EB" />
             {/* Header Bar */}
-            <HeaderBar title="Gaucho Sell" />
+            <HeaderBar title="My Listings" />
 
             {/* Category Selector */}
             <ScrollView
@@ -209,7 +209,6 @@ const MyListings = ({ navigation }) => {
                     </View>
                 ))}
             </ScrollView>
-
             {/* Item List */}
             <View style={{ flex: 120 }}>
                 <FlatList // !!! TODO: FIX FLEX VALUE !!!
