@@ -10,6 +10,7 @@ import {
     Image,
     View,
     ToastAndroid,
+    Alert,
 } from "react-native";
 import {
     getDocs,
@@ -28,52 +29,62 @@ import { firebaseApp, firestore, db, storage } from "../../firebaseConfig";
 import ExitHeaderBar from "../components/ExitHeaderBar";
 import { COLORS } from "../theme/theme";
 import { Button } from "react-native-paper";
+import { useNavigation } from "@react-navigation/native"; // Import the useNavigation hook
 
 const MyListingDetailScreen = ({ route }) => {
     const { navigation, item, myListing } = route.params;
 
-    console.log("curr item", item);
+    // console.log("curr item", item);
 
-    console.log("curr listing", myListing);
+    // console.log("curr listing", myListing);
     const delURL = myListing.imageURL;
     const delListingID = myListing.listingId;
-    console.log("delete image URL", delURL);
-    console.log("delete listing id", delListingID);
+    // console.log("delete image URL", delURL);
+    // console.log("delete listing id", delListingID);
+    const navigation1 = useNavigation();
 
-    const handleDelete = async () => {
+    const handleDelete = async (navigation1) => {
         try {
             // Delete the document from 'listings' collection
             await deleteDoc(doc(db, "listings", delListingID));
+
             // Delete the document from user's mylistings collection
-
             const userDocRef = doc(db, "users", item.lister);
-
-            // Get the current value of the myListings field
             const userDocSnapshot = await getDoc(userDocRef);
             const myListingsArray = userDocSnapshot.data().myListings;
-
-            // Find the index of the element to delete
             const indexToDelete = myListingsArray.findIndex(
                 (listing) => listing.listingId === delListingID
             );
-
             if (indexToDelete !== -1) {
-                // Remove the element from the array
                 myListingsArray.splice(indexToDelete, 1);
             }
-
-            // Update the document with the modified array
             await updateDoc(userDocRef, { myListings: myListingsArray });
 
-            // Delete the documen from user's mySaved collection
+            // Delete the document from user's mySaved collection
             await deleteDoc(
                 doc(db, "users", item.lister, "mySaved", delListingID)
             );
+
             // Delete image from Firebase Storage
             const imageRef = ref(storage, delURL);
             await deleteObject(imageRef);
-            // Delete successful, navigate back to previous screen or perform any other action
-            navigation.goBack(); // Example: Navigate back to previous screen after deletion
+
+            // Show alert
+            Alert.alert(
+                "Success",
+                "Listing has been deleted",
+                [
+                    {
+                        text: "OK",
+                        onPress: () => {
+                            // Navigate back to previous screen after deletion
+                            // navigation.navigate("myListings");
+                            navigation1.goBack();
+                        },
+                    },
+                ],
+                { cancelable: false }
+            );
         } catch (error) {
             console.error("Error deleting document: ", error);
             // Handle error

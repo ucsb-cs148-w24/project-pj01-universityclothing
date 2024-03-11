@@ -65,12 +65,23 @@ const HomeScreen = ({ navigation }) => {
             collection(db, "listings"),
             (snapshot) => {
                 snapshot.docChanges().forEach((change) => {
+                    console.log("change", change.type);
                     if (change.type === "added") {
-                        console.log("New file", change.doc.data());
+                        // Handle added documents
                         setFiles((prevFiles) => [
                             ...prevFiles,
                             change.doc.data(),
                         ]);
+                    } else if (change.type === "removed") {
+                        // Handle removed documents
+                        const removedImageURL = change.doc.data().imageURL;
+                        console.log("removed", removedImageURL);
+                        console.log("listings", listings);
+                        setFiles((prevFiles) =>
+                            prevFiles.filter(
+                                (item) => item.imageURL !== removedImageURL
+                            )
+                        );
                     }
                 });
             }
@@ -78,31 +89,6 @@ const HomeScreen = ({ navigation }) => {
 
         return () => unsubscribe();
     }, []);
-    console.log("LISTINGS: ", listings);
-
-    const initialItems = [
-        {
-            id: 1,
-            title: "Freddy",
-            imageUrl:
-                "https://static.wikia.nocookie.net/fnafapedia/images/f/f1/Ff.png/revision/latest?cb=20170527211636",
-            price: 499.99,
-            seller: "Five Nights At",
-            description: "A high-quality animatronic with advanced features.",
-            category: "Furniture",
-        },
-        {
-            id: 2,
-            title: "Bonnie",
-            imageUrl:
-                "https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/52671c08-c1d4-443a-871c-2bbc036d9dbe/deouvme-31d6841f-5750-478f-a664-e59377b0a6e2.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcLzUyNjcxYzA4LWMxZDQtNDQzYS04NzFjLTJiYmMwMzZkOWRiZVwvZGVvdXZtZS0zMWQ2ODQxZi01NzUwLTQ3OGYtYTY2NC1lNTkzNzdiMGE2ZTIucG5nIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.K-XIjsu8TGuPvEcfc7SjqtL5qkIOscQS_bBq2rNi9Jc",
-            price: 349.99,
-            seller: "William Afton",
-            description: "A perfectly created bunny man.",
-            category: "Clothing",
-        },
-        // Add more items as needed
-    ];
 
     const { items } = useItems();
     const combinedItems = [...listings, ...items];
