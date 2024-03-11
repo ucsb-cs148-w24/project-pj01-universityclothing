@@ -129,7 +129,7 @@ const GoogleSignInButton = ({ setIsLoggedIn }) => {
 const Login = ({ setIsLoggedIn }) => {
   return (
     <View style={styles.container}>
-          <ImageBackground source={image} style={{width: '100%', height: '100%'}} resizeMode="cover">
+          <ImageBackground source={image} style={{width: '100%', height: '112%'}} resizeMode="cover">
           <TouchableOpacity 
         style={styles.googleSignInButton}
         onPress={() => signInWithGoogle(setIsLoggedIn)}
@@ -172,11 +172,11 @@ const styles = StyleSheet.create({
     alignContent: 'center',
   },
   googleSignInButton: {
-    backgroundColor: '#3DCFFF',  // Bright blue background
+    backgroundColor: '#2F3A85',  // Bright blue background
     borderRadius: 20,            // Border-radius of 20px
     padding: 10,                 // Add padding for better visual appearance
     alignSelf: 'center',        // Center content horizontally
-    marginTop: '160%',
+    marginTop: '170%',
     width: '70%',
   },
   googleSignInButtonText: {
