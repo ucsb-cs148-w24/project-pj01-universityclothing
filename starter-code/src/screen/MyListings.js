@@ -66,6 +66,8 @@ const getItemList = (category, data) => {
 const MyListings = ({ navigation }) => {
     // const navigation = useNavigation();
     const [listings, setFiles] = useState([]);
+    const [myListings, setMyListings] = useState([]);
+    const [listingIDs, setListingIDs] = useState([]);
 
     const auth = getAuth(firebaseApp);
 
@@ -96,6 +98,8 @@ const MyListings = ({ navigation }) => {
 
                 // Clear the listings array
                 setFiles([]);
+                setListingIDs([]);
+                // setMyListings([]);
 
                 // You can then perform any action with the listings array, such as displaying it in your UI
                 // we go through the list of listing IDs associated with the user, and get each doc from the listings collection
@@ -106,6 +110,8 @@ const MyListings = ({ navigation }) => {
 
                     setFiles((prevFiles) => [...prevFiles, docSnap.data()]);
                 }
+                setListingIDs(listingIDs);
+                setMyListings(myListings);
             },
             (error) => {
                 console.error("Error fetching user document:", error);
@@ -155,8 +161,17 @@ const MyListings = ({ navigation }) => {
 
     const renderItem = ({ item }) => (
         <TouchableOpacity
+            // here we will pass in the navigation, item
+            // and the doc id and imageURl of the listing
+            // so we can delete it later
             onPress={() =>
-                navigation.navigate("ItemDetails", { navigation, item })
+                navigation.navigate("MyListingDetail", {
+                    navigation,
+                    item,
+                    myListing: myListings.find(
+                        (listing) => listing.imageURL === item.imageURL
+                    ),
+                })
             }
             style={styles.itemContainer}
         >

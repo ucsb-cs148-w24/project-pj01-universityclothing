@@ -10,6 +10,7 @@ import HomeScreen from "./src/screen/HomeScreen";
 import ItemScreen from "./src/screen/ItemScreen";
 import { ItemsProvider } from "./src/components/ItemsContext";
 import MyListings from "./src/screen/MyListings";
+import MyListingDetailScreen from "./src/screen/MyListingDetailScreen";
 
 const Stack = createNativeStackNavigator();
 const App = () => {
@@ -29,6 +30,13 @@ const App = () => {
                             <Stack.Screen
                                 name="ItemDetails"
                                 component={ItemScreen}
+                                options={({ navigation }) => ({
+                                    navigation: navigation,
+                                })}
+                            ></Stack.Screen>
+                            <Stack.Screen
+                                name="MyListingDetail"
+                                component={MyListingDetailScreen}
                                 options={({ navigation }) => ({
                                     navigation: navigation,
                                 })}
