@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import {
   ScrollView,
   StatusBar,
@@ -13,25 +13,69 @@ import {
 } from "react-native";
 import { useBottomTabBarHeight } from "@react-navigation/bottom-tabs";
 import HeaderBar from "../components/HeaderBar";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useFocusEffect } from "@react-navigation/native";
 import Entypo from "@expo/vector-icons/Entypo";
 import { Colors } from "react-native/Libraries/NewAppScreen";
 import { COLORS, FONTFAMILY, FONTSIZE, SPACING } from "../theme/theme";
 import { useItems } from "../components/ItemsContext";
+import { addDoc, collection, onSnapshot } from "firebase/firestore";
+import { db, storage } from "../../firebaseConfig";
 import { useEffect } from "react";
 
+
+
 const getItemList = (category, data) => {
+  if (category === "Clothing") {
+    categoryID = 0;
+  } else if (category === "Electronics") {
+    categoryID = 1;
+  } else if (category === "Home") {
+    categoryID = 2;
+  } else if (category === "Vehicles") {
+    categoryID = 3;
+  } else if (category === "Education") {
+    categoryID = 4;
+  } else if (category === "Collectibles") {
+    categoryID = 5;
+  } else if (category === "Health & Beauty") {
+    categoryID = 6;
+  } else if (category === "Sports & Outdoors") {
+    categoryID = 7;
+  } else if (category === "Arts & Crafts") {
+    categoryID = 8;
+  } else if (category === "Pet") {
+    categoryID = 9;
+  } else if (category === "Tools & Equipment") {
+    categoryID = 10;
+  } else if (category === "Others") {
+    categoryID = 11;
+  }
+
+
   if (category === "All") {
     return data;
   } else {
-    let itemlist = data.filter((item) => item.category === category);
-
-    return itemlist;
+    console.log("JON! YOU DID THIS ", category);
+    return data.filter((item) => item.category === categoryID);
   }
 };
 
 const HomeScreen = ({ navigation }) => {
   // const navigation = useNavigation();
+  const [listings, setFiles] = useState([]); 
+  
+  useEffect(() => {
+    const unsubscribe = onSnapshot(collection(db, "listings"), (snapshot) => {
+      snapshot.docChanges().forEach((change) => {
+        if (change.type === "added") {
+          console.log("New file", change.doc.data());
+          setFiles((prevFiles) => [...prevFiles, change.doc.data()]);
+        }
+      });
+    });
+    return () => unsubscribe();
+  }, []);
+
   const initialItems = [
     {
       id: 1,
@@ -55,20 +99,46 @@ const HomeScreen = ({ navigation }) => {
   ];
 
   const { items } = useItems();
-  const combinedItems = [...initialItems, ...items];
+  const combinedItems = [...listings, ...items]; //item list
 
   const categories = [
     "All",
-    "Furniture",
     "Clothing",
-    "Stationary",
     "Electronics",
+    "Home",
+    "Vehicles",
+    "Education",
+    "Collectibles",
+    "Health & Beauty",
+    "Sports & Outdoors",
+    "Arts & Crafts",
+    "Pet",
+    "Tools & Equipment",
+    "Others"
   ];
 
   const [categoryIndex, setCategoryIndex] = useState({
     index: 0,
     category: "All",
   });
+
+  
+  // useFocusEffect(
+  //   useCallback(() => {
+  //     // This will run on screen focus. Refresh your listings or perform any other action here.
+  //     // Here, simply filtering the items again to force a refresh on the FlatList.
+  //     setCategoryIndex((currentCategoryIndex) => {
+  //       const refreshedItems = getItemList(currentCategoryIndex.category, [...listings, ...initialItems]);
+  //       setFilteredItems(refreshedItems);
+  //       return currentCategoryIndex;
+  //     });
+  //   }, [listings, initialItems, getItemList])
+  // );
+
+  useEffect(() => {
+    // This effect will run whenever `listings` changes, including when it's first set.
+    setFilteredItems(getItemList(categoryIndex.category, [...listings, ...items]));
+  }, [listings, items, categoryIndex.category]);
 
 
   const [filteredItems, setFilteredItems] = useState(combinedItems); // State to hold filtered items
@@ -77,17 +147,35 @@ const HomeScreen = ({ navigation }) => {
     setCategoryIndex({ index: index, category: category });
     setFilteredItems(getItemList(category, combinedItems));
   };
+  const [searchText, setSearchText] = useState('');
+  //const [sortedItem, setSortedItem] = useState(
+  //  combinedItems,
+  //);
+
+  //search function
+  const searchItem = (search) => {
+      setFilteredItems([
+        ...combinedItems.filter((item) =>
+          item.title.toLowerCase().includes(search.toLowerCase()),
+        ),
+      ]);
+  };
+
+  const resetSearch = () => {
+    setFilteredItems([...combinedItems]); //not sure
+    setSearchText('');
+  };
 
   const renderItem = ({ item }) => (
     <TouchableOpacity
       onPress={() => navigation.navigate("ItemDetails", { navigation, item })}
       style={styles.itemContainer}
     >
-      <Image source={{ uri: item.imageUrl }} style={styles.itemImage} />
+      <Image source={{ uri: item.imageURL }} style={styles.itemImage} />
       <View style={styles.itemDetails}>
         <Text style={styles.itemTitle}>{item.title}</Text>
         <Text style={styles.itemPrice}>${item.price.toFixed(2)}</Text>
-        <Text style={styles.itemSeller}>Seller: {item.seller}</Text>
+        <Text style={styles.itemSeller}>Seller: {item.lister}</Text>
       </View>
     </TouchableOpacity>
   );
@@ -95,9 +183,50 @@ const HomeScreen = ({ navigation }) => {
   return (
     <View style={styles.ScreenContainer}>
       <StatusBar backgroundColor="#F2F1EB" />
-      {/* Header Bar */}
+    {/* Header Bar */}
       <HeaderBar title="Gaucho Sell" />
 
+      {/* Search Input */}
+
+      <View style = {styles.searchContainer}>
+        <View style={styles.searchWrapper}>
+          <TextInput
+            placeholder='Search with key words'
+            value={searchText}
+            onChangeText={text => {
+              setSearchText(text);
+            }}
+            style = {styles.searchInput}
+            placeholderTextColor={COLORS.black}
+          />
+          {searchText.length > 0 ? (
+            <TouchableOpacity
+              onPress={() => {
+                resetSearch();
+              }}>
+              <Entypo
+                style={styles.Icon}
+                name="cross"
+                size={25}
+                color= {COLORS.black}
+              />
+            </TouchableOpacity>
+          ) : (
+            <></>
+          )}
+        </View>
+          <TouchableOpacity style={styles.searchBtn} 
+            onPress={() => {
+              searchItem(searchText);
+            }}>
+            <Entypo
+            name="magnifying-glass"
+            size={25}
+            color={COLORS.lightYellow}
+            />
+          </TouchableOpacity>
+          
+        </View>
       {/* Category Selector */}
       <ScrollView
         horizontal
@@ -136,24 +265,66 @@ const HomeScreen = ({ navigation }) => {
         <FlatList // !!! TODO: FIX FLEX VALUE !!!
           data={filteredItems} // Use filteredItems here
           renderItem={renderItem}
-          keyExtractor={(item) => item.id.toString()}
+          keyExtractor={(item) => item.imageURL}
           style={styles.flatList}
         />
       </View>
-    </View>
+  </View>
+  
   );
 };
 
 const styles = StyleSheet.create({
   ScreenContainer: {
-    flex: 1,
+    //flex: 1,
     backgroundColor: "#ffffff",
-    width: "100%",
+    //width: "100%",
     height: "100%",
   },
   ScrollViewFlex: {
     flexGrow: 1,
     justifyContent: "space-between",
+  },
+  searchContainer: {
+    flexDirection: "row",
+    width:380,
+    height: 40,
+    margin: 15,
+  },
+  searchWrapper: {
+    flexDirection:'row',
+    flex:1,
+    backgroundColor: COLORS.lightGrey,
+    marginRight: 10,
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 16,
+    //height: "100%",
+    //position:'relative',
+  },
+  searchInput:{
+    //textAlign: "center",
+    color: "#000000",
+    flex:1,
+    marginLeft:20,
+    //justifyContent:"flex-end",
+    fontSize: 20,
+  },
+  Icon:{
+    position:'absolute',
+    marginVertical: -12,
+    right:10,
+    //left:30,
+    //marginLeft:"auto",
+
+  },
+  searchBtn: {
+    width:50,
+    //marginRight:10,
+    backgroundColor: COLORS.darkBlue,
+    borderRadius: 16,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   container: {
     flex: 1,
