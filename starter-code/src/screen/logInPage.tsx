@@ -242,6 +242,8 @@ const styles = StyleSheet.create({
     fontSize: 18,
     color: "#fff",
     marginBottom: 20,
+    textAlign: 'center',
+    width: '80%',
   },
   modalButton: {
     backgroundColor: "#2F3A85",
