@@ -1,38 +1,74 @@
-import React, { useState } from "react";
-import {
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  View,
-  ToastAndroid,
-} from "react-native";
+import React, { useState, useEffect } from "react";
+import { ScrollView, StatusBar, StyleSheet, Text, View } from "react-native";
 
-const ChatRoomRow = (room, navigation) => {
-  return (
-    <TouchableOpacity
-      key={room}
-      style={styles.Room}
-      onPress={() => navigation.navigate("ChatRoom", { navigation, room })}
-    >
-      <Text style={{ textAlign: "center", margin: 10 }}>Image</Text>
-      <View>
-        <Text style={styles.RoomTitle}>You ∙ {room}</Text>
-        <Text>Last text placeholder</Text>
-      </View>
-    </TouchableOpacity>
-  );
-};
+import { firebaseApp, firestore } from "../../firebaseConfig";
+import { getAuth } from "firebase/auth";
+import { useAuthState } from "react-firebase-hooks/auth";
+import {
+  collection,
+  query,
+  onSnapshot,
+  doc,
+  getDoc,
+  orderBy,
+  limit,
+} from "firebase/firestore";
+
+import ChatRoomRow from "../components/ChatRoomRow";
 
 const ChatScreen = ({ navigation }) => {
-  const [msgRooms, setMsgRooms] = useState(["9Zt37ePn4DVF8YFYMqj7"]);
+  const auth = getAuth(firebaseApp);
+  const [user] = useAuthState(auth);
 
-  // const messagesQ = query(
-  //   collection(firestore, "messageRooms", room, "messages"),
-  //   orderBy("sentAt")
-  // );
+  const [msgRooms, setMsgRooms] = useState([]);
+
+  const updateRooms = (room) => {
+    console.log(msgRooms);
+    const newMsgRooms = msgRooms.filter((msgRoom) => msgRoom.rid !== room.rid);
+    newMsgRooms.unshift(room);
+    console.log(msgRooms);
+    console.log(newMsgRooms);
+    setMsgRooms(newMsgRooms);
+    console.log(msgRooms);
+  };
+
+  useEffect(() => {
+    const msgRoomsQ = query(
+      collection(firestore, "users", user.email, "myMessageRooms")
+    );
+
+    const unsubMsgRooms = onSnapshot(msgRoomsQ, (snapshot) => {
+      snapshot.docChanges().forEach(async (change) => {
+        if (change.type === "added") {
+          const curRoom = { rid: change.doc.id, latestMsg: {} };
+
+          const roomRef = doc(firestore, "messageRooms", change.doc.id);
+          const roomSnap = await getDoc(roomRef);
+
+          if (!roomSnap.exists()) {
+            console.log("Error: room " + change.doc.id + " does not exist");
+            return;
+          }
+
+          curRoom.listing = roomSnap.data().listing;
+          curRoom.users = roomSnap.data().users;
+
+          const latestMsgQ = query(
+            collection(firestore, "messageRooms", change.doc.id, "messages"),
+            orderBy("sentAt", "desc"),
+            limit(1)
+          );
+          const unsubLatestMsg = onSnapshot(latestMsgQ, (msgSnap) => {
+            curRoom.latestMsg.sentAt = msgSnap.docs[0].data().sentAt.toDate();
+            curRoom.latestMsg.text = msgSnap.docs[0].data().text;
+            updateRooms(curRoom);
+          });
+        }
+      });
+    });
+
+    return () => unsubMsgRooms();
+  }, []);
 
   return (
     <View style={styles.ScreenContainer}>
@@ -41,27 +77,15 @@ const ChatScreen = ({ navigation }) => {
         <Text style={styles.ScreenHeader}>Messages</Text>
       </View>
       <ScrollView>
-        {msgRooms.map((room) => ChatRoomRow(room, navigation))}
+        {msgRooms.map((room) => (
+          <ChatRoomRow key={room.rid} room={room} navigation={navigation} />
+        ))}
       </ScrollView>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  Room: {
-    height: 70,
-    width: "100%",
-    padding: 10,
-    flexDirection: "row",
-    alignItems: "center",
-    // backgroundColor: "red",
-    // borderWidth: 1,
-    // borderColor: "blue",
-  },
-  RoomTitle: {
-    fontSize: 16,
-    fontWeight: "bold",
-  },
   ScreenHeader: {
     textAlign: "center",
     margin: 10,

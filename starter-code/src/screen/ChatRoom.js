@@ -43,11 +43,8 @@ const ChatRoom = ({ route }) => {
   const { navigation, room } = route.params;
 
   const [roomData, setRoomData] = useState({ listing: "", users: ["", ""] });
-  const [otherUser, setOtherUser] = useState({
-    fname: "",
-    lname: "",
-    school: "",
-  });
+  const [otherUser, setOtherUser] = useState("");
+  const [listing, setListing] = useState({ lid: "", imageURL: "", title: "" });
   const [messages, setMessages] = useState([]);
   const [textInput, setTextInput] = useState("");
 
@@ -56,14 +53,14 @@ const ChatRoom = ({ route }) => {
 
   const messagesQ = query(
     collection(firestore, "messageRooms", room, "messages"),
-    orderBy("sentAt")
+    orderBy("sentAt", "asc")
   );
 
   useEffect(() => {
-    async function fetchRoom() {
+    const fetchRoom = async () => {
       const roomSnap = await getDoc(doc(firestore, "messageRooms", room));
       setRoomData(roomSnap.data());
-    }
+    };
 
     fetchRoom();
   }, []);
@@ -71,7 +68,7 @@ const ChatRoom = ({ route }) => {
   useEffect(() => {
     if (roomData.listing === "") return;
 
-    async function fetchData() {
+    const fetchData = async () => {
       const otherUserEmail =
         user.email === roomData.users[0]
           ? roomData.users[1]
@@ -82,21 +79,39 @@ const ChatRoom = ({ route }) => {
       );
 
       if (!otherUserSnap.exists()) {
-        console.log("Error: other user does not exist");
+        console.log("Error: other user " + otherUserEmail + " does not exist");
       }
-      setOtherUser(otherUserSnap.data());
-    }
+      setOtherUser(otherUserSnap.data().name);
+
+      const listingSnap = await getDoc(
+        doc(firestore, "listings", roomData.listing)
+      );
+
+      if (!listingSnap.exists()) {
+        console.log("Error: listing " + roomData.listing + " does not exist");
+        return;
+      }
+
+      setListing({
+        lid: roomData.listing,
+        imageURL: listingSnap.data().imageURL,
+        title: listingSnap.data().title,
+      });
+    };
 
     fetchData();
   }, [roomData]);
 
   useEffect(() => {
-    if (otherUser.fname === "") return;
+    if (otherUser === "") return;
+
+    console.log("blahb lah");
 
     const unsubMsgs = onSnapshot(messagesQ, (snapshot) => {
       snapshot.docChanges().forEach((change) => {
         if (change.type === "added") {
           setMessages((prevMsgs) => [...prevMsgs, change.doc]);
+          console.log(change.doc.data());
         }
       });
     });
@@ -126,7 +141,7 @@ const ChatRoom = ({ route }) => {
         </TouchableOpacity>
         <Text style={{ margin: 10 }}>Image</Text>
         <Text style={styles.RoomTitle}>
-          {otherUser.fname + " " + otherUser.lname} ∙ {otherUser.school}
+          {otherUser + " ∙ " + listing.title}
         </Text>
       </View>
 
