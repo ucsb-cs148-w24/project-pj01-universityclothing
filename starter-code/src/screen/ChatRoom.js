@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect, useRef } from "react";
 import {
   ScrollView,
   StatusBar,
@@ -8,10 +8,114 @@ import {
   TouchableOpacity,
   View,
   ToastAndroid,
+  Image,
 } from "react-native";
 
+import { firebaseApp, firestore } from "../../firebaseConfig";
+import { getAuth } from "firebase/auth";
+import { useAuthState } from "react-firebase-hooks/auth";
+import {
+  collection,
+  query,
+  onSnapshot,
+  doc,
+  getDoc,
+  orderBy,
+  Timestamp,
+  addDoc,
+} from "firebase/firestore";
+
+const ChatMessage = ({ message, user }) => {
+  const { text, from } = message;
+
+  const msgStyle = from === user ? styles.sentMsg : styles.receivedMsg;
+
+  return (
+    <View>
+      <Text style={msgStyle}>{text}</Text>
+    </View>
+  );
+};
+
 const ChatRoom = ({ route }) => {
+  const dummy = useRef();
+
   const { navigation, room } = route.params;
+
+  const [roomData, setRoomData] = useState({ listing: "", users: ["", ""] });
+  const [otherUser, setOtherUser] = useState({
+    fname: "",
+    lname: "",
+    school: "",
+  });
+  const [messages, setMessages] = useState([]);
+  const [textInput, setTextInput] = useState("");
+
+  const auth = getAuth(firebaseApp);
+  const [user] = useAuthState(auth);
+
+  const messagesQ = query(
+    collection(firestore, "messageRooms", room, "messages"),
+    orderBy("sentAt")
+  );
+
+  useEffect(() => {
+    async function fetchRoom() {
+      const roomSnap = await getDoc(doc(firestore, "messageRooms", room));
+      setRoomData(roomSnap.data());
+    }
+
+    fetchRoom();
+  }, []);
+
+  useEffect(() => {
+    if (roomData.listing === "") return;
+
+    async function fetchData() {
+      const otherUserEmail =
+        user.email === roomData.users[0]
+          ? roomData.users[1]
+          : roomData.users[0];
+
+      const otherUserSnap = await getDoc(
+        doc(firestore, "users", otherUserEmail)
+      );
+
+      if (!otherUserSnap.exists()) {
+        console.log("Error: other user does not exist");
+      }
+      setOtherUser(otherUserSnap.data());
+    }
+
+    fetchData();
+  }, [roomData]);
+
+  useEffect(() => {
+    if (otherUser.fname === "") return;
+
+    const unsubMsgs = onSnapshot(messagesQ, (snapshot) => {
+      snapshot.docChanges().forEach((change) => {
+        if (change.type === "added") {
+          setMessages((prevMsgs) => [...prevMsgs, change.doc]);
+        }
+      });
+    });
+
+    return () => unsubMsgs();
+  }, [otherUser]);
+
+  const addMessage = (msg) => {
+    if (msg === "") return;
+
+    const newMsgRef = addDoc(
+      collection(firestore, "messageRooms", room, "messages"),
+      {
+        from: user.email,
+        sentAt: Timestamp.fromDate(new Date()),
+        text: msg,
+      }
+    );
+  };
 
   return (
     <View style={styles.ScreenContainer}>
@@ -20,12 +124,41 @@ const ChatRoom = ({ route }) => {
         <TouchableOpacity onPress={() => navigation.goBack()}>
           <Text style={styles.HeaderButton}>Back</Text>
         </TouchableOpacity>
-        <Text style={{margin: 10}}>Image</Text>
+        <Text style={{ margin: 10 }}>Image</Text>
         <Text style={styles.RoomTitle}>
-          {room.users[0]} and {room.users[1]} ∙ {room.listing}
+          {otherUser.fname + " " + otherUser.lname} ∙ {otherUser.school}
         </Text>
       </View>
-      <Text>{room.id}</Text>
+
+      <ScrollView
+        ref={dummy}
+        onContentSizeChange={() =>
+          dummy.current.scrollToEnd({ animated: true })
+        }
+      >
+        {messages &&
+          messages.map((msg) => (
+            <ChatMessage key={msg.id} message={msg.data()} user={user.email} />
+          ))}
+      </ScrollView>
+
+      <View style={styles.sendMsgBar}>
+        <TextInput
+          style={styles.sendMsgInput}
+          placeholder="Type a message"
+          value={textInput}
+          onChangeText={(txt) => setTextInput(txt)}
+        />
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => {
+            addMessage(textInput);
+            setTextInput("");
+          }}
+        >
+          <Text style={styles.buttonText}>Send</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };
@@ -46,9 +179,60 @@ const styles = StyleSheet.create({
   },
   ScreenContainer: {
     flex: 1,
-    backgroundColor: "#F2F1EB",
+    backgroundColor: "#FFFFFF",
     width: "100%",
     height: "100%",
+  },
+  sentMsg: {
+    alignSelf: "flex-end",
+    borderRadius: 10,
+    margin: 5,
+    marginRight: 10,
+    marginLeft: 35,
+    padding: 8,
+    backgroundColor: "deepskyblue",
+    overflow: "hidden",
+    elevation: 3,
+  },
+  receivedMsg: {
+    alignSelf: "flex-start",
+    borderRadius: 10,
+    margin: 5,
+    marginLeft: 10,
+    marginRight: 35,
+    padding: 8,
+    backgroundColor: "lightgray",
+    overflow: "hidden",
+    elevation: 3,
+  },
+  sendMsgBar: {
+    flexDirection: "row",
+    height: 50,
+    zIndex: 1,
+    elevation: 4,
+    marginTop: 5,
+    paddingLeft: 3,
+  },
+  sendMsgInput: {
+    backgroundColor: "#e8e8e8",
+    flexBasis: 0,
+    flexGrow: 1,
+    paddingLeft: 7,
+  },
+  button: {
+    backgroundColor: "#2196F3",
+    borderRadius: 2,
+    elevation: 4,
+    height: 50,
+    width: 50,
+    justifyContent: "center",
+  },
+  buttonText: {
+    color: "white",
+    fontSize: 14,
+    fontWeight: "500",
+    padding: 8,
+    textAlign: "center",
   },
 });
 

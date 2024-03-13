@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   ScrollView,
   StatusBar,
@@ -10,41 +10,16 @@ import {
   ToastAndroid,
 } from "react-native";
 
-const messageRooms = [
-  {
-    id: "r1",
-    listing: "l1",
-    users: ["me", "you"],
-    // messages: [
-    //   {
-    //     id: "m1",
-    //     from: "you",
-    //     text: "received"
-    //   },
-    //   {
-    //     id: "m2",
-    //     from: "me",
-    //     text: "sent"
-    //   }
-    // ]
-  },
-  {
-    id: "r2",
-    listing: "l2",
-    users: ["me", "you"],
-  },
-];
-
 const ChatRoomRow = (room, navigation) => {
   return (
     <TouchableOpacity
-      key={room.id}
+      key={room}
       style={styles.Room}
       onPress={() => navigation.navigate("ChatRoom", { navigation, room })}
     >
       <Text style={{ textAlign: "center", margin: 10 }}>Image</Text>
       <View>
-        <Text style={styles.RoomTitle}>You ∙ {room.listing}</Text>
+        <Text style={styles.RoomTitle}>You ∙ {room}</Text>
         <Text>Last text placeholder</Text>
       </View>
     </TouchableOpacity>
@@ -52,20 +27,22 @@ const ChatRoomRow = (room, navigation) => {
 };
 
 const ChatScreen = ({ navigation }) => {
+  const [msgRooms, setMsgRooms] = useState(["9Zt37ePn4DVF8YFYMqj7"]);
+
+  // const messagesQ = query(
+  //   collection(firestore, "messageRooms", room, "messages"),
+  //   orderBy("sentAt")
+  // );
+
   return (
     <View style={styles.ScreenContainer}>
       <StatusBar backgroundColor="#F2F1EB" />
       <View style={styles.HeaderBar}>
-        <TouchableOpacity>
-          <Text style={styles.HeaderButton}>Edit</Text>
-        </TouchableOpacity>
         <Text style={styles.ScreenHeader}>Messages</Text>
-        <TouchableOpacity>
-          {/* TODO replace with compose icon */}
-          <Text style={styles.HeaderButton}>New</Text>
-        </TouchableOpacity>
       </View>
-      {messageRooms.map((room) => ChatRoomRow(room, navigation))}
+      <ScrollView>
+        {msgRooms.map((room) => ChatRoomRow(room, navigation))}
+      </ScrollView>
     </View>
   );
 };
@@ -93,18 +70,18 @@ const styles = StyleSheet.create({
   },
   HeaderBar: {
     width: "100%",
+    paddingTop: 15,
     paddingHorizontal: 15,
     flexDirection: "row",
-    justifyContent: "space-between",
+    justifyContent: "center",
     alignItems: "center",
-    height: 50,
   },
   HeaderButton: {
     color: "blue",
   },
   ScreenContainer: {
     flex: 1,
-    backgroundColor: "#F2F1EB",
+    backgroundColor: "#FFFFFF",
     width: "100%",
     height: "100%",
   },
