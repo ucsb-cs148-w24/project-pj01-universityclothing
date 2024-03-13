@@ -127,6 +127,24 @@ const HomeScreen = ({ navigation }) => {
         setCategoryIndex({ index: index, category: category });
         setFilteredItems(getItemList(category, combinedItems));
     };
+    const [searchText, setSearchText] = useState("");
+    //const [sortedItem, setSortedItem] = useState(
+    //  combinedItems,
+    //);
+
+    //search function
+    const searchItem = (search) => {
+        setFilteredItems([
+            ...combinedItems.filter((item) =>
+                item.title.toLowerCase().includes(search.toLowerCase())
+            ),
+        ]);
+    };
+
+    const resetSearch = () => {
+        setFilteredItems([...combinedItems]); //not sure
+        setSearchText("");
+    };
 
     const renderItem = ({ item }) => (
         <TouchableOpacity
@@ -150,6 +168,49 @@ const HomeScreen = ({ navigation }) => {
             {/* Header Bar */}
             <HeaderBar title="Gaucho Sell" />
 
+            {/* Search Input */}
+
+            <View style={styles.searchContainer}>
+                <View style={styles.searchWrapper}>
+                    <TextInput
+                        placeholder="Search with key words"
+                        value={searchText}
+                        onChangeText={(text) => {
+                            setSearchText(text);
+                        }}
+                        style={styles.searchInput}
+                        placeholderTextColor={COLORS.black}
+                    />
+                    {searchText.length > 0 ? (
+                        <TouchableOpacity
+                            onPress={() => {
+                                resetSearch();
+                            }}
+                        >
+                            <Entypo
+                                style={styles.Icon}
+                                name="cross"
+                                size={25}
+                                color={COLORS.black}
+                            />
+                        </TouchableOpacity>
+                    ) : (
+                        <></>
+                    )}
+                </View>
+                <TouchableOpacity
+                    style={styles.searchBtn}
+                    onPress={() => {
+                        searchItem(searchText);
+                    }}
+                >
+                    <Entypo
+                        name="magnifying-glass"
+                        size={25}
+                        color={COLORS.lightYellow}
+                    />
+                </TouchableOpacity>
+            </View>
             {/* Category Selector */}
             <ScrollView
                 horizontal
@@ -200,14 +261,54 @@ const HomeScreen = ({ navigation }) => {
 
 const styles = StyleSheet.create({
     ScreenContainer: {
-        // flex: 1,
-        backgroundColor: "#f5f5f5",
-        width: "100%",
+        //flex: 1,
+        backgroundColor: "#ffffff",
+        //width: "100%",
         height: "100%",
     },
     ScrollViewFlex: {
         flexGrow: 1,
         justifyContent: "space-between",
+    },
+    searchContainer: {
+        flexDirection: "row",
+        width: 380,
+        height: 40,
+        margin: 15,
+    },
+    searchWrapper: {
+        flexDirection: "row",
+        flex: 1,
+        backgroundColor: COLORS.lightGrey,
+        marginRight: 10,
+        justifyContent: "center",
+        alignItems: "center",
+        borderRadius: 16,
+        //height: "100%",
+        //position:'relative',
+    },
+    searchInput: {
+        //textAlign: "center",
+        color: "#000000",
+        flex: 1,
+        marginLeft: 20,
+        //justifyContent:"flex-end",
+        fontSize: 20,
+    },
+    Icon: {
+        position: "absolute",
+        marginVertical: -12,
+        right: 10,
+        //left:30,
+        //marginLeft:"auto",
+    },
+    searchBtn: {
+        width: 50,
+        //marginRight:10,
+        backgroundColor: COLORS.darkBlue,
+        borderRadius: 16,
+        alignItems: "center",
+        justifyContent: "center",
     },
     container: {
         flex: 1,
