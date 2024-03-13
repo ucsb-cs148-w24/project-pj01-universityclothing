@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { StyleSheet, Text, TouchableOpacity, View, Image } from "react-native";
 
 import { firebaseApp, firestore } from "../../firebaseConfig";
 import { getAuth } from "firebase/auth";
@@ -61,7 +61,7 @@ const ChatRoomRow = ({ room, navigation }) => {
         navigation.navigate("ChatRoom", { navigation, room: room.rid })
       }
     >
-      <Text style={{ textAlign: "center", margin: 10 }}>Image</Text>
+      <Image source={{ uri: listing.imageURL }} style={styles.ListingImg} />
       <View>
         <Text style={styles.RoomTitle}>
           {shortenTitle(otherUser + " ∙ " + listing.title)}
@@ -86,6 +86,13 @@ const styles = StyleSheet.create({
   RoomTitle: {
     fontSize: 16,
     fontWeight: "bold",
+  },
+  ListingImg: {
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+    margin: 10,
+    marginRight: 15,
   },
 });
 

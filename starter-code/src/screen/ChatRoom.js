@@ -11,6 +11,8 @@ import {
   Image,
 } from "react-native";
 
+import Ionicons from "@expo/vector-icons/Ionicons";
+
 import { firebaseApp, firestore } from "../../firebaseConfig";
 import { getAuth } from "firebase/auth";
 import { useAuthState } from "react-firebase-hooks/auth";
@@ -135,14 +137,21 @@ const ChatRoom = ({ route }) => {
   return (
     <View style={styles.ScreenContainer}>
       <StatusBar backgroundColor="#F2F1EB" />
+
       <View style={styles.HeaderBar}>
         <TouchableOpacity onPress={() => navigation.goBack()}>
-          <Text style={styles.HeaderButton}>Back</Text>
+          <Ionicons name="chevron-back" size={24} color="black" />
         </TouchableOpacity>
-        <Text style={{ margin: 10 }}>Image</Text>
-        <Text style={styles.RoomTitle}>
-          {otherUser + " ∙ " + listing.title}
-        </Text>
+
+        <TouchableOpacity
+          style={styles.HeaderBarMiddle}
+          onPress={() => console.log("hi")}
+        >
+          <Image source={{ uri: listing.imageURL }} style={styles.ListingImg} />
+          <Text style={styles.RoomTitle}>
+            {otherUser + " ∙ " + listing.title}
+          </Text>
+        </TouchableOpacity>
       </View>
 
       <ScrollView
@@ -184,13 +193,22 @@ const styles = StyleSheet.create({
     alignItems: "center",
     padding: 10,
   },
+  HeaderBarMiddle: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginLeft: 5,
+  },
   RoomTitle: {
     fontSize: 16,
     fontWeight: "bold",
     margin: 10,
   },
-  HeaderButton: {
-    color: "blue",
+  ListingImg: {
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+    margin: 10,
+    marginRight: 5,
   },
   ScreenContainer: {
     flex: 1,
