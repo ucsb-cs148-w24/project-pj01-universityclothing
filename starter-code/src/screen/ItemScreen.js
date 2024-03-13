@@ -32,12 +32,12 @@ const ItemScreen = ({ route }) => {
   // );
   const renderItem = ({ item }) => (
     <View style={styles.itemContainer}>
-      <Image source={{ uri: item.imageUrl }} style={styles.itemImage} />
+      <Image source={{ uri: item.imageURL }} style={styles.itemImage} />
       <View style={styles.itemDetails}>
         <Text style={styles.itemTitle}>{item.title}</Text>
         <Text style={styles.itemPrice}>${item.price.toFixed(2)}</Text>
-        <Text style={styles.itemSeller}>Seller: {item.seller}</Text>
-        <Text style={styles.itemDescription}>Description: {item.description}</Text>
+        <Text style={styles.itemSeller}>Seller: {item.lister}</Text>
+        <Text style={styles.itemDescription}>Description: {item.desc}</Text>
       </View>
     </View>
   );
@@ -52,7 +52,7 @@ const ItemScreen = ({ route }) => {
       <FlatList
         data={[item]} // Wrap item in an array since FlatList expects an array of data
         renderItem={renderItem}
-        keyExtractor={(item) => item.id.toString()}
+        keyExtractor={(item) => item.imageURL}
       />
     </View>
   );
