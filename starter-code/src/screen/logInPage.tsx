@@ -130,13 +130,13 @@ const signInWithGoogle = async (setIsLoggedIn, showPopup) => {
           setIsLoggedIn(true);
         } else {
           // Handle the case where the email doesn't end with "ucsb.edu"
-          showPopup();
           console.log('Google Login Error: Not a UCSB email');
+        showPopup();
+
           // You might want to display an error message to the user
         }
       } else {
         // Handle the case where fetching user info fails
-        showPopup();
         console.log('Error fetching user info from Google API');
       }
     } else {
