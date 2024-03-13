@@ -1,8 +1,8 @@
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View, Button } from "react-native";
+import { View, Text, Button, Modal, StyleSheet, TouchableOpacity } from "react-native";
+
 // app.tsx
 import { ImageBackground } from 'react-native';
-import { TouchableOpacity } from 'react-native';
 
 
 
@@ -28,6 +28,9 @@ import {
 // Initialize Firebase
 
 const image = require('../assets/loginbackground.png'); // Adjust the path based on your project structure
+
+
+
 const firebaseConfig = {
     // move to .ens later
     apiKey: "AIzaSyDR87GgBj0aOnBJ036ajWgCGT6NSlsaHlU",
@@ -42,7 +45,9 @@ const firebaseConfig = {
 
 //google API request to find ucsb.edu end
 //make a public_html folder
-const signInWithGoogle = async (setIsLoggedIn) => {
+
+const signInWithGoogle = async (setIsLoggedIn, showPopup) => {
+  
   const response_type = "token";
   const client_id = "402529839560-1c1cl2ggt8aa91e079u1btc1401cb6nm.apps.googleusercontent.com";
   const redirect_uri = "https://sites.cs.ucsb.edu/~amisra/";
@@ -54,7 +59,7 @@ const signInWithGoogle = async (setIsLoggedIn) => {
   const result = await WebBrowser.openAuthSessionAsync(
     `https://accounts.google.com/o/oauth2/v2/auth?response_type=${response_type}&client_id=${client_id}&redirect_uri=${redirect_uri}&scope=${scopes.join("%20")}`
   );
-
+  
   if (result.type === 'success') {
     const urlParams = Linking.parse(result.url).queryParams;
     
@@ -80,6 +85,7 @@ const signInWithGoogle = async (setIsLoggedIn) => {
             .then((userCredential) => {
                 // User signed in
                 var user = userCredential.user;
+                showPopup();
                 // console.log("Signed in user:", user);
             })
             .catch((error) => {
@@ -92,11 +98,13 @@ const signInWithGoogle = async (setIsLoggedIn) => {
           setIsLoggedIn(true);
         } else {
           // Handle the case where the email doesn't end with "ucsb.edu"
+          showPopup();
           console.log('Google Login Error: Not a UCSB email');
           // You might want to display an error message to the user
         }
       } else {
         // Handle the case where fetching user info fails
+        showPopup();
         console.log('Error fetching user info from Google API');
       }
     } else {
@@ -112,32 +120,41 @@ const signInWithGoogle = async (setIsLoggedIn) => {
 
 
 
-
-const GoogleSignInButton = ({ setIsLoggedIn }) => {
-    return (
-        <View>
-            <Text>
-                <Button
-                    title="Sign In with Google"
-                    onPress={() => signInWithGoogle(setIsLoggedIn)}
-                />
-            </Text>
-        </View>
-    );
-};
-
 const Login = ({ setIsLoggedIn }) => {
+  const [isPopupVisible, setIsPopupVisible] = useState(false); // for popup
+
+    const showPopup = () => {
+        setIsPopupVisible(true);
+    };
   return (
     <View style={styles.container}>
           <ImageBackground source={image} style={{width: '100%', height: '112%'}} resizeMode="cover">
           <TouchableOpacity 
         style={styles.googleSignInButton}
-        onPress={() => signInWithGoogle(setIsLoggedIn)}
+        onPress={() => signInWithGoogle(setIsLoggedIn, showPopup)}
       >
         <Text style={styles.googleSignInButtonText}>
           Sign In with Google
         </Text>
       </TouchableOpacity>
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={isPopupVisible}
+        onRequestClose={() => {
+          setIsPopupVisible(false);
+        }}
+      >
+        <View style={styles.modalContainer}>
+          <Text style={styles.modalText}>Login unsuccessful! Make sure you accept permissions and are logging in with a @ucsb.edu email </Text>
+          <TouchableOpacity
+            style={styles.modalButton}
+            onPress={() => setIsPopupVisible(false)}
+          >
+            <Text style={styles.modalButtonText}>Close</Text>
+          </TouchableOpacity>
+        </View>
+      </Modal>
       </ImageBackground>
 
     </View>
@@ -182,5 +199,26 @@ const styles = StyleSheet.create({
   googleSignInButtonText: {
     color: '#fff',               // Text color is white
     textAlign: 'center'
+  },
+  modalContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "rgba(0, 0, 0, 0.5)",
+  },
+  modalText: {
+    fontSize: 18,
+    color: "#fff",
+    marginBottom: 20,
+  },
+  modalButton: {
+    backgroundColor: "#2F3A85",
+    borderRadius: 20,
+    padding: 10,
+    alignSelf: "center",
+  },
+  modalButtonText: {
+    color: "#fff",
+    textAlign: "center",
   },
 });
