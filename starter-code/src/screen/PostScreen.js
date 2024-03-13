@@ -19,7 +19,14 @@ import "firebase/firestore";
 import { getAuth } from "firebase/auth";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
-import { addDoc, collection, onSnapshot } from "firebase/firestore";
+import {
+    addDoc,
+    collection,
+    onSnapshot,
+    getDoc,
+    doc,
+    updateDoc,
+} from "firebase/firestore";
 
 import { Image } from "react-native";
 import * as ImagePicker from "expo-image-picker";
@@ -36,18 +43,11 @@ const PostCreationScreen = ({ navigation }) => {
     const [isPosting, setIsPosting] = useState(false);
     const [uploadProgress, setUploadProgress] = useState(0);
 
-
     // get the auth instance
     const auth = getAuth(firebaseApp);
 
     const [user, loading, error] = useAuthState(auth);
     let user_email = user.email;
-
-    // if (user) {
-    //     console.log("User is signed in:", user_email);
-    // } else {
-    //     console.log("No user is signed in");
-    // }
 
     const options = [
         { label: "New", value: 0 },
@@ -66,7 +66,7 @@ const PostCreationScreen = ({ navigation }) => {
         }
 
         setIsPosting(true);
-    
+
         // upload the image here
         console.log(imageUrl);
         const downloadURL = await uploadImage(imageUrl, "image");
@@ -104,30 +104,16 @@ const PostCreationScreen = ({ navigation }) => {
         await addListing(data);
         console.log(data);
 
-        // Format the data into a readable string
-        // const formattedData = `
-        // Listing Added:
-        // - Title: ${data.title}
-        // - Description: ${data.desc}
-        // - Price: ${data.price}
-        // - Condition: ${data.condition}
-        // - Category: ${data.category}
-        // - Is Selling: ${data.isSelling ? "Yes" : "No"}
-        // - Image URL: ${data.imageURL}
-        // - Lister: ${data.lister}
-        // `;
-
         // Display the formatted data in an alert
         alert("Listing Added");
 
-        // addListing(data);
-
-        // Clear the form
+        // Clear the form, making values back to default
         setTitle("");
         setPrice("");
         setDescription("");
         setCategory("");
         setImageUrl("");
+        setCondition("");
         setDescription("");
         setIsPosting(false);
     };
@@ -136,8 +122,36 @@ const PostCreationScreen = ({ navigation }) => {
 
         // Reference to the users collection
         const listingCol = collection(firestore, "listings");
+
+        const usersCol = collection(firestore, "users");
+
+        // const imgURL = data.imageURL;
+        const userEmail = data.lister;
+
         // Add a new document with a generated id
-        await addDoc(listingCol, data);
+        // await addDoc(listingCol, data);
+
+        const docRef = await addDoc(listingCol, data);
+
+        console.log("After listing await");
+
+        const userDocRef = doc(usersCol, userEmail);
+        console.log("Get doc user ref: ", userDocRef);
+        const userDocSnap = await getDoc(userDocRef);
+        console.log("Get doc user ref.");
+
+        const userData = userDocSnap.data();
+        const updatedMyListings = userData.myListings || [];
+        updatedMyListings.push({
+            listingId: docRef.id,
+            imageURL: data.imageURL,
+        });
+
+        console.log("Before await update doc");
+
+        // Update the user document with the updated myListings array
+        await updateDoc(userDocRef, { myListings: updatedMyListings });
+        console.log("Image URL added to myListings.");
     }
 
     // Function to handle image selection
@@ -208,8 +222,10 @@ const PostCreationScreen = ({ navigation }) => {
                 {isPosting && (
                     <View style={styles.overlayStyle}>
                         <ActivityIndicator size="large" color="#FFF" />
-                        <Text style={styles.loadingText}>Posting 
-                        {Math.round(uploadProgress)}%</Text>
+                        <Text style={styles.loadingText}>
+                            Posting
+                            {Math.round(uploadProgress)}%
+                        </Text>
                     </View>
                 )}
                 <Text style={styles.label}>Title</Text>
@@ -239,7 +255,9 @@ const PostCreationScreen = ({ navigation }) => {
 
                 <Text style={styles.label}>Category</Text>
                 <RNPickerSelect
-                    onValueChange={(itemValue, itemIndex) => setCategory(itemValue)}
+                    onValueChange={(itemValue, itemIndex) =>
+                        setCategory(itemValue)
+                    }
                     items={[
                         { label: "Clothing", value: "0" },
                         { label: "Electronics", value: "1" },
@@ -268,7 +286,9 @@ const PostCreationScreen = ({ navigation }) => {
                             ]}
                             onPress={() => setCondition(option.value)}
                         >
-                            <Text style={styles.choiceText}>{option.label}</Text>
+                            <Text style={styles.choiceText}>
+                                {option.label}
+                            </Text>
                         </TouchableOpacity>
                     ))}
                 </View>
@@ -280,7 +300,11 @@ const PostCreationScreen = ({ navigation }) => {
                     />
                 )}
 
-                <TouchableOpacity style={styles.postItemButton} onPress={handleSubmit} disabled={isPosting}>
+                <TouchableOpacity
+                    style={styles.postItemButton}
+                    onPress={handleSubmit}
+                    disabled={isPosting}
+                >
                     {isPosting ? (
                         <ActivityIndicator color="#FFF" />
                     ) : (
@@ -294,48 +318,48 @@ const PostCreationScreen = ({ navigation }) => {
 
 const styles = StyleSheet.create({
     overlayStyle: {
-        position: 'absolute',
+        position: "absolute",
         top: 0,
         left: 0,
         right: 0,
         bottom: 0,
-        backgroundColor: 'rgba(0, 0, 0, 0.75)', // Darker overlay for better readability
-        alignItems: 'center',
-        justifyContent: 'center',
+        backgroundColor: "rgba(0, 0, 0, 0.75)", // Darker overlay for better readability
+        alignItems: "center",
+        justifyContent: "center",
         zIndex: 1,
     },
     loadingText: {
         marginTop: 16,
-        color: '#FFFFFF',
+        color: "#FFFFFF",
         fontSize: 18,
-        fontWeight: '500',
+        fontWeight: "500",
     },
     selectImageButton: {
-        backgroundColor: '#007bff', // Blue
+        backgroundColor: "#007bff", // Blue
         borderRadius: 5,
         padding: 15,
-        justifyContent: 'center',
-        alignItems: 'center',
+        justifyContent: "center",
+        alignItems: "center",
         marginBottom: 20,
     },
     selectImageButtonText: {
-        color: '#FFF',
-        fontWeight: 'bold',
+        color: "#FFF",
+        fontWeight: "bold",
     },
     postItemButton: {
-        backgroundColor: '#0C356A', 
+        backgroundColor: "#0C356A",
         borderRadius: 5,
         padding: 15,
-        justifyContent: 'center',
-        alignItems: 'center',
+        justifyContent: "center",
+        alignItems: "center",
         marginTop: 10,
     },
     postItemButtonText: {
-        color: '#FFC436',
-        fontWeight: 'bold',
+        color: "#FFC436",
+        fontWeight: "bold",
     },
     buttonDisabled: {
-        backgroundColor: '#ccc',
+        backgroundColor: "#ccc",
     },
     container: {
         flex: 1,
