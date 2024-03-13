@@ -34,16 +34,10 @@ import { useNavigation } from "@react-navigation/native"; // Import the useNavig
 const MyListingDetailScreen = ({ route }) => {
     const { navigation, item, myListing } = route.params;
 
-    // console.log("curr item", item);
-
-    // console.log("curr listing", myListing);
     const delURL = myListing.imageURL;
     const delListingID = myListing.listingId;
-    // console.log("delete image URL", delURL);
-    // console.log("delete listing id", delListingID);
-    const navigation1 = useNavigation();
 
-    const handleDelete = async (navigation1) => {
+    const handleDelete = async (navigation) => {
         try {
             // Delete the document from 'listings' collection
             await deleteDoc(doc(db, "listings", delListingID));
@@ -79,7 +73,8 @@ const MyListingDetailScreen = ({ route }) => {
                         onPress: () => {
                             // Navigate back to previous screen after deletion
                             // navigation.navigate("myListings");
-                            navigation1.goBack();
+                            navigation.goBack();
+                            navigation.goBack();
                         },
                     },
                 ],
@@ -116,7 +111,7 @@ const MyListingDetailScreen = ({ route }) => {
                 renderItem={renderItem}
                 keyExtractor={(item) => item.imageURL}
             />
-            <Button onPress={handleDelete}>Delete</Button>
+            <Button onPress={() => handleDelete(navigation)}>Delete</Button>
         </View>
     );
 };
