@@ -11,16 +11,23 @@ import {
     View,
     ToastAndroid,
 } from "react-native";
-import { useBottomTabBarHeight } from "@react-navigation/bottom-tabs";
+
+import { getAuth } from "firebase/auth";
 import HeaderBar from "../components/HeaderBar";
-import { useNavigation, useFocusEffect } from "@react-navigation/native";
-import Entypo from "@expo/vector-icons/Entypo";
-import { Colors } from "react-native/Libraries/NewAppScreen";
 import { COLORS, FONTFAMILY, FONTSIZE, SPACING } from "../theme/theme";
 import { useItems } from "../components/ItemsContext";
-import { addDoc, collection, onSnapshot } from "firebase/firestore";
-import { db, storage } from "../../firebaseConfig";
+import {
+    getDoc,
+    doc,
+    addDoc,
+    collection,
+    onSnapshot,
+    query,
+    where,
+} from "firebase/firestore";
+import { firebaseApp, firestore, db, storage } from "../../firebaseConfig";
 import { useEffect } from "react";
+import { useAuthState } from "react-firebase-hooks/auth";
 
 const getItemList = (category, data) => {
     if (category === "Clothing") {
@@ -56,34 +63,58 @@ const getItemList = (category, data) => {
     }
 };
 
-const HomeScreen = ({ navigation }) => {
+const MyListings = ({ navigation }) => {
     // const navigation = useNavigation();
     const [listings, setFiles] = useState([]);
+    const [myListings, setMyListings] = useState([]);
+    const [listingIDs, setListingIDs] = useState([]);
+
+    const auth = getAuth(firebaseApp);
+
+    const [user, loading, error] = useAuthState(auth);
+    let user_email = user.email;
 
     useEffect(() => {
+        const docRef = doc(db, "users", user_email); // Construct a reference to the user document
+
         const unsubscribe = onSnapshot(
-            collection(db, "listings"),
-            (snapshot) => {
-                snapshot.docChanges().forEach((change) => {
-                    console.log("change", change.type);
-                    if (change.type === "added") {
-                        // Handle added documents
-                        setFiles((prevFiles) => [
-                            ...prevFiles,
-                            change.doc.data(),
-                        ]);
-                    } else if (change.type === "removed") {
-                        // Handle removed documents
-                        const removedImageURL = change.doc.data().imageURL;
-                        console.log("removed", removedImageURL);
-                        console.log("listings", listings);
-                        setFiles((prevFiles) =>
-                            prevFiles.filter(
-                                (item) => item.imageURL !== removedImageURL
-                            )
-                        );
-                    }
-                });
+            docRef,
+            async (docSnapshot) => {
+                if (!docSnapshot.exists()) {
+                    console.log("No matching user document found.");
+                    return;
+                }
+
+                // Print the entire user document
+                // console.log("User document:", docSnapshot.data());
+
+                // Get the 'myListings' array from the user document
+                const myListings = docSnapshot.data().myListings;
+                let listingIDs = [];
+                for (let i = 0; i < myListings.length; i++) {
+                    listingIDs.push(myListings[i].listingId);
+                    // console.log("Listing ID:", myListings[i].listingId);
+                }
+
+                // Clear the listings array
+                setFiles([]);
+                setListingIDs([]);
+                // setMyListings([]);
+
+                // You can then perform any action with the listings array, such as displaying it in your UI
+                // we go through the list of listing IDs associated with the user, and get each doc from the listings collection
+                // and add it to the listings array to display in the UI
+                for (let i = 0; i < listingIDs.length; i++) {
+                    const docRef = doc(db, "listings", listingIDs[i]);
+                    const docSnap = await getDoc(docRef);
+
+                    setFiles((prevFiles) => [...prevFiles, docSnap.data()]);
+                }
+                setListingIDs(listingIDs);
+                setMyListings(myListings);
+            },
+            (error) => {
+                console.error("Error fetching user document:", error);
             }
         );
 
@@ -127,29 +158,20 @@ const HomeScreen = ({ navigation }) => {
         setCategoryIndex({ index: index, category: category });
         setFilteredItems(getItemList(category, combinedItems));
     };
-    const [searchText, setSearchText] = useState("");
-    //const [sortedItem, setSortedItem] = useState(
-    //  combinedItems,
-    //);
-
-    //search function
-    const searchItem = (search) => {
-        setFilteredItems([
-            ...combinedItems.filter((item) =>
-                item.title.toLowerCase().includes(search.toLowerCase())
-            ),
-        ]);
-    };
-
-    const resetSearch = () => {
-        setFilteredItems([...combinedItems]); //not sure
-        setSearchText("");
-    };
 
     const renderItem = ({ item }) => (
         <TouchableOpacity
+            // here we will pass in the navigation, item
+            // and the doc id and imageURl of the listing
+            // so we can delete it later
             onPress={() =>
-                navigation.navigate("ItemDetails", { navigation, item })
+                navigation.navigate("MyListingDetail", {
+                    navigation,
+                    item,
+                    myListing: myListings.find(
+                        (listing) => listing.imageURL === item.imageURL
+                    ),
+                })
             }
             style={styles.itemContainer}
         >
@@ -166,51 +188,8 @@ const HomeScreen = ({ navigation }) => {
         <View style={styles.ScreenContainer}>
             <StatusBar backgroundColor="#F2F1EB" />
             {/* Header Bar */}
-            <HeaderBar title="Gaucho Sell" />
+            <HeaderBar title="My Listings" />
 
-            {/* Search Input */}
-
-            <View style={styles.searchContainer}>
-                <View style={styles.searchWrapper}>
-                    <TextInput
-                        placeholder="Search with key words"
-                        value={searchText}
-                        onChangeText={(text) => {
-                            setSearchText(text);
-                        }}
-                        style={styles.searchInput}
-                        placeholderTextColor={COLORS.black}
-                    />
-                    {searchText.length > 0 ? (
-                        <TouchableOpacity
-                            onPress={() => {
-                                resetSearch();
-                            }}
-                        >
-                            <Entypo
-                                style={styles.Icon}
-                                name="cross"
-                                size={25}
-                                color={COLORS.black}
-                            />
-                        </TouchableOpacity>
-                    ) : (
-                        <></>
-                    )}
-                </View>
-                <TouchableOpacity
-                    style={styles.searchBtn}
-                    onPress={() => {
-                        searchItem(searchText);
-                    }}
-                >
-                    <Entypo
-                        name="magnifying-glass"
-                        size={25}
-                        color={COLORS.lightYellow}
-                    />
-                </TouchableOpacity>
-            </View>
             {/* Category Selector */}
             <ScrollView
                 horizontal
@@ -245,7 +224,6 @@ const HomeScreen = ({ navigation }) => {
                     </View>
                 ))}
             </ScrollView>
-
             {/* Item List */}
             <View style={{ flex: 120 }}>
                 <FlatList // !!! TODO: FIX FLEX VALUE !!!
@@ -261,54 +239,14 @@ const HomeScreen = ({ navigation }) => {
 
 const styles = StyleSheet.create({
     ScreenContainer: {
-        //flex: 1,
-        backgroundColor: "#ffffff",
-        //width: "100%",
+        // flex: 1,
+        backgroundColor: "#f5f5f5",
+        width: "100%",
         height: "100%",
     },
     ScrollViewFlex: {
         flexGrow: 1,
         justifyContent: "space-between",
-    },
-    searchContainer: {
-        flexDirection: "row",
-        width: 380,
-        height: 40,
-        margin: 15,
-    },
-    searchWrapper: {
-        flexDirection: "row",
-        flex: 1,
-        backgroundColor: COLORS.lightGrey,
-        marginRight: 10,
-        justifyContent: "center",
-        alignItems: "center",
-        borderRadius: 16,
-        //height: "100%",
-        //position:'relative',
-    },
-    searchInput: {
-        //textAlign: "center",
-        color: "#000000",
-        flex: 1,
-        marginLeft: 20,
-        //justifyContent:"flex-end",
-        fontSize: 20,
-    },
-    Icon: {
-        position: "absolute",
-        marginVertical: -12,
-        right: 10,
-        //left:30,
-        //marginLeft:"auto",
-    },
-    searchBtn: {
-        width: 50,
-        //marginRight:10,
-        backgroundColor: COLORS.darkBlue,
-        borderRadius: 16,
-        alignItems: "center",
-        justifyContent: "center",
     },
     container: {
         flex: 1,
@@ -394,4 +332,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default HomeScreen;
+export default MyListings;
