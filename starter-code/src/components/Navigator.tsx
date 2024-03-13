@@ -9,7 +9,6 @@ import ChatScreen from '../screen/ChatScreen';
 import Profile from '../screen/ProfileScreen';
 import SearchScreen from '../screen/SearchScreen';
 import CreateScreen from '../screen/PostScreen';
-
 import Entypo from "@expo/vector-icons/Entypo";
 
 

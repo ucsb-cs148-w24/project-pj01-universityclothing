@@ -1,15 +1,20 @@
 import React from "react";
 import { StyleSheet, Text, View, Image} from "react-native";
 import { COLORS } from "../theme/theme";
+import { getAuth } from "firebase/auth";
+
 
 const UserProfile = () => {
+    const auth = getAuth();
+    const user = auth.currentUser;
+    
     return (
         <View style={styles.ImageContainer}>
             <Image 
                 style={styles.image}
                 source={{
-                  uri: "https://wow.zamimg.com/uploads/screenshots/normal/1084904.jpg",
-                }}
+                    uri: user?.photoURL || "https://static.vecteezy.com/system/resources/previews/019/879/186/original/user-icon-on-transparent-background-free-png.png",
+                  }}
             />
         </View>
     );

@@ -111,8 +111,6 @@ const signInWithGoogle = async (setIsLoggedIn) => {
 };
 
 
-
-
 const GoogleSignInButton = ({ setIsLoggedIn }) => {
     return (
         <View>
@@ -176,7 +174,7 @@ const styles = StyleSheet.create({
     borderRadius: 20,            // Border-radius of 20px
     padding: 10,                 // Add padding for better visual appearance
     alignSelf: 'center',        // Center content horizontally
-    marginTop: '160%',
+    marginTop: '100%',
     width: '70%',
   },
   googleSignInButtonText: {

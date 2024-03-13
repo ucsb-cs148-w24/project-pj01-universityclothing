@@ -1,5 +1,13 @@
-import React from "react";
-import { StatusBar, SafeAreaView, StyleSheet, Text, View, TouchableOpacity } from "react-native";
+import React, { useState } from "react";
+import {
+  StatusBar,
+  SafeAreaView,
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+  Modal,
+} from "react-native";
 import {
   Avatar,
   Title,
@@ -11,23 +19,34 @@ import {
 } from "react-native-paper";
 import { COLORS } from "../theme/theme";
 import ProfileHeader from "../components/ProfileHeader";
+import EditProfileScreen from "./EditProfileScreen";
 import Entypo from "@expo/vector-icons/Entypo";
-import { useNavigation } from '@react-navigation/native'; 
-
+import { useNavigation } from "@react-navigation/native";
+import { getAuth } from "firebase/auth";
 
 const ProfileScreen = () => {
   const navigation = useNavigation();
+  const auth = getAuth();
+  const user = auth.currentUser;
+  const [isEditModalVisible, setEditModalVisible] = useState(false);
+
+  const handleEditPress = () => {
+    setEditModalVisible(true);
+  };
 
   return (
     <SafeAreaView style={styles.ScreenContainer}>
-      <ProfileHeader title= "Profile"/>
+      <ProfileHeader title="Profile" onEditPress={handleEditPress} />
+
       {/* User Icon, Name, ID */}
       <View style={styles.userInfoSection}>
         <View style={{ flexDirection: "row", marginTop: 15 }}>
           <Avatar.Image
             style={styles.avatarStyle}
             source={{
-              uri: "https://wow.zamimg.com/uploads/screenshots/normal/1084904.jpg",
+              uri:
+                user?.photoURL ||
+                "https://static.vecteezy.com/system/resources/previews/019/879/186/original/user-icon-on-transparent-background-free-png.png",
             }}
             size={80}
           />
@@ -41,13 +60,10 @@ const ProfileScreen = () => {
                 },
               ]}
             >
-              User Name
+              {user?.displayName || "User Name"}
             </Title>
-            <Caption style={styles.caption}>@u_name</Caption>
-            
+            <Caption style={styles.caption}>{user?.email}</Caption>
           </View>
-  
-
         </View>
       </View>
 
@@ -61,12 +77,6 @@ const ProfileScreen = () => {
         <View style={styles.row}>
           <Entypo name="phone" color={COLORS.darkBlue} size={20} />
           <Text style={{ color: "#777777", marginLeft: 20 }}>000-000-0000</Text>
-        </View>
-        <View style={styles.row}>
-          <Entypo name="email" color={COLORS.darkBlue} size={20} />
-          <Text style={{ color: "#777777", marginLeft: 20 }}>
-            user@email.com
-          </Text>
         </View>
       </View>
 
@@ -121,6 +131,13 @@ const ProfileScreen = () => {
           </View>
         </TouchableRipple>
       </View>
+      <Modal
+        animationType="slide"
+        visible={isEditModalVisible}
+        onRequestClose={() => setEditModalVisible(false)}
+      >
+        <EditProfileScreen onClose={() => setEditModalVisible(false)} />
+      </Modal>
     </SafeAreaView>
   );
 };
@@ -138,7 +155,6 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 24,
     fontWeight: "bold",
-    
   },
   caption: {
     fontSize: 14,
@@ -177,9 +193,9 @@ const styles = StyleSheet.create({
     fontSize: 16,
     lineHeight: 26,
   },
-  avatarStyle: {  
+  avatarStyle: {
     borderColor: COLORS.darkBlue,
-    borderRadius: 40,   
+    borderRadius: 40,
   },
 });
 
