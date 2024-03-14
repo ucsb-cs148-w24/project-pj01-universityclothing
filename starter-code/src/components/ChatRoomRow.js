@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { StyleSheet, Text, TouchableOpacity, View, Image } from "react-native";
+import { StyleSheet, Text, TouchableOpacity, View, Image, LogBox } from "react-native";
 
 import { firebaseApp, firestore } from "../../firebaseConfig";
 import { getAuth } from "firebase/auth";
@@ -49,7 +49,7 @@ const ChatRoomRow = ({ room, navigation }) => {
   }, []);
 
   const shortenTitle = (title) => {
-    const limit = 32;
+    const limit = 33;
     return title.length > limit ? title.substring(0, limit - 3) + "..." : title;
   };
 
@@ -66,7 +66,7 @@ const ChatRoomRow = ({ room, navigation }) => {
         <Text style={styles.RoomTitle}>
           {shortenTitle(otherUser + " ∙ " + listing.title)}
         </Text>
-        <Text>{room.latestMsg.text}</Text>
+        <Text style={styles.LatestMsg}>{room.latestMsg.text}</Text>
       </View>
     </TouchableOpacity>
   );
@@ -93,6 +93,9 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     margin: 10,
     marginRight: 15,
+  },
+  LatestMsg: {
+    color: "dimgray",
   },
 });
 

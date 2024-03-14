@@ -9,6 +9,7 @@ import {
   View,
   ToastAndroid,
   Image,
+  LogBox,
 } from "react-native";
 
 import Ionicons from "@expo/vector-icons/Ionicons";
@@ -25,6 +26,7 @@ import {
   orderBy,
   Timestamp,
   addDoc,
+  getDocs,
 } from "firebase/firestore";
 
 const ChatMessage = ({ message, user }) => {
@@ -40,6 +42,10 @@ const ChatMessage = ({ message, user }) => {
 };
 
 const ChatRoom = ({ route }) => {
+  console.warn = () => {};
+  LogBox.ignoreLogs(["source.uri should not be an empty string"]);
+  LogBox.ignoreLogs(["Non-serializable values"]);
+
   const dummy = useRef();
 
   const { navigation, room } = route.params;
@@ -52,11 +58,6 @@ const ChatRoom = ({ route }) => {
 
   const auth = getAuth(firebaseApp);
   const [user] = useAuthState(auth);
-
-  const messagesQ = query(
-    collection(firestore, "messageRooms", room, "messages"),
-    orderBy("sentAt", "asc")
-  );
 
   useEffect(() => {
     const fetchRoom = async () => {
@@ -105,20 +106,42 @@ const ChatRoom = ({ route }) => {
   }, [roomData]);
 
   useEffect(() => {
-    if (otherUser === "") return;
+    const fetchMsgs = async () => {
+      if (otherUser === "") return;
 
-    console.log("blahb lah");
+      const messagesQ = query(
+        collection(firestore, "messageRooms", room, "messages"),
+        orderBy("sentAt", "asc")
+      );
 
-    const unsubMsgs = onSnapshot(messagesQ, (snapshot) => {
-      snapshot.docChanges().forEach((change) => {
-        if (change.type === "added") {
-          setMessages((prevMsgs) => [...prevMsgs, change.doc]);
-          console.log(change.doc.data());
-        }
-      });
-    });
+      // const msgsSnap = await getDocs(messagesQ);
+      // msgsSnap.forEach((msg) => {
+      //   setMessages((prevMsgs) => [...prevMsgs, msg]);
+      // });
 
-    return () => unsubMsgs();
+      const unsubMsgs = onSnapshot(
+        messagesQ,
+        (snapshot) => {
+          console.log(otherUser);
+          // console.log(messages);
+          // console.log(snapshot.docChanges());
+
+          if (snapshot.docChanges().length === messages.length) return;
+
+          snapshot.docChanges().forEach((change) => {
+            setMessages((prevMsgs) => [...prevMsgs, change.doc]);
+            // console.log(change.doc.data());
+            // if (change.type === "added") {
+            // }
+          });
+        },
+        (error) => console.log(error.message)
+      );
+
+      // return () => unsubMsgs();
+    };
+
+    fetchMsgs();
   }, [otherUser]);
 
   const addMessage = (msg) => {
@@ -161,8 +184,8 @@ const ChatRoom = ({ route }) => {
         }
       >
         {messages &&
-          messages.map((msg) => (
-            <ChatMessage key={msg.id} message={msg.data()} user={user.email} />
+          messages.map((msg, i) => (
+            <ChatMessage key={i} message={msg.data()} user={user.email} />
           ))}
       </ScrollView>
 

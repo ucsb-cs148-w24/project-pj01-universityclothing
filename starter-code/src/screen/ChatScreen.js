@@ -1,5 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { ScrollView, StatusBar, StyleSheet, Text, View } from "react-native";
+import {
+  ScrollView,
+  StatusBar,
+  StyleSheet,
+  Text,
+  View,
+  LogBox,
+} from "react-native";
 
 import { firebaseApp, firestore } from "../../firebaseConfig";
 import { getAuth } from "firebase/auth";
@@ -17,55 +24,61 @@ import {
 import ChatRoomRow from "../components/ChatRoomRow";
 
 const ChatScreen = ({ navigation }) => {
+  console.warn = () => {};
+  LogBox.ignoreLogs(["source.uri should not be an empty string"]);
+
   const auth = getAuth(firebaseApp);
   const [user] = useAuthState(auth);
 
   const [msgRooms, setMsgRooms] = useState([]);
 
   const updateRooms = (room) => {
-    console.log(msgRooms);
-    const newMsgRooms = msgRooms.filter((msgRoom) => msgRoom.rid !== room.rid);
-    newMsgRooms.unshift(room);
-    console.log(msgRooms);
-    console.log(newMsgRooms);
-    setMsgRooms(newMsgRooms);
-    console.log(msgRooms);
+    setMsgRooms((prevMsgRooms) => {
+      const newMsgRooms = prevMsgRooms.filter(
+        (msgRoom) => msgRoom.rid !== room.rid
+      );
+      newMsgRooms.unshift(room);
+      newMsgRooms.sort((a, b) => b.latestMsg.sentAt - a.latestMsg.sentAt);
+      console.log(newMsgRooms);
+
+      return newMsgRooms;
+    });
   };
 
   useEffect(() => {
-    const msgRoomsQ = query(
-      collection(firestore, "users", user.email, "myMessageRooms")
-    );
+    const unsubMsgRooms = onSnapshot(
+      collection(firestore, "users", user.email, "myMessageRooms"),
+      (snapshot) => {
+        snapshot.docChanges().forEach(async (change) => {
+          if (change.type === "added") {
+            const curRoom = { rid: change.doc.id, latestMsg: {} };
 
-    const unsubMsgRooms = onSnapshot(msgRoomsQ, (snapshot) => {
-      snapshot.docChanges().forEach(async (change) => {
-        if (change.type === "added") {
-          const curRoom = { rid: change.doc.id, latestMsg: {} };
+            const roomRef = doc(firestore, "messageRooms", change.doc.id);
+            const roomSnap = await getDoc(roomRef);
 
-          const roomRef = doc(firestore, "messageRooms", change.doc.id);
-          const roomSnap = await getDoc(roomRef);
+            if (!roomSnap.exists()) {
+              console.log("Error: room " + change.doc.id + " does not exist");
+              return;
+            }
 
-          if (!roomSnap.exists()) {
-            console.log("Error: room " + change.doc.id + " does not exist");
-            return;
+            curRoom.listing = roomSnap.data().listing;
+            curRoom.users = roomSnap.data().users;
+
+            const latestMsgQ = query(
+              collection(firestore, "messageRooms", change.doc.id, "messages"),
+              orderBy("sentAt", "desc"),
+              limit(1)
+            );
+            const unsubLatestMsg = onSnapshot(latestMsgQ, (msgSnap) => {
+              curRoom.latestMsg.sentAt = msgSnap.docs[0].data().sentAt.toDate();
+              curRoom.latestMsg.text = msgSnap.docs[0].data().text;
+              updateRooms(curRoom);
+              console.log(curRoom);
+            });
           }
-
-          curRoom.listing = roomSnap.data().listing;
-          curRoom.users = roomSnap.data().users;
-
-          const latestMsgQ = query(
-            collection(firestore, "messageRooms", change.doc.id, "messages"),
-            orderBy("sentAt", "desc"),
-            limit(1)
-          );
-          const unsubLatestMsg = onSnapshot(latestMsgQ, (msgSnap) => {
-            curRoom.latestMsg.sentAt = msgSnap.docs[0].data().sentAt.toDate();
-            curRoom.latestMsg.text = msgSnap.docs[0].data().text;
-            updateRooms(curRoom);
-          });
-        }
-      });
-    });
+        });
+      }
+    );
 
     return () => unsubMsgRooms();
   }, []);
@@ -99,9 +112,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
-  },
-  HeaderButton: {
-    color: "blue",
   },
   ScreenContainer: {
     flex: 1,
