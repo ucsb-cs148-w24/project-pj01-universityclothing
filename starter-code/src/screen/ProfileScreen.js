@@ -9,33 +9,45 @@ import {
   Modal,
 } from "react-native";
 import {
-  Avatar,
-  Title,
-  Caption,
-  Paragraph,
-  Drawer,
-  TouchableRipple,
-  Switch,
+    Avatar,
+    Title,
+    Caption,
+    Paragraph,
+    Drawer,
+    TouchableRipple,
+    Switch,
 } from "react-native-paper";
+import { useAuthState } from "react-firebase-hooks/auth";
+import {
+    getDoc,
+    doc,
+    addDoc,
+    collection,
+    onSnapshot,
+    query,
+    where,
+    updateDoc,
+} from "firebase/firestore";
+import { firebaseApp, firestore, db, storage } from "../../firebaseConfig";
 import { COLORS } from "../theme/theme";
 import ProfileHeader from "../components/ProfileHeader";
 import EditProfileScreen from "./EditProfileScreen";
 import Entypo from "@expo/vector-icons/Entypo";
 import { useNavigation } from "@react-navigation/native";
 import { getAuth } from "firebase/auth";
-import { doc, getDoc, updateDoc, collection } from "firebase/firestore";
-import { firestore } from "../../firebaseConfig";
 
 const ProfileScreen = () => {
   const navigation = useNavigation();
-  const auth = getAuth();
-  const user = auth.currentUser;
+  const auth = getAuth(firebaseApp);
+  const [num_myListings, setNum_myListings] = useState(0);
   const [isEditModalVisible, setEditModalVisible] = useState(false);
   const [profileImageURL, setProfileImageURL] = useState(null);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [location, setLocation] = useState("");
+  const [user, loading, error] = useAuthState(auth);
+  let user_email = user.email;
 
   const handleEditPress = () => {
     setEditModalVisible(true);
@@ -54,6 +66,8 @@ const ProfileScreen = () => {
           setEmail(user.email); // Assuming the email won't change
           setPhone(userData.phone);
           setLocation(userData.location);
+          const myListings = docSnap.data().myListings;
+          setNum_myListings(myListings.length);
         } else {
           console.log("No profile found in Firestore");
         }
@@ -129,30 +143,32 @@ const ProfileScreen = () => {
         </View>
       </View>
 
-      <View style={styles.infoBoxWrapper}>
-        <View
-          style={[
-            styles.infoBox,
-            { borderRightColor: "#dddddd", borderRightWidth: 1 },
-          ]}
-        >
-          <Title>2</Title>
-          <Caption>My Posts</Caption>
-        </View>
-        <View
-          style={[
-            styles.infoBox,
-            { borderRightColor: "#dddddd", borderRightWidth: 1 },
-          ]}
-        >
-          <Title>12</Title>
-          <Caption>Items Sold</Caption>
-        </View>
-        <View style={[styles.infoBox]}>
-          <Title>5</Title>
-          <Caption>Items Brought</Caption>
-        </View>
-      </View>
+            <View style={styles.infoBoxWrapper}>
+                <TouchableOpacity
+                    style={[
+                        styles.infoBox,
+                        { borderRightColor: "#dddddd", borderRightWidth: 1 },
+                    ]}
+                    onPress={() => navigation.navigate("MyListings")}
+                >
+                    <Title>{num_myListings}</Title>
+                    <Caption>My Listings</Caption>
+                </TouchableOpacity>
+
+                <TouchableOpacity
+                    style={[
+                        styles.infoBox,
+                        { borderRightColor: "#dddddd", borderRightWidth: 1 },
+                    ]}
+                >
+                    <Title>12</Title>
+                    <Caption>Items Sold</Caption>
+                </TouchableOpacity>
+                <TouchableOpacity style={[styles.infoBox]}>
+                    <Title>5</Title>
+                    <Caption>Items Brought</Caption>
+                </TouchableOpacity>
+            </View>
 
       <View style={styles.menuWrapper}>
         <TouchableRipple onPress={() => {}}>
@@ -262,3 +278,4 @@ const styles = StyleSheet.create({
 });
 
 export default ProfileScreen;
+
