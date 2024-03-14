@@ -27,6 +27,8 @@ import {
 import { getStorage, ref, deleteObject } from "firebase/storage";
 import { firebaseApp, firestore, db, storage } from "../../firebaseConfig";
 import ExitHeaderBar from "../components/ExitHeaderBar";
+import HeaderBarWithBack from "../components/HeaderBarWithBack";
+
 import { COLORS } from "../theme/theme";
 import { Button } from "react-native-paper";
 import { useNavigation } from "@react-navigation/native"; // Import the useNavigation hook
@@ -37,7 +39,7 @@ const MyListingDetailScreen = ({ route }) => {
     const delURL = myListing.imageURL;
     const delListingID = myListing.listingId;
 
-    const handleDelete = async (navigation) => {
+    const handleDelete = async () => {
         try {
             // Delete the document from 'listings' collection
             await deleteDoc(doc(db, "listings", delListingID));
@@ -64,26 +66,24 @@ const MyListingDetailScreen = ({ route }) => {
             await deleteObject(imageRef);
 
             // Show alert
-            Alert.alert(
-                "Success",
-                "Listing has been deleted",
-                [
-                    {
-                        text: "OK",
-                        onPress: () => {
-                            // Navigate back to previous screen after deletion
-                            // navigation.navigate("myListings");
-                            navigation.goBack();
-                            navigation.goBack();
-                        },
+            Alert.alert("Success", "Listing has been deleted", [
+                {
+                    text: "OK",
+                    onPress: () => {
+                        // Navigate back to my listingsafter deletion
+                        navigation.navigate("MyListings");
                     },
-                ],
-                { cancelable: false }
-            );
+                },
+            ]);
         } catch (error) {
             console.error("Error deleting document: ", error);
             // Handle error
         }
+    };
+
+    const handleEdit = () => {
+        // Navigate to the edit screen passing necessary params
+        navigation.navigate("EditListing", { item, navigation });
     };
 
     const renderItem = ({ item }) => (
@@ -104,14 +104,23 @@ const MyListingDetailScreen = ({ route }) => {
         <View style={styles.screenContainer}>
             <StatusBar backgroundColor="#F2F1EB" />
             {/* Header Bar */}
-            <ExitHeaderBar navigation={navigation} />
+            {/* <ExitHeaderBar navigation={navigation} /> */}
+            <HeaderBarWithBack />
+
             {/* FlatList to render the item details */}
             <FlatList
                 data={[item]} // Wrap item in an array since FlatList expects an array of data
                 renderItem={renderItem}
                 keyExtractor={(item) => item.imageURL}
             />
-            <Button onPress={() => handleDelete(navigation)}>Delete</Button>
+            <View style={styles.buttonContainer}>
+                <Button style={styles.editButton} onPress={handleEdit}>
+                    Edit
+                </Button>
+                <Button style={styles.deleteButton} onPress={handleDelete}>
+                    Delete
+                </Button>
+            </View>
         </View>
     );
 };
@@ -162,6 +171,25 @@ const styles = StyleSheet.create({
     itemDescription: {
         fontSize: 14,
         color: COLORS.gray,
+    },
+    buttonContainer: {
+        flexDirection: "row",
+        justifyContent: "space-between",
+        marginHorizontal: 16,
+        marginBottom: 16,
+    },
+    editButton: {
+        backgroundColor: "#4287f5", // Blue color
+        paddingHorizontal: 20,
+        paddingVertical: 10,
+        borderRadius: 8,
+    },
+
+    deleteButton: {
+        backgroundColor: "#ff5252", // Red color
+        paddingHorizontal: 20,
+        paddingVertical: 10,
+        borderRadius: 8,
     },
 });
 
