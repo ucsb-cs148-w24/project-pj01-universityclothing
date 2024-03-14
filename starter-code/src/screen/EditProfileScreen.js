@@ -34,6 +34,8 @@ const EditProfileScreen = ({ onClose, onProfileUpdate }) => {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [location, setLocation] = useState("");
   const [initialUsername, setInitialUsername] = useState("");
+  const defaultImageUri = "https://i0.wp.com/digitalhealthskills.com/wp-content/uploads/2022/11/3da39-no-user-image-icon-27.png?fit=500%2C500&ssl=1";
+
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -149,7 +151,7 @@ const EditProfileScreen = ({ onClose, onProfileUpdate }) => {
               }}
             >
               <ImageBackground
-                source={{ uri: imageURL }}
+                source={{ uri: imageURL || defaultImageUri }}
                 style={{ height: 100, width: 100 }}
                 imageStyle={{ borderRadius: 15 }}
               >
@@ -190,7 +192,6 @@ const EditProfileScreen = ({ onClose, onProfileUpdate }) => {
             placeholder="Username"
             placeholderTextColor="#666666"
             autoCorrect={false}
-          
             onChangeText={setUsername}
             style={[
               styles.textInput,
@@ -207,7 +208,6 @@ const EditProfileScreen = ({ onClose, onProfileUpdate }) => {
             placeholderTextColor="#666666"
             keyboardType="number-pad"
             autoCorrect={false}
-      
             onChangeText={setPhoneNumber}
             style={[
               styles.textInput,
@@ -223,7 +223,6 @@ const EditProfileScreen = ({ onClose, onProfileUpdate }) => {
             placeholder="Location"
             placeholderTextColor="#666666"
             autoCorrect={false}
-            
             onChangeText={setLocation}
             style={[
               styles.textInput,
