@@ -29,6 +29,7 @@ import {
   getDocs,
   limit,
 } from "firebase/firestore";
+import { useNavigation } from "@react-navigation/native";
 
 const ChatMessage = ({ message, user }) => {
   const { text, from } = message;
@@ -49,7 +50,8 @@ const ChatRoom = ({ route }) => {
 
   const dummy = useRef();
 
-  const { navigation, room } = route.params;
+  const { room } = route.params;
+  const navigation = useNavigation();
 
   const [roomData, setRoomData] = useState({ listing: "", users: ["", ""] });
   const [otherUser, setOtherUser] = useState("");

@@ -52,10 +52,9 @@ const App = () => {
                             <Stack.Screen
                                 name="ChatRoom"
                                 component={ChatRoom}
-                                // options={({ navigation }) => ({
-                                //   navigation: navigation,
-                                // })}
-                                options={{ animation: "slide_from_left" }}
+                                options={({ navigation }) => ({
+                                  navigation: navigation,
+                                })}
                             ></Stack.Screen>
                         </Stack.Navigator>
                     </NavigationContainer>
