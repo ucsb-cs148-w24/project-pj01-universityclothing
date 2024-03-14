@@ -16,42 +16,32 @@ import { firebaseApp, firestore, db, storage } from "../../firebaseConfig";
 import "firebase/firestore";
 import { getAuth } from "firebase/auth";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+import {
+    ref,
+    deleteObject,
+    uploadBytesResumable,
+    getDownloadURL,
+} from "firebase/storage";
 import { getDoc, doc, updateDoc } from "firebase/firestore";
 
 import { Image } from "react-native";
 import * as ImagePicker from "expo-image-picker";
+import HeaderBarWithBack from "../components/HeaderBarWithBack";
 
-const EditListingScreen = ({ item, navigation }) => {
-    // const { listingId } = route.params;
+const EditListingScreen = ({ route }) => {
     const { handleNewPost } = useItems();
+    const { item, delListingID, navigation } = route.params;
+    // the doc id of the curent listing
+    const listingId = delListingID;
 
-    const [title, setTitle] = useState("");
-    const [price, setPrice] = useState("");
-    const [description, setDescription] = useState("");
-    const [category, setCategory] = useState("");
-    const [imageUrl, setImageUrl] = useState("");
-    const [condition, setCondition] = useState("");
+    const [title, setTitle] = useState(item.title);
+    const [price, setPrice] = useState(item.price.toString());
+    const [description, setDescription] = useState(item.desc);
+    const [category, setCategory] = useState(item.category.toString());
+    const [imageUrl, setImageUrl] = useState(item.imageURL);
+    const [condition, setCondition] = useState(item.condition.toString());
     const [isPosting, setIsPosting] = useState(false);
     const [uploadProgress, setUploadProgress] = useState(0);
-
-    useEffect(() => {
-        console.log("data", item);
-        async function fetchListing() {
-            const listingRef = doc(db, "listings", listingId);
-            const listingSnap = await getDoc(listingRef);
-            const data = listingSnap.data();
-            setTitle(data.title);
-            setPrice(data.price.toString());
-            setDescription(data.desc);
-            setCategory(data.category.toString());
-            setImageUrl(data.imageURL);
-            setCondition(data.condition.toString());
-            console.log("data", data);
-        }
-
-        fetchListing();
-    }, []);
 
     // get the auth instance
     const auth = getAuth(firebaseApp);
@@ -69,6 +59,18 @@ const EditListingScreen = ({ item, navigation }) => {
     // Function to handle form submission, should add to our firebase database
     const handleSubmit = async () => {
         if (isPosting) return;
+        if (
+            title === item.title &&
+            price === item.price.toString() &&
+            description === item.desc &&
+            category === item.category.toString() &&
+            condition === item.condition.toString() &&
+            imageUrl === item.imageURL
+        ) {
+            // Show alert indicating no changes were made
+            alert("No changes were made to the listing");
+            return;
+        }
 
         if (
             !title ||
@@ -84,7 +86,7 @@ const EditListingScreen = ({ item, navigation }) => {
 
         setIsPosting(true);
 
-        // upload the image here
+        // upload the image here if
         console.log(imageUrl);
         const downloadURL = await uploadImage(imageUrl, "image");
         console.log(downloadURL);
@@ -125,19 +127,73 @@ const EditListingScreen = ({ item, navigation }) => {
         alert("Listing Updated");
 
         // Navigate back
-        navigation.goBack();
+        navigation.navigate("MyListings");
 
         setIsPosting(false);
     };
 
+    // need to update listing from listings
+    // in mylisting and mysaved, just need to update image URL if modified.
     async function updateListing(data) {
         console.log("Updating listing");
 
         const listingRef = doc(db, "listings", listingId);
 
-        // Update the listing document with the new data
+        // first delete the old image in the storage
+        console.log("deleting", item.imageURL);
+        const imageRef = ref(storage, item.imageURL);
+        await deleteObject(imageRef);
+        console.log("deleted");
+
+        // Update the listing document in the listings collection
+        console.log("updating", data);
         await updateDoc(listingRef, data);
-        console.log("Listing updated");
+        console.log("listing updated");
+
+        // add the new URL to myListing
+        const userDocRef = doc(db, "users", item.lister);
+        console.log("userDocRef", userDocRef);
+        const userDocSnapshot = await getDoc(userDocRef);
+        console.log("userDocSnapshot", userDocSnapshot);
+        const myListingsArray = userDocSnapshot.data().myListings;
+        const indexToUpdate_listing = myListingsArray.findIndex(
+            (listing) => listing.listingId === listingId
+        );
+        console.log("indexToUpdate_listing", indexToUpdate_listing);
+        if (indexToUpdate_listing !== -1) {
+            // Create a new array with the modified value
+            const updatedListingsArray = [...myListingsArray];
+            console.log(
+                "old url",
+                updatedListingsArray[indexToUpdate_listing].imageURL
+            );
+            updatedListingsArray[indexToUpdate_listing].imageURL =
+                data.imageURL;
+            console.log(
+                "new url",
+                updatedListingsArray[indexToUpdate_listing].imageURL
+            );
+
+            // Update the document with the new array
+            await updateDoc(userDocRef, { myListings: updatedListingsArray });
+        }
+        console.log("myListings updated");
+        // add the new URL to mySaved if its there
+        const mySavedArray = userDocSnapshot.data().mySaved;
+        const indexToUpdate_saved = mySavedArray.findIndex(
+            (listing) => listing.listingId === listingId
+        );
+        if (indexToUpdate_saved !== -1) {
+            // Create a new array with the modified value
+            const updatedSavedArray = [...mySavedArray];
+
+            updatedSavedArray[indexToUpdate_saved].imageURL = data.imageURL;
+
+            // Update the document with the new array
+            await updateDoc(userDocRef, { mySaved: updatedSavedArray });
+        }
+
+        console.log("mySaved updated");
     }
 
     // Function to handle image selection
@@ -205,6 +261,7 @@ const EditListingScreen = ({ item, navigation }) => {
         // here are the inputs that users enter on the screen
         <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
             <View style={styles.container}>
+                {/* <HeaderBarWithBack /> */}
                 {isPosting && (
                     <View style={styles.overlayStyle}>
                         <ActivityIndicator size="large" color="#FFF" />

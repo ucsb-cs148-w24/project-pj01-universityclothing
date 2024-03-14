@@ -83,7 +83,9 @@ const MyListingDetailScreen = ({ route }) => {
 
     const handleEdit = () => {
         // Navigate to the edit screen passing necessary params
-        navigation.navigate("EditListing", { item, navigation });
+        // console.log("passing item", item);
+        // console.log("listingID", delListingID);
+        navigation.navigate("EditListing", { item, delListingID, navigation });
     };
 
     const renderItem = ({ item }) => (
@@ -103,8 +105,6 @@ const MyListingDetailScreen = ({ route }) => {
     return (
         <View style={styles.screenContainer}>
             <StatusBar backgroundColor="#F2F1EB" />
-            {/* Header Bar */}
-            {/* <ExitHeaderBar navigation={navigation} /> */}
             <HeaderBarWithBack />
 
             {/* FlatList to render the item details */}
