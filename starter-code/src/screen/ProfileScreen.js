@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   StatusBar,
   SafeAreaView,
@@ -23,15 +23,62 @@ import EditProfileScreen from "./EditProfileScreen";
 import Entypo from "@expo/vector-icons/Entypo";
 import { useNavigation } from "@react-navigation/native";
 import { getAuth } from "firebase/auth";
+import { doc, getDoc, updateDoc, collection } from "firebase/firestore";
+import { firestore } from "../../firebaseConfig";
 
 const ProfileScreen = () => {
   const navigation = useNavigation();
   const auth = getAuth();
   const user = auth.currentUser;
   const [isEditModalVisible, setEditModalVisible] = useState(false);
+  const [profileImageURL, setProfileImageURL] = useState(null);
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [location, setLocation] = useState("");
 
   const handleEditPress = () => {
     setEditModalVisible(true);
+  };
+
+  useEffect(() => {
+    const fetchUserProfile = async () => {
+      if (user && user.email) {
+        const docRef = doc(firestore, "users", user.email);
+        const docSnap = await getDoc(docRef);
+
+        if (docSnap.exists()) {
+          const userData = docSnap.data();
+          setProfileImageURL(userData.profileImage);
+          setName(userData.name || user.displayName);
+          setEmail(user.email); // Assuming the email won't change
+          setPhone(userData.phone);
+          setLocation(userData.location);
+        } else {
+          console.log("No profile found in Firestore");
+        }
+      }
+    };
+
+    fetchUserProfile();
+  }, [user]);
+
+  const onProfileUpdate = async () => {
+    if (user && user.email) {
+      const docRef = doc(firestore, "users", user.email);
+      const docSnap = await getDoc(docRef);
+
+      if (docSnap.exists()) {
+        const userData = docSnap.data();
+        setProfileImageURL(userData.profileImage);
+        setName(userData.name || user.displayName);
+        setEmail(user.email); // Assuming the email won't change
+        setPhone(userData.phone);
+        setLocation(userData.location);
+      } else {
+        console.log("No profile found in Firestore");e
+      }
+    }
   };
 
   return (
@@ -41,15 +88,13 @@ const ProfileScreen = () => {
       {/* User Icon, Name, ID */}
       <View style={styles.userInfoSection}>
         <View style={{ flexDirection: "row", marginTop: 15 }}>
-          <Avatar.Image
-            style={styles.avatarStyle}
-            source={{
-              uri:
-                user?.photoURL ||
-                "https://static.vecteezy.com/system/resources/previews/019/879/186/original/user-icon-on-transparent-background-free-png.png",
-            }}
-            size={80}
-          />
+        <View style={styles.avatarContainer}>
+      <Avatar.Image
+        source={{ uri: profileImageURL }}
+        size={80} // Adjust if needed
+      />
+    </View>
+
           <View style={{ marginLeft: 20 }}>
             <Title
               style={[
@@ -60,7 +105,7 @@ const ProfileScreen = () => {
                 },
               ]}
             >
-              {user?.displayName || "User Name"}
+              {name || user?.displayName}
             </Title>
             <Caption style={styles.caption}>{user?.email}</Caption>
           </View>
@@ -68,15 +113,19 @@ const ProfileScreen = () => {
       </View>
 
       <View style={styles.userInfoSection}>
+
         <View style={styles.row}>
-          <Entypo name="location" color={COLORS.darkBlue} size={20} />
+          <Entypo name="phone" color={COLORS.darkBlue} size={20} />
           <Text style={{ color: "#777777", marginLeft: 20 }}>
-            IV, Santa Barbara
+            {" "}
+            {phone || "______________"}{" "}
           </Text>
         </View>
         <View style={styles.row}>
-          <Entypo name="phone" color={COLORS.darkBlue} size={20} />
-          <Text style={{ color: "#777777", marginLeft: 20 }}>000-000-0000</Text>
+          <Entypo name="location" color={COLORS.darkBlue} size={20} />
+          <Text style={{ color: "#777777", marginLeft: 20 }}>
+            {location || " ______________"}
+          </Text>
         </View>
       </View>
 
@@ -136,7 +185,10 @@ const ProfileScreen = () => {
         visible={isEditModalVisible}
         onRequestClose={() => setEditModalVisible(false)}
       >
-        <EditProfileScreen onClose={() => setEditModalVisible(false)} />
+        <EditProfileScreen
+          onClose={() => setEditModalVisible(false)}
+          onProfileUpdate={onProfileUpdate}
+        />
       </Modal>
     </SafeAreaView>
   );
@@ -196,6 +248,16 @@ const styles = StyleSheet.create({
   avatarStyle: {
     borderColor: COLORS.darkBlue,
     borderRadius: 40,
+  },
+  avatarContainer: {
+    // height: 84, 
+    // width: 84, 
+    // borderRadius: 42, 
+    // borderWidth: 2, 
+    // borderColor: COLORS.darkBlue, 
+    // justifyContent: 'center',
+    // alignItems: 'center',
+    // overflow: 'hidden', 
   },
 });
 
