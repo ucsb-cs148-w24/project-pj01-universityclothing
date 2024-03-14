@@ -22,6 +22,7 @@ import {
 } from "firebase/firestore";
 
 import ChatRoomRow from "../components/ChatRoomRow";
+import HeaderBar from "../components/HeaderBar";
 
 const ChatScreen = ({ navigation }) => {
   console.warn = () => {};
@@ -84,10 +85,16 @@ const ChatScreen = ({ navigation }) => {
   return (
     <View style={styles.ScreenContainer}>
       <StatusBar backgroundColor="#F2F1EB" />
-      <View style={styles.HeaderBar}>
+
+      {/* <View style={styles.HeaderBar}>
         <Text style={styles.ScreenHeader}>Messages</Text>
-      </View>
+      </View> */}
+
+      {/* Header Bar */}
+      <HeaderBar title="Messages" />
+
       <ScrollView>
+        <View style={{ height: 10 }}></View>
         {msgRooms.map((room) => (
           <ChatRoomRow key={room.rid} room={room} navigation={navigation} />
         ))}

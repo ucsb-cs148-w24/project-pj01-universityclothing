@@ -49,6 +49,14 @@ const App = () => {
                                     navigation: navigation,
                                 })}
                             ></Stack.Screen>
+                            <Stack.Screen
+                                name="ChatRoom"
+                                component={ChatRoom}
+                                // options={({ navigation }) => ({
+                                //   navigation: navigation,
+                                // })}
+                                options={{ animation: "slide_from_left" }}
+                            ></Stack.Screen>
                         </Stack.Navigator>
                     </NavigationContainer>
                 ) : (
