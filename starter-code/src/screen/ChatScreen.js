@@ -39,7 +39,6 @@ const ChatScreen = ({ navigation }) => {
       );
       newMsgRooms.unshift(room);
       newMsgRooms.sort((a, b) => b.latestMsg.sentAt - a.latestMsg.sentAt);
-      console.log(newMsgRooms);
 
       return newMsgRooms;
     });
@@ -73,7 +72,6 @@ const ChatScreen = ({ navigation }) => {
               curRoom.latestMsg.sentAt = msgSnap.docs[0].data().sentAt.toDate();
               curRoom.latestMsg.text = msgSnap.docs[0].data().text;
               updateRooms(curRoom);
-              console.log(curRoom);
             });
           }
         });

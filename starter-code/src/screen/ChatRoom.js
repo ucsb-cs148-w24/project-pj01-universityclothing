@@ -27,6 +27,7 @@ import {
   Timestamp,
   addDoc,
   getDocs,
+  limit,
 } from "firebase/firestore";
 
 const ChatMessage = ({ message, user }) => {
@@ -109,36 +110,64 @@ const ChatRoom = ({ route }) => {
     const fetchMsgs = async () => {
       if (otherUser === "") return;
 
+      // const unsubMsgs = onSnapshot(
+      //   messagesQ,
+      //   (snapshot) => {
+      //     // console.log(messages);
+      //     // console.log(snapshot.docChanges());
+
+      //     console.log("length: " + snapshot.docChanges().length);
+
+      //     // if (snapshot.docChanges().length === messages.length) return;
+      //     setMessages((prevMsgs) => {
+      //       console.log(prevMsgs);
+      //       snapshot.docChanges().forEach((change) => {
+      //         prevMsgs.push(change.doc);
+      //       });
+      //       console.log(prevMsgs);
+      //       return prevMsgs;
+      //     });
+      //     // snapshot.docChanges().forEach((change) => {
+      //     //   setMessages((prevMsgs) => [...prevMsgs, change.doc]);
+      //     //   // console.log(change.doc.data());
+      //     //   // if (change.type === "added") {
+      //     //   // }
+      //     // });
+      //   },
+      //   (error) => console.log(error.message)
+      // );
+
+      // return () => unsubMsgs();
+
       const messagesQ = query(
         collection(firestore, "messageRooms", room, "messages"),
         orderBy("sentAt", "asc")
       );
 
-      // const msgsSnap = await getDocs(messagesQ);
-      // msgsSnap.forEach((msg) => {
-      //   setMessages((prevMsgs) => [...prevMsgs, msg]);
-      // });
+      const msgsSnap = await getDocs(messagesQ);
+      msgsSnap.forEach((msg) => {
+        setMessages((prevMsgs) => [...prevMsgs, msg]);
+      });
 
-      const unsubMsgs = onSnapshot(
-        messagesQ,
-        (snapshot) => {
-          console.log(otherUser);
-          // console.log(messages);
-          // console.log(snapshot.docChanges());
-
-          if (snapshot.docChanges().length === messages.length) return;
-
-          snapshot.docChanges().forEach((change) => {
-            setMessages((prevMsgs) => [...prevMsgs, change.doc]);
-            // console.log(change.doc.data());
-            // if (change.type === "added") {
-            // }
-          });
-        },
-        (error) => console.log(error.message)
+      const latestMsgQ = query(
+        collection(firestore, "messageRooms", room, "messages"),
+        orderBy("sentAt", "desc"),
+        limit(1)
       );
 
-      // return () => unsubMsgs();
+      const unsubLatestMsg = onSnapshot(latestMsgQ, (msgSnap) => {
+        setMessages((prevMsgs) => {
+          // console.log(prevMsgs.length);
+          if (
+            prevMsgs.length === 0 ||
+            prevMsgs[prevMsgs.length - 1].id !== msgSnap.docs[0].id
+          ) {
+            return [...prevMsgs, msgSnap.docs[0]];
+          } else return prevMsgs;
+        });
+      });
+
+      return () => unsubLatestMsg();
     };
 
     fetchMsgs();
@@ -157,6 +186,11 @@ const ChatRoom = ({ route }) => {
     );
   };
 
+  const shortenTitle = (title) => {
+    const limit = 30;
+    return title.length > limit ? title.substring(0, limit - 3) + "..." : title;
+  };
+
   return (
     <View style={styles.ScreenContainer}>
       <StatusBar backgroundColor="#F2F1EB" />
@@ -172,7 +206,7 @@ const ChatRoom = ({ route }) => {
         >
           <Image source={{ uri: listing.imageURL }} style={styles.ListingImg} />
           <Text style={styles.RoomTitle}>
-            {otherUser + " ∙ " + listing.title}
+            {shortenTitle(otherUser + " ∙ " + listing.title)}
           </Text>
         </TouchableOpacity>
       </View>
@@ -184,8 +218,8 @@ const ChatRoom = ({ route }) => {
         }
       >
         {messages &&
-          messages.map((msg, i) => (
-            <ChatMessage key={i} message={msg.data()} user={user.email} />
+          messages.map((msg) => (
+            <ChatMessage key={msg.id} message={msg.data()} user={user.email} />
           ))}
       </ScrollView>
 
