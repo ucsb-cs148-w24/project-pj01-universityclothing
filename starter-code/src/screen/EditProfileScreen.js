@@ -165,13 +165,13 @@ const EditProfileScreen = ({ onClose, onProfileUpdate }) => {
                   <Entypo
                     name="camera"
                     size={35}
-                    color="#fff"
+                    color={COLORS.darkBlue}
                     style={{
                       opacity: 0.7,
                       alignItems: "center",
                       justifyContent: "center",
-                      borderWidth: 1,
-                      borderColor: "#fff",
+                      borderWidth: 2,
+                      borderColor: COLORS.darkBlue,
                       borderRadius: 10,
                     }}
                   />
@@ -192,6 +192,7 @@ const EditProfileScreen = ({ onClose, onProfileUpdate }) => {
             placeholder="Username"
             placeholderTextColor="#666666"
             autoCorrect={false}
+            value={username}
             onChangeText={setUsername}
             style={[
               styles.textInput,
@@ -208,6 +209,7 @@ const EditProfileScreen = ({ onClose, onProfileUpdate }) => {
             placeholderTextColor="#666666"
             keyboardType="number-pad"
             autoCorrect={false}
+            value={phoneNumber}
             onChangeText={setPhoneNumber}
             style={[
               styles.textInput,
@@ -223,6 +225,7 @@ const EditProfileScreen = ({ onClose, onProfileUpdate }) => {
             placeholder="Location"
             placeholderTextColor="#666666"
             autoCorrect={false}
+            value={location}
             onChangeText={setLocation}
             style={[
               styles.textInput,
