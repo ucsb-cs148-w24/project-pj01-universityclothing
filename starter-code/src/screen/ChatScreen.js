@@ -93,12 +93,18 @@ const ChatScreen = ({ navigation }) => {
       {/* Header Bar */}
       <HeaderBar title="Messages" />
 
-      <ScrollView>
-        <View style={{ height: 10 }}></View>
-        {msgRooms.map((room) => (
-          <ChatRoomRow key={room.rid} room={room} navigation={navigation} />
-        ))}
-      </ScrollView>
+      {msgRooms.length > 0 ? (
+        <ScrollView>
+          <View style={{ height: 10 }}></View>
+          {msgRooms.map((room) => (
+            <ChatRoomRow key={room.rid} room={room} navigation={navigation} />
+          ))}
+        </ScrollView>
+      ) : (
+        <View style={styles.noMsgsView}>
+          <Text style={styles.noMsgsText}>No messages yet</Text>
+        </View>
+      )}
     </View>
   );
 };
@@ -127,6 +133,15 @@ const styles = StyleSheet.create({
   ScrollViewFlex: {
     flexGrow: 1,
     justifyContent: "space-between",
+  },
+  noMsgsView: {
+    width: "100%",
+    flexGrow: 1,
+    justifyContent: "center",
+  },
+  noMsgsText: {
+    textAlign: "center",
+    fontSize: 18,
   },
 });
 
