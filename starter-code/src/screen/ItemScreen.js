@@ -99,14 +99,16 @@ const ItemScreen = ({ route }) => {
                     Description: {item.desc}
                 </Text>
             </View>
-            <TouchableOpacity
-                style={styles.msgButton}
-                onPress={startChat}
-            >
-                <Text style={styles.msgButtonText}>
-                    Message {sellerName}
-                </Text>
-            </TouchableOpacity>
+            {user.email !== item.lister && (
+                <TouchableOpacity
+                    style={styles.msgButton}
+                    onPress={startChat}
+                >
+                    <Text style={styles.msgButtonText}>
+                        Message {sellerName}
+                    </Text>
+                </TouchableOpacity>
+            )}
         </View>
     );
 
