@@ -9,8 +9,6 @@ import {
   Image,
   View,
 } from "react-native";
-import {useBottomTabBarHeight} from '@react-navigation/bottom-tabs';
-import ExitHeaderBar from "../components/ExitHeaderBar";
 import {COLORS} from '../theme/theme';
 import { useItems } from "../components/ItemsContext";
 
@@ -59,7 +57,7 @@ const Favorites = ({navigation}) => {
     //initialization for the whole items
     const [listings, setFiles] = useState([]);
     const [myListings, setMyListings] = useState([]);
-    const [listingIDs, setListingIDs] = useState([]);
+    const [savedList, setSavedList] = useState([]);
 
     const auth = getAuth(firebaseApp);
 
@@ -81,27 +79,29 @@ const Favorites = ({navigation}) => {
 
                 // Get the 'myListings' array from the user document
                 const myListings = docSnapshot.data().mySaved;
-                let listingIDs = [];
+                console.log("myListings: ", myListings)
+                let savedList = [];
                 for (let i = 0; i < myListings.length; i++) {
-                    listingIDs.push(myListings[i].listingId);
-                    // console.log("Listing ID:", myListings[i].listingId);
+                    savedList.push(myListings[i].name);
+                    //console.log("Listing ID:", myListings[i].name);
                 }
 
                 // Clear the listings array
                 setFiles([]);
-                setListingIDs([]);
+                setSavedList([]);
                 // setMyListings([]);
 
                 // You can then perform any action with the listings array, such as displaying it in your UI
                 // we go through the list of listing IDs associated with the user, and get each doc from the listings collection
                 // and add it to the listings array to display in the UI
-                for (let i = 0; i < listingIDs.length; i++) {
-                    const docRef = doc(db, "listings", listingIDs[i]);
+                for (let i = 0; i < savedList.length; i++) {
+                    const docRef = doc(db, "listings", savedList[i]);
+                    //console.log(docRef)
                     const docSnap = await getDoc(docRef);
 
                     setFiles((prevFiles) => [...prevFiles, docSnap.data()]);
                 }
-                setListingIDs(listingIDs);
+                setSavedList(savedList);
                 setMyListings(myListings);
             },
             (error) => {
@@ -111,7 +111,8 @@ const Favorites = ({navigation}) => {
 
         return () => unsubscribe();
     }, []);
-
+    const { items } = useItems();
+    const combinedItems = [...listings, ...items];
     //initialization for the categories
     const categories = [
         "All",
@@ -142,7 +143,7 @@ const Favorites = ({navigation}) => {
     }, [listings, categoryIndex.category]);
 
     const [filteredItems, setFilteredItems] = useState(listings); 
-    
+
     // filter function
     const handleCategorySelect = (category, index) => {
         setCategoryIndex({ index: index, category: category });

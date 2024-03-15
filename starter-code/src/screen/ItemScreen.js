@@ -45,24 +45,27 @@ const ItemScreen = ({ route }) => {
       console.log("SAVE");
       console.log("EMAIL: ", user.email);
       const usersCol = collection(firestore, "users");
-
+      
       const userDocRef = doc(usersCol, user.email);
       const userDocSnap = await getDoc(userDocRef);
       const userData = userDocSnap.data();
       const updatedMySaved = userData.mySaved || [];
 
+
       if (updatedMySaved.some(savedItem => savedItem.imageURL === item.imageURL)) {
-        console.log("Listing already saved.");
+        alert("It's already saved");
         return; // Exit the function if the listing is already saved
       }
 
-      updatedMySaved.push({imageURL: item.imageURL });
+      updatedMySaved.push({
+        name: item.title,
+        imageURL: item.imageURL,
+    });
 
-      console.log("Before await update doc");
 
       // Update the user document with the updated mySaved array
-      await updateDoc(userDocRef, { mySaved: updatedMySaved});
-      console.log("SAVE SUCCESS");
+      await updateDoc(userDocRef, { mySaved: updatedMySaved});//cause error
+      //console.log("SAVE SUCCESS");
     } catch (error) {
       console.error("Error saving listing:", error);
     }
