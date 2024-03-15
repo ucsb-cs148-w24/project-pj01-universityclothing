@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   ScrollView,
   StatusBar,
@@ -13,64 +13,127 @@ import {
 } from "react-native";
 import {useBottomTabBarHeight} from '@react-navigation/bottom-tabs';
 import ExitHeaderBar from "../components/ExitHeaderBar";
-import {COLORS} from '../theme/theme';
+import { COLORS } from "../theme/theme";
 import Entypo from "@expo/vector-icons/Entypo";
-import { db,firebaseApp, firestore} from "../../firebaseConfig";
+import { db,firebaseApp, firestore } from "../../firebaseConfig";
 import { getAuth } from "firebase/auth";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { collection, doc, updateDoc, getDoc } from 'firebase/firestore';
-
-
-
+import {
+    doc,
+    getDoc,
+    updateDoc,
+    setDoc,
+    addDoc,
+    collection,
+    query,
+    getDocs,
+    where,
+    limit,
+    Timestamp,
+} from "firebase/firestore";
 
 const ItemScreen = ({ route }) => {
-  const { navigation, item} = route.params;
+    const { navigation, item } = route.params;
 
-  // const renderItem = ({ item }) => (
-  //   <View style={styles.itemContainer}>
-  //     <Image source={{ uri: item.imageUrl }} style={styles.itemImage} />
-  //     <Text style={styles.itemTitle}>{item.title}</Text>
-  //     <Text style={styles.itemPrice}>Price: ${item.price.toFixed(2)}</Text>
-  //     <Text style={styles.itemSeller}>Seller: {item.seller}</Text>
-  //     <Text style={styles.itemDescription}>Description: {item.description}</Text>
-  //   </View>
-  // );
-  const auth = getAuth(firebaseApp);
+    const [sellerName, setSellerName] = useState("");
 
-  const [user] = useAuthState(auth);
-  // let user_email = user.email;
+    const auth = getAuth(firebaseApp);
+    const [user] = useAuthState(auth);
 
-  const saveListing = async () => {
-    try {
-      console.log("SAVE");
-      console.log("EMAIL: ", user.email);
-      const usersCol = collection(firestore, "users");
-
-
-      const userDocRef = doc(usersCol, user.email);
-      const userDocSnap = await getDoc(userDocRef);
-      const userData = userDocSnap.data();
-      const updatedMySaved = userData.mySaved || [];
-
-
-      if (updatedMySaved.some(savedItem => savedItem.imageURL === item.imageURL)) {
-        alert("It's already saved");
-        return; // Exit the function if the listing is already saved
+    const saveListing = async () => {
+      try {
+        console.log("SAVE");
+        console.log("EMAIL: ", user.email);
+        const usersCol = collection(firestore, "users");
+  
+  
+        const userDocRef = doc(usersCol, user.email);
+        const userDocSnap = await getDoc(userDocRef);
+        const userData = userDocSnap.data();
+        const updatedMySaved = userData.mySaved || [];
+  
+  
+        if (updatedMySaved.some(savedItem => savedItem.imageURL === item.imageURL)) {
+          alert("It's already saved");
+          return; // Exit the function if the listing is already saved
+        }
+  
+        updatedMySaved.push({
+          name: item.title,
+          imageURL: item.imageURL,
+      });
+  
+  
+        // Update the user document with the updated mySaved array
+        await updateDoc(userDocRef, { mySaved: updatedMySaved});//cause error
+        console.log("SAVE SUCCESS");
+      } catch (error) {
+        console.error("Error saving listing:", error);
       }
+    };
 
-      updatedMySaved.push({
-        name: item.title,
-        imageURL: item.imageURL,
-    });
+    useEffect(() => {
+        const fetchSeller = async () => {
+            const sellerSnap = await getDoc(
+                doc(firestore, "users", item.lister)
+            );
 
+            if (!sellerSnap.exists()) {
+                console.log("Error: seller " + item.lister + " does not exist");
+            }
 
-      // Update the user document with the updated mySaved array
-      await updateDoc(userDocRef, { mySaved: updatedMySaved});//cause error
-      console.log("SAVE SUCCESS");
-    } catch (error) {
-      console.error("Error saving listing:", error);
-    }
-  };
+            setSellerName(sellerSnap.data().name);
+        };
+
+        fetchSeller();
+    }, []);
+
+    const openChat = async () => {
+        const listingQ = query(
+            collection(firestore, "listings"),
+            where("timePosted", "==", item.timePosted),
+            where("title", "==", item.title),
+            where("lister", "==", item.lister),
+            limit(1)
+        );
+        const listingSnap = await getDocs(listingQ);
+        
+        const lid = listingSnap.docs[0].id;
+
+        const roomQ = query(
+            collection(firestore, "messageRooms"),
+            where("listing", "==", lid),
+            limit(1)
+        );
+
+        const roomsSnap = await getDocs(roomQ);
+        if (roomsSnap.size > 0) {
+            navigation.navigate("ChatRoom", { navigation, room: roomsSnap.docs[0].id });
+        } else startChat(lid);
+    };
+    
+    const startChat = async (lid) => {
+        const newRoomRef = await addDoc(collection(firestore, "messageRooms"), {
+            listing: lid,
+            users: [user.email, item.lister],
+        });
+        await addDoc(collection(firestore, "messageRooms", newRoomRef.id, "messages"), {
+            from: user.email,
+            sentAt: Timestamp.now(),
+            text: "",
+        });
+
+        await setDoc(
+            doc(firestore, "users", user.email, "myMessageRooms", newRoomRef.id),
+            {}
+        );
+        await setDoc(
+            doc(firestore, "users", item.lister, "myMessageRooms", newRoomRef.id),
+            {}
+        );
+
+        navigation.navigate("ChatRoom", { navigation, room: newRoomRef.id });
+    };
 
   const renderItem = ({ item }) => (
     <View style={styles.itemContainer}>
@@ -78,7 +141,7 @@ const ItemScreen = ({ route }) => {
       <View style={styles.itemDetails}>
         <Text style={styles.itemTitle}>{item.title}</Text>
         <Text style={styles.itemPrice}>${item.price.toFixed(2)}</Text>
-        <Text style={styles.itemSeller}>Seller: {item.lister}</Text>
+        <Text style={styles.itemSeller}>Seller: {sellerName}</Text>
         <Text style={styles.itemDescription}>Description: {item.desc}</Text>
         <TouchableOpacity style={styles.saveButton} onPress={saveListing}>
 
@@ -86,6 +149,16 @@ const ItemScreen = ({ route }) => {
         </TouchableOpacity>
       </View>
       
+            {user.email !== item.lister && (
+                <TouchableOpacity
+                    style={styles.msgButton}
+                    onPress={openChat}
+                >
+                    <Text style={styles.msgButtonText}>
+                        Message {sellerName}
+                    </Text>
+                </TouchableOpacity>
+            )}
     </View>
   );
 
@@ -166,6 +239,19 @@ const styles = StyleSheet.create({
     color: '#FFC436',
     fontWeight: 'bold',
   },
+    msgButton: {
+        backgroundColor: COLORS.lightBlue, // Bright blue background
+        borderRadius: 20, // Border-radius of 20px
+        padding: 10, // Add padding for better visual appearance
+        alignSelf: "center", // Center content horizontally
+        width: "70%",
+        marginTop: 20,
+        marginBottom: 8,
+    },
+    msgButtonText: {
+        color: "#fff", // Text color is white
+        textAlign: "center",
+    },
 });
 
 export default ItemScreen;

@@ -8,6 +8,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import Navigator from "./src/components/Navigator";
 import HomeScreen from "./src/screen/HomeScreen";
 import ItemScreen from "./src/screen/ItemScreen";
+import ChatRoom from "./src/screen/ChatRoom";
 import { ItemsProvider } from "./src/components/ItemsContext";
 import MyListings from "./src/screen/MyListings";
 import MyListingDetailScreen from "./src/screen/MyListingDetailScreen";
@@ -47,6 +48,13 @@ const App = () => {
                                 component={MyListings}
                                 options={({ navigation }) => ({
                                     navigation: navigation,
+                                })}
+                            ></Stack.Screen>
+                            <Stack.Screen
+                                name="ChatRoom"
+                                component={ChatRoom}
+                                options={({ navigation }) => ({
+                                  navigation: navigation,
                                 })}
                             ></Stack.Screen>
                             <Stack.Screen
