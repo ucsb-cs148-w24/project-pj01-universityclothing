@@ -10,9 +10,11 @@ import {
   ToastAndroid,
   Image,
   LogBox,
+  Keyboard,
 } from "react-native";
 
 import Ionicons from "@expo/vector-icons/Ionicons";
+import KeyboardSpacer from "react-native-keyboard-spacer";
 
 import { firebaseApp, firestore } from "../../firebaseConfig";
 import { getAuth } from "firebase/auth";
@@ -71,6 +73,18 @@ const ChatRoom = ({ route }) => {
     };
 
     fetchRoom();
+
+    const showSub = Keyboard.addListener("keyboardDidShow", () => {
+      dummy.current.scrollToEnd({ animated: true });
+    });
+    const hideSub = Keyboard.addListener("keyboardDidHide", () => {
+      dummy.current.scrollToEnd({ animated: true });
+    });
+
+    return () => {
+      showSub.remove();
+      hideSub.remove();
+    };
   }, []);
 
   useEffect(() => {
@@ -249,6 +263,8 @@ const ChatRoom = ({ route }) => {
           <Text style={styles.buttonText}>Send</Text>
         </TouchableOpacity>
       </View>
+
+      <KeyboardSpacer topSpacing={-35} />
     </View>
   );
 };
@@ -307,7 +323,6 @@ const styles = StyleSheet.create({
   sendMsgBar: {
     flexDirection: "row",
     height: 50,
-    zIndex: 1,
     elevation: 4,
     marginTop: 5,
     paddingLeft: 3,
