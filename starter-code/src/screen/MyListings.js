@@ -76,6 +76,7 @@ const MyListings = ({ navigation }) => {
     let user_email = user.email;
 
     useEffect(() => {
+        if (!user_email) return;
         const docRef = doc(db, "users", user_email); // Construct a reference to the user document
 
         const unsubscribe = onSnapshot(
