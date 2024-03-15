@@ -191,7 +191,7 @@ const MyListings = ({ navigation }) => {
         >
             <Image source={{ uri: item.imageURL }} style={styles.itemImage} />
        {/* Date posted */}
-       <Text style={styles.datePosted}>{formatDate(item.timePosted)}</Text>
+       <Text style={styles.datePosted}>{formatDate(item.datePosted)}</Text>
       <View style={styles.itemDetails}>
       <Text style={styles.itemTitle}>{truncateTitle(item.title, 25)}</Text>
         <Text style={styles.itemPrice}>
