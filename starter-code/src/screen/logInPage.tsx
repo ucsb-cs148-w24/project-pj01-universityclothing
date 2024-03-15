@@ -31,7 +31,7 @@ import { collection, doc, setDoc, getDoc } from "firebase/firestore";
 
 // Initialize Firebase
 
-const image = require('../assets/loginbackground.png'); // Adjust the path based on your project structure
+const image = require('../assets/loginpage.png'); // Adjust the path based on your project structure
 
 
 const firebaseConfig = {
