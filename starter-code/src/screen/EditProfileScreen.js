@@ -193,6 +193,7 @@ const EditProfileScreen = ({ onClose, onProfileUpdate }) => {
             placeholderTextColor="#666666"
             autoCorrect={false}
             value={username}
+            maxLength={15}
             onChangeText={setUsername}
             style={[
               styles.textInput,
