@@ -53,8 +53,8 @@ const ItemScreen = ({ route }) => {
 
         fetchSeller();
     }, []);
-    
-    const startChat = async () => {
+
+    const openChat = async () => {
         const listingQ = query(
             collection(firestore, "listings"),
             where("timePosted", "==", item.timePosted),
@@ -66,6 +66,19 @@ const ItemScreen = ({ route }) => {
         
         const lid = listingSnap.docs[0].id;
 
+        const roomQ = query(
+            collection(firestore, "messageRooms"),
+            where("listing", "==", lid),
+            limit(1)
+        );
+
+        const roomsSnap = await getDocs(roomQ);
+        if (roomsSnap.size > 0) {
+            navigation.navigate("ChatRoom", { navigation, room: roomsSnap.docs[0].id });
+        } else startChat(lid);
+    };
+    
+    const startChat = async (lid) => {
         const newRoomRef = await addDoc(collection(firestore, "messageRooms"), {
             listing: lid,
             users: [user.email, item.lister],
@@ -102,7 +115,7 @@ const ItemScreen = ({ route }) => {
             {user.email !== item.lister && (
                 <TouchableOpacity
                     style={styles.msgButton}
-                    onPress={startChat}
+                    onPress={openChat}
                 >
                     <Text style={styles.msgButtonText}>
                         Message {sellerName}

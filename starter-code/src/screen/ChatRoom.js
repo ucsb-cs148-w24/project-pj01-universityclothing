@@ -57,7 +57,7 @@ const ChatRoom = ({ route }) => {
 
   const [roomData, setRoomData] = useState({ listing: "", users: ["", ""] });
   const [otherUser, setOtherUser] = useState("");
-  const [listing, setListing] = useState({ lid: "", imageURL: "", title: "" });
+  const [listing, setListing] = useState({ imageURL: "", title: "" });
   const [messages, setMessages] = useState([]);
   const [textInput, setTextInput] = useState("");
 
@@ -100,11 +100,7 @@ const ChatRoom = ({ route }) => {
         return;
       }
 
-      setListing({
-        lid: roomData.listing,
-        imageURL: listingSnap.data().imageURL,
-        title: listingSnap.data().title,
-      });
+      setListing(listingSnap.data());
     };
 
     fetchData();
@@ -206,7 +202,12 @@ const ChatRoom = ({ route }) => {
 
         <TouchableOpacity
           style={styles.HeaderBarMiddle}
-          onPress={() => console.log("hi")}
+          onPress={() =>
+            navigation.navigate("ItemDetails", {
+              navigation,
+              item: listing,
+            })
+          }
         >
           <Image source={{ uri: listing.imageURL }} style={styles.ListingImg} />
           <Text style={styles.RoomTitle}>
