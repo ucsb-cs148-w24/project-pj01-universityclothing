@@ -28,6 +28,7 @@ import {
 import { firebaseApp, firestore, db, storage } from "../../firebaseConfig";
 import { useEffect } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
+import FontAwesome from "@expo/vector-icons/FontAwesome";
 
 const getItemList = (category, data) => {
     if (category === "Clothing") {
@@ -159,6 +160,19 @@ const MyListings = ({ navigation }) => {
         setFilteredItems(getItemList(category, combinedItems));
     };
 
+    const formatDate = (timePosted) => {
+        if (timePosted && timePosted.dayOfWeek && timePosted.date && timePosted.month && timePosted.year) {
+          return `${timePosted.dayOfWeek}, ${timePosted.month} ${timePosted.date}, ${timePosted.year}`;
+        } else {
+          return 'Invalid date';
+        }
+      };
+      
+      
+      const truncateTitle = (title, maxLength) => {
+        return title.length > maxLength ? title.substring(0, maxLength) + '...' : title;
+      };
+
     const renderItem = ({ item }) => (
         <TouchableOpacity
             // here we will pass in the navigation, item
@@ -176,10 +190,14 @@ const MyListings = ({ navigation }) => {
             style={styles.itemContainer}
         >
             <Image source={{ uri: item.imageURL }} style={styles.itemImage} />
-            <View style={styles.itemDetails}>
-                <Text style={styles.itemTitle}>{item.title}</Text>
-                <Text style={styles.itemPrice}>${item.price.toFixed(2)}</Text>
-                <Text style={styles.itemSeller}>Seller: {item.lister}</Text>
+       {/* Date posted */}
+       <Text style={styles.datePosted}>{formatDate(item.timePosted)}</Text>
+      <View style={styles.itemDetails}>
+      <Text style={styles.itemTitle}>{truncateTitle(item.title, 25)}</Text>
+        <Text style={styles.itemPrice}>
+          <FontAwesome name="dollar" size={13} color={COLORS.yellow} />
+          {item.price.toFixed(2)}
+        </Text>
             </View>
         </TouchableOpacity>
     );
@@ -278,18 +296,21 @@ const styles = StyleSheet.create({
         marginRight: 12,
     },
     itemDetails: {
-        flex: 1,
-    },
-    itemTitle: {
+        padding: 8,
+        alignItems: "left",
+      },
+      itemTitle: {
         fontSize: 18,
         fontWeight: "bold",
         marginBottom: 4,
-    },
-    itemPrice: {
+        marginTop: 6,
+      },
+      itemPrice: {
         fontSize: 16,
-        color: COLORS.lightBlue,
+        color: COLORS.yellow,
         marginBottom: 4,
-    },
+        fontWeight: "bold",
+      },
     itemSeller: {
         fontSize: 14,
         color: "#888888",
@@ -330,6 +351,16 @@ const styles = StyleSheet.create({
         width: "100%",
         borderRadius: 1.5,
     },
+    datePosted: {
+        position: "absolute",
+        top: 10,
+        right: 10,
+        fontSize: 10,
+        color: 'gray',
+        backgroundColor: "rgba(255, 255, 255, 0.8)", // Optional for better visibility
+        padding: 4,
+        borderRadius: 6,
+      },
 });
 
 export default MyListings;
