@@ -4,15 +4,17 @@ import { View, Text, Button, Modal, StyleSheet, TouchableOpacity } from "react-n
 // app.tsx
 
 import { ImageBackground } from "react-native";
-
 import * as WebBrowser from "expo-web-browser";
 import * as Linking from "expo-linking";
 import { initializeApp } from "firebase/app";
+import { firebaseApp } from "../../firebaseConfig.js";
 import setIsLoggedIn from "../../App.js";
+
 import React, { useState } from "react";
 import {
     GoogleAuthProvider,
     initializeAuth,
+    signOut,
     signInWithCredential,
     getAuth,
 } from "firebase/auth";
@@ -42,6 +44,16 @@ const firebaseConfig = {
     messagingSenderId: "402529839560",
     appId: "1:402529839560:ios:794d6ea342486d070478fd",
     // measurementId: 'G-measurement-id',
+};
+
+const signOutUser = async () => {
+  const auth = getAuth(firebaseApp);
+  try {
+      await signOut(auth);
+      console.log('User signed out successfully');
+  } catch (error) {
+      console.error('Error signing out:', error.message);
+  }
 };
 
 async function addUser(id, data) {
@@ -113,7 +125,10 @@ const signInWithGoogle = async (setIsLoggedIn, showPopup) => {
                             // console.log("Signed in user:", user);
                             const id = user.email;
                             const data = {
-                                name: user.displayName,
+                                phone: "",
+                                location: "",
+                                profileImage: user?.photoURL,
+                                name: user?.displayName,
                                 myListings: [],
                                 mySaved: [],
                             };
@@ -131,7 +146,8 @@ const signInWithGoogle = async (setIsLoggedIn, showPopup) => {
         } else {
           // Handle the case where the email doesn't end with "ucsb.edu"
           console.log('Google Login Error: Not a UCSB email');
-          showPopup();
+        showPopup();
+
           // You might want to display an error message to the user
         }
       } else {
@@ -241,6 +257,8 @@ const styles = StyleSheet.create({
     fontSize: 18,
     color: "#fff",
     marginBottom: 20,
+    textAlign: 'center',
+    width: '80%',
   },
   modalButton: {
     backgroundColor: "#2F3A85",
