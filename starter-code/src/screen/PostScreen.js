@@ -67,6 +67,8 @@ const PostCreationScreen = ({ navigation }) => {
 
         setIsPosting(true);
 
+        const currentTime = new Date();
+
         // upload the image here
         console.log(imageUrl);
         const downloadURL = await uploadImage(imageUrl, "image");
@@ -96,6 +98,8 @@ const PostCreationScreen = ({ navigation }) => {
             imageURL: downloadURL,
             lister: user_email, // Assuming user_email is defined elsewhere in your code
             isSelling: true,
+            timePosted: currentTime.toISOString(),
+
         };
 
         // Show the data for debugging purposes
