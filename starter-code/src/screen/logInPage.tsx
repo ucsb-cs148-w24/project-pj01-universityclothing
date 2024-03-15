@@ -31,7 +31,7 @@ import { collection, doc, setDoc, getDoc } from "firebase/firestore";
 
 // Initialize Firebase
 
-const image = require('../assets/loginbackground.png'); // Adjust the path based on your project structure
+const image = require('../assets/loginpage.png'); // Adjust the path based on your project structure
 
 
 const firebaseConfig = {
@@ -44,16 +44,6 @@ const firebaseConfig = {
     messagingSenderId: "402529839560",
     appId: "1:402529839560:ios:794d6ea342486d070478fd",
     // measurementId: 'G-measurement-id',
-};
-
-const signOutUser = async () => {
-  const auth = getAuth(firebaseApp);
-  try {
-      await signOut(auth);
-      console.log('User signed out successfully');
-  } catch (error) {
-      console.error('Error signing out:', error.message);
-  }
 };
 
 async function addUser(id, data) {
@@ -84,7 +74,7 @@ async function addUser(id, data) {
 //make a public_html folder
 
 const signInWithGoogle = async (setIsLoggedIn, showPopup) => {
-  
+
   const response_type = "token";
   const client_id = "402529839560-1c1cl2ggt8aa91e079u1btc1401cb6nm.apps.googleusercontent.com";
   const redirect_uri = "https://sites.cs.ucsb.edu/~amisra/";
@@ -92,9 +82,9 @@ const signInWithGoogle = async (setIsLoggedIn, showPopup) => {
     "https://www.googleapis.com/auth/userinfo.email",
     "https://www.googleapis.com/auth/userinfo.profile",
   ];
-  
+
   const result = await WebBrowser.openAuthSessionAsync(
-    `https://accounts.google.com/o/oauth2/v2/auth?response_type=${response_type}&client_id=${client_id}&redirect_uri=${redirect_uri}&scope=${scopes.join("%20")}`
+    `https://accounts.google.com/o/oauth2/v2/auth?response_type=${response_type}&client_id=${client_id}&redirect_uri=${redirect_uri}&scope=${scopes.join("%20")}&prompt=select_account`
   );
   
   if (result.type === 'success') {
@@ -180,7 +170,7 @@ const Login = ({ setIsLoggedIn }) => {
         style={styles.googleSignInButton}
         onPress={() => signInWithGoogle(setIsLoggedIn, showPopup)}
       >
-        <Text style={styles.googleSignInButtonText}>
+        <Text data-prompt="select_account" style={styles.googleSignInButtonText}>
           Sign In with Google
         </Text>
       </TouchableOpacity>

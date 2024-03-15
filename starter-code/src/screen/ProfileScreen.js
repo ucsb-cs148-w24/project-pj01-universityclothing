@@ -9,24 +9,24 @@ import {
   Modal,
 } from "react-native";
 import {
-    Avatar,
-    Title,
-    Caption,
-    Paragraph,
-    Drawer,
-    TouchableRipple,
-    Switch,
+  Avatar,
+  Title,
+  Caption,
+  Paragraph,
+  Drawer,
+  TouchableRipple,
+  Switch,
 } from "react-native-paper";
 import { useAuthState } from "react-firebase-hooks/auth";
 import {
-    getDoc,
-    doc,
-    addDoc,
-    collection,
-    onSnapshot,
-    query,
-    where,
-    updateDoc,
+  getDoc,
+  doc,
+  addDoc,
+  collection,
+  onSnapshot,
+  query,
+  where,
+  updateDoc,
 } from "firebase/firestore";
 import { firebaseApp, firestore, db, storage } from "../../firebaseConfig";
 import { COLORS } from "../theme/theme";
@@ -35,6 +35,8 @@ import EditProfileScreen from "./EditProfileScreen";
 import Entypo from "@expo/vector-icons/Entypo";
 import { useNavigation } from "@react-navigation/native";
 import { getAuth } from "firebase/auth";
+import { MaterialIcons } from '@expo/vector-icons';
+
 
 const ProfileScreen = () => {
   const navigation = useNavigation();
@@ -90,7 +92,8 @@ const ProfileScreen = () => {
         setPhone(userData.phone);
         setLocation(userData.location);
       } else {
-        console.log("No profile found in Firestore");e
+        console.log("No profile found in Firestore");
+        e;
       }
     }
   };
@@ -102,12 +105,12 @@ const ProfileScreen = () => {
       {/* User Icon, Name, ID */}
       <View style={styles.userInfoSection}>
         <View style={{ flexDirection: "row", marginTop: 15 }}>
-        <View style={styles.avatarContainer}>
-      <Avatar.Image
-        source={{ uri: profileImageURL }}
-        size={80} // Adjust if needed
-      />
-    </View>
+          <View style={styles.avatarContainer}>
+            <Avatar.Image
+              source={{ uri: profileImageURL }}
+              size={100} // Adjust if needed
+            />
+          </View>
 
           <View style={{ marginLeft: 20 }}>
             <Title
@@ -127,7 +130,6 @@ const ProfileScreen = () => {
       </View>
 
       <View style={styles.userInfoSection}>
-
         <View style={styles.row}>
           <Entypo name="phone" color={COLORS.darkBlue} size={20} />
           <Text style={{ color: "#777777", marginLeft: 20 }}>
@@ -143,33 +145,6 @@ const ProfileScreen = () => {
         </View>
       </View>
 
-            <View style={styles.infoBoxWrapper}>
-                <TouchableOpacity
-                    style={[
-                        styles.infoBox,
-                        { borderRightColor: "#dddddd", borderRightWidth: 1 },
-                    ]}
-                    onPress={() => navigation.navigate("MyListings")}
-                >
-                    <Title>{num_myListings}</Title>
-                    <Caption>My Listings</Caption>
-                </TouchableOpacity>
-
-                <TouchableOpacity
-                    style={[
-                        styles.infoBox,
-                        { borderRightColor: "#dddddd", borderRightWidth: 1 },
-                    ]}
-                >
-                    <Title>12</Title>
-                    <Caption>Items Sold</Caption>
-                </TouchableOpacity>
-                <TouchableOpacity style={[styles.infoBox]}>
-                    <Title>5</Title>
-                    <Caption>Items Brought</Caption>
-                </TouchableOpacity>
-            </View>
-
       <View style={styles.menuWrapper}>
       <TouchableOpacity onPress={() => navigation.navigate("Favorites")}>
           <View style={styles.menuItem}>
@@ -179,14 +154,8 @@ const ProfileScreen = () => {
         </TouchableOpacity>
         <TouchableRipple onPress={() => {}}>
           <View style={styles.menuItem}>
-            <Entypo name="back-in-time" color={COLORS.yellow} size={25} />
-            <Text style={styles.menuItemText}>Browse History</Text>
-          </View>
-        </TouchableRipple>
-        <TouchableRipple onPress={() => {}}>
-          <View style={styles.menuItem}>
-            <Entypo name="wallet" color={COLORS.yellow} size={25} />
-            <Text style={styles.menuItemText}>Payment</Text>
+            <MaterialIcons name="contact-mail" color={COLORS.yellow} size={25} />
+            <Text style={styles.menuItemText}>Contact Us</Text>
           </View>
         </TouchableRipple>
         <TouchableRipple onPress={() => {}}>
@@ -195,6 +164,7 @@ const ProfileScreen = () => {
             <Text style={styles.menuItemText}>Setting</Text>
           </View>
         </TouchableRipple>
+
       </View>
       <Modal
         animationType="slide"
@@ -234,9 +204,9 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   infoBoxWrapper: {
-    borderBottomColor: "#dddddd",
+    borderBottomColor: "#f5f5f5",
     borderBottomWidth: 1,
-    borderTopColor: "#dddddd",
+    borderTopColor: "#ffffff",
     borderTopWidth: 1,
     flexDirection: "row",
     height: 100,
@@ -251,8 +221,15 @@ const styles = StyleSheet.create({
   },
   menuItem: {
     flexDirection: "row",
-    paddingVertical: 10,
-    paddingHorizontal: 30,
+    paddingVertical: 15,  // Increased padding for better spacing
+    paddingHorizontal: 20,
+    borderWidth: 1,      // Adds border around each menu item
+    borderColor: '#d1d1d1', // Light grey border color
+    borderRadius: 10,    // Rounded corners
+    backgroundColor: '#fff', // White background
+    marginVertical: 5,   // Adds vertical margin between menu items
+    marginHorizontal: 10, // Adds horizontal margin for some spacing from screen edges
+    alignItems: 'center', 
   },
   menuItemText: {
     color: "#777777",
@@ -266,16 +243,15 @@ const styles = StyleSheet.create({
     borderRadius: 40,
   },
   avatarContainer: {
-    // height: 84, 
-    // width: 84, 
-    // borderRadius: 42, 
-    // borderWidth: 2, 
-    // borderColor: COLORS.darkBlue, 
+    // height: 84,
+    // width: 84,
+    // borderRadius: 42,
+    // borderWidth: 2,
+    // borderColor: COLORS.darkBlue,
     // justifyContent: 'center',
     // alignItems: 'center',
-    // overflow: 'hidden', 
+    // overflow: 'hidden',
   },
 });
 
 export default ProfileScreen;
-
