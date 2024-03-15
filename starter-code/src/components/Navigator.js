@@ -18,11 +18,12 @@ const CustomTabBarButton = ({ children, onPress }) => (
   <TouchableOpacity
     style={{
       top: -30,
-      justifyContent: "center",
-      alignItems: "center",
+      justifyContent: 'center',
+      alignItems: 'center',
       ...styles.shadow,
     }}
     onPress={onPress}
+    activeOpacity={0.9}
   >
     <View
       style={{
@@ -30,6 +31,8 @@ const CustomTabBarButton = ({ children, onPress }) => (
         height: 70,
         borderRadius: 35,
         backgroundColor: COLORS.yellow,
+        justifyContent: 'center',
+        alignItems: 'center',
       }}
     >
       {children}
@@ -68,16 +71,16 @@ const Navigator = () => {
         }}
       ></Tab.Screen>
 
-      <Tab.Screen
-        name="Post"
-        component={CreateScreen}
-        options={{
-          tabBarIcon: ({ focused }) => (
-            <Entypo name="plus" size={45} color={COLORS.white} />
-          ),
-          tabBarButton: (props) => <CustomTabBarButton {...props} />,
-          tabBarLabel: "",
-        }}
+<Tab.Screen
+  name="Post"
+  component={CreateScreen}
+  options={{
+    tabBarIcon: ({ focused }) => (
+      <Entypo name="plus" size={40} color={COLORS.white} style={{ position: 'absolute', top: '28%', right: '21%'}} />
+    ),
+    tabBarButton: (props) => <CustomTabBarButton {...props} />,
+    tabBarLabel: '',
+  }}
       ></Tab.Screen>
 
       <Tab.Screen
