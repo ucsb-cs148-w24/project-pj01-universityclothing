@@ -106,9 +106,9 @@ const PostCreationScreen = ({ navigation }) => {
     const currentTime = new Date();
 
     const timePosted = {
-      dayOfWeek: currentTime.toLocaleString('en-US', { weekday: 'long' }), // Eg. Monday
+      dayOfWeek: currentTime.toLocaleString("en-US", { weekday: "long" }), // Eg. Monday
       date: currentTime.getDate(), // Day of the month
-      month: currentTime.toLocaleString('en-US', { month: 'long' }), // Eg. December
+      month: currentTime.toLocaleString("en-US", { month: "long" }), // Eg. December
       year: currentTime.getFullYear(), // Year
     };
 
@@ -146,7 +146,7 @@ const PostCreationScreen = ({ navigation }) => {
       timePosted: currentTime.toISOString(),
       listerDisplayName: userDisplayName,
       listerLocation: userLocation,
-      timePosted: timePosted,
+      datePosted: timePosted,
     };
 
     // Show the data for debugging purposes
@@ -227,7 +227,7 @@ const PostCreationScreen = ({ navigation }) => {
       // assets from indices 0 -> n
       setImageUrl(result.assets[0].uri);
       setImageWidth(result.assets[0].width);
-    setImageHeight(result.assets[0].height);
+      setImageHeight(result.assets[0].height);
 
       console.log(result.assets[0].width);
       console.log(result.assets[0].height);
