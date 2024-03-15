@@ -1,49 +1,80 @@
-import {StyleSheet, Text, View} from 'react-native';
-import React from 'react';
-import {COLORS, FONTFAMILY, FONTSIZE, SPACING} from '../theme/theme';
-import UserProfile from './UserProfile';
-import NotificationButton from './NotificationButton';
+import React, { useState, useEffect } from "react";
+import { StyleSheet, View, Text } from "react-native";
+import { Avatar } from "react-native-paper";
+import { getAuth } from "firebase/auth";
+import { doc, getDoc } from "firebase/firestore";
+import { firestore } from "../../firebaseConfig";
+import { COLORS } from "../theme/theme";
 
-{/* Header Bar Component */}
+const HeaderBar = ({ title }) => {
+  const auth = getAuth();
+  const user = auth.currentUser;
+  const [profileImageURL, setProfileImageURL] = useState(user?.photoURL);
 
-interface HeaderBarProps {
-    title?: string;
-}
+  useEffect(() => {
+    const fetchUserProfileImage = async () => {
+      if (user && user.email) {
+        const userDocRef = doc(firestore, "users", user.email);
+        const userDocSnap = await getDoc(userDocRef);
 
-const HeaderBar: React.FC<HeaderBarProps> = ({title}) => {
-    return (
-        <View style={styles.HeaderContainer}>
-            <Text style={styles.HeaderText}>
-                {title}
-            </Text>
-            <View style={styles.RightContainer}>
-                <NotificationButton notificationCount={3} />
-                <UserProfile />
-            </View>
+        if (userDocSnap.exists()) {
+          const userData = userDocSnap.data();
+          setProfileImageURL(userData.profileImage);
+        }
+      }
+    };
+
+    fetchUserProfileImage();
+  }, [user]);
+
+  return (
+    <View style={styles.HeaderContainer}>
+      <Text style={styles.HeaderText}>{title}</Text>
+      <View style={styles.RightContainer}>
+        <View style={styles.ImageContainer}>
+          <Avatar.Image
+            style={styles.avatarStyle}
+            source={{ uri: profileImageURL }}
+            size={36}
+          />
         </View>
-    );
-}
+      </View>
+    </View>
+  );
+};
 
 const styles = StyleSheet.create({
-    HeaderContainer: {
-        padding: 30,
-        flexDirection: 'row',
-        alignItems: 'center', 
-        justifyContent: 'space-between',
-        backgroundColor: COLORS.darkBlue,
-        height: 100,
-    },
-    HeaderText: {
-        color: COLORS.yellow,
-        fontSize: 20,
-    },
-    RightContainer: {
-        flexDirection: 'row',
-        alignItems: 'center',
-    }
+  HeaderContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    backgroundColor: COLORS.darkBlue,
+    height: 70,
+    paddingHorizontal: 10,
+  },
+  HeaderText: {
+    color: COLORS.yellow,
+    fontSize: 20,
+    fontWeight: "bold",
+  },
+  RightContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  ImageContainer: {
+    height: 36,
+    width: 36,
+    borderRadius: 18,
+    borderWidth: 2,
+    borderColor: COLORS.yellow,
+    alignItems: 'center',
+    justifyContent: 'center',
+    overflow: 'hidden',
+  },
+  avatarStyle: {
+    borderColor: COLORS.darkBlue,
+    borderRadius: 40,
+  },
 });
 
 export default HeaderBar;
-
-
-
