@@ -56,41 +56,63 @@ const getItemList = (category, data) => {
 };
 
 const Favorites = ({navigation}) => {
+    //initialization for the whole items
     const [listings, setFiles] = useState([]);
-    const [mySaved, setMySaved] = useState([])
+    const [myListings, setMyListings] = useState([]);
+    const [listingIDs, setListingIDs] = useState([]);
+
+    const auth = getAuth(firebaseApp);
+
+    const [user] = useAuthState(auth);
+    let user_email = user.email
     useEffect(() => {
+        const docRef = doc(db, "users", user_email); // Construct a reference to the user document
+
         const unsubscribe = onSnapshot(
-            collection(db, "listings"),
-            (snapshot) => {
-                snapshot.docChanges().forEach((change) => {
-                    console.log("change", change.type);
-                    if (change.type === "added") {
-                        // Handle added documents
-                        setFiles((prevFiles) => [
-                            ...prevFiles,
-                            change.doc.data(),
-                        ]);
-                    } else if (change.type === "removed") {
-                        // Handle removed documents
-                        const removedImageURL = change.doc.data().imageURL;
-                        console.log("removed", removedImageURL);
-                        console.log("listings", listings);
-                        setFiles((prevFiles) =>
-                            prevFiles.filter(
-                                (item) => item.imageURL !== removedImageURL
-                            )
-                        );
-                    }
-                });
+            docRef,
+            async (docSnapshot) => {
+                if (!docSnapshot.exists()) {
+                    console.log("No matching user document found.");
+                    return;
+                }
+
+                // Print the entire user document
+                // console.log("User document:", docSnapshot.data());
+
+                // Get the 'myListings' array from the user document
+                const myListings = docSnapshot.data().mySaved;
+                let listingIDs = [];
+                for (let i = 0; i < myListings.length; i++) {
+                    listingIDs.push(myListings[i].listingId);
+                    // console.log("Listing ID:", myListings[i].listingId);
+                }
+
+                // Clear the listings array
+                setFiles([]);
+                setListingIDs([]);
+                // setMyListings([]);
+
+                // You can then perform any action with the listings array, such as displaying it in your UI
+                // we go through the list of listing IDs associated with the user, and get each doc from the listings collection
+                // and add it to the listings array to display in the UI
+                for (let i = 0; i < listingIDs.length; i++) {
+                    const docRef = doc(db, "listings", listingIDs[i]);
+                    const docSnap = await getDoc(docRef);
+
+                    setFiles((prevFiles) => [...prevFiles, docSnap.data()]);
+                }
+                setListingIDs(listingIDs);
+                setMyListings(myListings);
+            },
+            (error) => {
+                console.error("Error fetching user document:", error);
             }
         );
 
         return () => unsubscribe();
     }, []);
 
-    const { items } = useItems();
-    const combinedItems = [...listings, ...items];
-
+    //initialization for the categories
     const categories = [
         "All",
         "Clothing",
@@ -106,7 +128,7 @@ const Favorites = ({navigation}) => {
         "Tools & Equipment",
         "Others",
     ];
-
+    // initialization for the whole items
     const [categoryIndex, setCategoryIndex] = useState({
         index: 0,
         category: "All",
@@ -115,15 +137,16 @@ const Favorites = ({navigation}) => {
     useEffect(() => {
         // This effect will run whenever `listings` changes, including when it's first set.
         setFilteredItems(
-            getItemList(categoryIndex.category, [...listings, ...items])
+            getItemList(categoryIndex.category, [...listings])
         );
-    }, [listings, items, categoryIndex.category]);
+    }, [listings, categoryIndex.category]);
 
-    const [filteredItems, setFilteredItems] = useState(combinedItems); // State to hold filtered items
-
+    const [filteredItems, setFilteredItems] = useState(listings); 
+    
+    // filter function
     const handleCategorySelect = (category, index) => {
         setCategoryIndex({ index: index, category: category });
-        setFilteredItems(getItemList(category, combinedItems));
+        setFilteredItems(getItemList(category, listings));
     };
 
     const renderItem = ({ item }) => (
@@ -132,7 +155,7 @@ const Favorites = ({navigation}) => {
             // and the doc id and imageURl of the listing
             // so we can delete it later
             onPress={() =>
-                navigation.navigate("MyListingDetail", {
+                navigation.navigate("ItemDetails", {
                     navigation,
                     item,
                     myListing: myListings.find(
@@ -158,7 +181,6 @@ const Favorites = ({navigation}) => {
       <FavoritesHeader 
       navigation={navigation} 
       />
-      {/* FlatList to render the item details */}
        {/* Category Selector */}
        <ScrollView
                 horizontal
@@ -247,6 +269,50 @@ const styles = StyleSheet.create({
     width: "100%",
     borderRadius: 1.5,
   },
+  //flatlist
+  flatList: {
+    marginTop: 15,
+},
+itemContainer: {
+    flexDirection: "row",
+    backgroundColor: "#ffffff",
+    borderRadius: 8,
+    marginHorizontal: 16,
+    marginBottom: 16,
+    padding: 12,
+    shadowColor: "#000000",
+    shadowOffset: {
+        width: 0,
+        height: 2,
+    },
+    shadowOpacity: 0.2,
+    shadowRadius: 2,
+    elevation: 2,
+},
+itemImage: {
+    width: 100,
+    height: 100,
+    borderRadius: 8,
+    marginRight: 12,
+},
+itemDetails: {
+    flex: 1,
+},
+itemTitle: {
+    fontSize: 18,
+    fontWeight: "bold",
+    marginBottom: 4,
+},
+itemPrice: {
+    fontSize: 16,
+    color: COLORS.lightBlue,
+    marginBottom: 4,
+},
+itemSeller: {
+    fontSize: 14,
+    color: "#888888",
+},
+
 });
 
 export default Favorites;
