@@ -15,7 +15,7 @@ import {useBottomTabBarHeight} from '@react-navigation/bottom-tabs';
 import ExitHeaderBar from "../components/ExitHeaderBar";
 import {COLORS} from '../theme/theme';
 import Entypo from "@expo/vector-icons/Entypo";
-import { firebaseApp, firestore} from "../../firebaseConfig";
+import { db,firebaseApp, firestore} from "../../firebaseConfig";
 import { getAuth } from "firebase/auth";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { collection, doc, updateDoc, getDoc } from 'firebase/firestore';
@@ -45,7 +45,8 @@ const ItemScreen = ({ route }) => {
       console.log("SAVE");
       console.log("EMAIL: ", user.email);
       const usersCol = collection(firestore, "users");
-      
+
+
       const userDocRef = doc(usersCol, user.email);
       const userDocSnap = await getDoc(userDocRef);
       const userData = userDocSnap.data();
@@ -65,7 +66,7 @@ const ItemScreen = ({ route }) => {
 
       // Update the user document with the updated mySaved array
       await updateDoc(userDocRef, { mySaved: updatedMySaved});//cause error
-      //console.log("SAVE SUCCESS");
+      console.log("SAVE SUCCESS");
     } catch (error) {
       console.error("Error saving listing:", error);
     }

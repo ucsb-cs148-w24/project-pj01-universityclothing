@@ -79,10 +79,10 @@ const Favorites = ({navigation}) => {
 
                 // Get the 'myListings' array from the user document
                 const myListings = docSnapshot.data().mySaved;
-                console.log("myListings: ", myListings)
+                //console.log("myListings: ", myListings)
                 let savedList = [];
                 for (let i = 0; i < myListings.length; i++) {
-                    savedList.push(myListings[i].name);
+                    savedList.push(myListings[i].imageURL);
                     //console.log("Listing ID:", myListings[i].name);
                 }
 
@@ -93,13 +93,13 @@ const Favorites = ({navigation}) => {
 
                 // You can then perform any action with the listings array, such as displaying it in your UI
                 // we go through the list of listing IDs associated with the user, and get each doc from the listings collection
-                // and add it to the listings array to display in the UI
+                // and add it to the listings array to disprlay in the UI
                 for (let i = 0; i < savedList.length; i++) {
-                    const docRef = doc(db, "listings", savedList[i]);
-                    //console.log(docRef)
-                    const docSnap = await getDoc(docRef);
+                    const docRef = doc(db, "listings");
+                    const q = query(docRef, where("imageURL", "==", savedList[i]))
+                    //const docSnap = await getDoc(q);
 
-                    setFiles((prevFiles) => [...prevFiles, docSnap.data()]);
+                    setFiles((prevFiles) => [...prevFiles, q.data()]);
                 }
                 setSavedList(savedList);
                 setMyListings(myListings);
@@ -222,7 +222,7 @@ const Favorites = ({navigation}) => {
                 <FlatList // !!! TODO: FIX FLEX VALUE !!!
                     data={filteredItems} // Use filteredItems here
                     renderItem={renderItem}
-                    keyExtractor={(item) => item.imageURL}
+                    keyExtractor={(item) => item.name}
                     style={styles.flatList}
                 />
             </View>
