@@ -34,8 +34,9 @@ import ProfileHeader from "../components/ProfileHeader";
 import Entypo from "@expo/vector-icons/Entypo";
 import { useNavigation } from "@react-navigation/native";
 
-const ProfileScreen = () => {
-    const navigation = useNavigation();
+
+const ProfileScreen = ({navigation}) => {
+    //const navigation = useNavigation();
     const auth = getAuth(firebaseApp);
     const [num_myListings, setNum_myListings] = useState(0);
 
@@ -150,7 +151,7 @@ const ProfileScreen = () => {
             </View>
 
             <View style={styles.menuWrapper}>
-                <TouchableRipple onPress={() => {}}>
+                <TouchableOpacity onPress={() => navigation.navigate("Favorites")}>
                     <View style={styles.menuItem}>
                         <Entypo
                             name="heart-outlined"
@@ -159,7 +160,7 @@ const ProfileScreen = () => {
                         />
                         <Text style={styles.menuItemText}>Favorites</Text>
                     </View>
-                </TouchableRipple>
+                </TouchableOpacity>
                 <TouchableRipple onPress={() => {}}>
                     <View style={styles.menuItem}>
                         <Entypo

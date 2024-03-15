@@ -12,11 +12,12 @@ interface ExitHeaderBarProps {
     navigation?: NavigationProp<any>;
 }
 
-const ExitHeaderBar: React.FC<ExitHeaderBarProps> = ({ navigation }) => {
+const FavoritesHeader: React.FC<ExitHeaderBarProps> = ({ navigation }) => {
     return (
         <View style={styles.HeaderContainer}>
             <View style={styles.LeftContainer}>
                 <XButton navigation={navigation} />
+                <Text style ={styles.HeaderText}>Your Favorites</Text>
             </View>
         </View>
     );
@@ -36,6 +37,12 @@ const styles = StyleSheet.create({
         alignItems: "center",
         marginLeft:10,
     },
+    HeaderText: {
+        color: COLORS.yellow,
+        fontSize: 20,
+        fontWeight: "bold",
+       marginLeft: -15,
+    },
 });
 
-export default ExitHeaderBar;
+export default FavoritesHeader;
