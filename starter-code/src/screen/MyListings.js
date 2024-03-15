@@ -108,7 +108,7 @@ const MyListings = ({ navigation }) => {
                     const docRef = doc(db, "listings", listingIDs[i]);
                     const docSnap = await getDoc(docRef);
 
-                    setFiles((prevFiles) => [...prevFiles, docSnap.data()]);
+                    setFiles((prevFiles) => [docSnap.data(), ...prevFiles]);
                 }
                 setListingIDs(listingIDs);
                 setMyListings(myListings);
