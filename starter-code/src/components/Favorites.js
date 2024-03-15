@@ -15,7 +15,7 @@ import { useItems } from "../components/ItemsContext";
 import { db, storage, firebaseApp, firestore} from "../../firebaseConfig";
 import { getAuth } from "firebase/auth";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { collection, doc, updateDoc, getDoc, addDoc, onSnapshot } from 'firebase/firestore';
+import { collection, doc, updateDoc, getDocs, getDoc, onSnapshot, query,where } from 'firebase/firestore';
 import { useEffect } from "react";
 import FavoritesHeader from "./FavoritesHeader";
 
@@ -75,7 +75,7 @@ const Favorites = ({navigation}) => {
                 }
 
                 // Print the entire user document
-                // console.log("User document:", docSnapshot.data());
+                 //console.log("User document:", docSnapshot.data());
 
                 // Get the 'myListings' array from the user document
                 const myListings = docSnapshot.data().mySaved;
@@ -90,16 +90,19 @@ const Favorites = ({navigation}) => {
                 setFiles([]);
                 setSavedList([]);
                 // setMyListings([]);
-
+                //console.log(savedList)
                 // You can then perform any action with the listings array, such as displaying it in your UI
                 // we go through the list of listing IDs associated with the user, and get each doc from the listings collection
                 // and add it to the listings array to disprlay in the UI
                 for (let i = 0; i < savedList.length; i++) {
-                    const docRef = doc(db, "listings");
-                    const q = query(docRef, where("imageURL", "==", savedList[i]))
-                    //const docSnap = await getDoc(q);
-
-                    setFiles((prevFiles) => [...prevFiles, q.data()]);
+                    const docRef = collection(db, "listings");
+                    //console.log("before")
+                    const q = query(docRef, where("imageURL", "==", savedList[i]));
+                    //console.log("after")
+                    //console.log(savedList[i]);
+                    const docSnap = await getDocs(q);
+                    //console.log("passed: ", docSnap.docs[0].data());
+                    setFiles((prevFiles) => [...prevFiles, docSnap.docs[0].data()]);
                 }
                 setSavedList(savedList);
                 setMyListings(myListings);
