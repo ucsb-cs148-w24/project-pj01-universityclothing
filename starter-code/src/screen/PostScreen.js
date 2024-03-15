@@ -230,140 +230,144 @@ const PostCreationScreen = ({ navigation }) => {
   return (
     // here are the inputs that users enter on the screen
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
-        <ScrollView style={{ flex: 1 }}>
-      <View style={styles.container}>
-        {isPosting && (
-          <View style={styles.overlayStyle}>
-            <ActivityIndicator size="large" color="#FFF" />
-            <Text style={styles.loadingText}>
-              Posting {Math.round(uploadProgress)}%
-            </Text>
-          </View>
-        )}
-        <View style={styles.inputGroup}>
-          <Text style={styles.label}>Title</Text>
-          <TextInput
-            placeholder="What are you selling?"
-            value={title}
-            onChangeText={setTitle}
-            style={styles.largeInput}
-          />
-
-          <Text style={styles.label}>Description</Text>
-          <TextInput
-            placeholder="Decribe your item..."
-            value={description}
-            onChangeText={setDescription}
-            multiline
-            style={[styles.largeInput, styles.descriptionInput]}
-          />
-
-          <Text style={styles.label}>Price</Text>
-          <View style={styles.priceInputContainer}>
-            <FontAwesome
-              name="dollar"
-              size={20}
-              color={COLORS.yellow}
-              style={styles.dollarIcon}
-            />
+      <ScrollView style={{ flex: 1 }}>
+        <View style={styles.container}>
+          {isPosting && (
+            <View style={styles.overlayStyle}>
+              <ActivityIndicator size="large" color="#FFF" />
+              <Text style={styles.loadingText}>
+                Posting {Math.round(uploadProgress)}%
+              </Text>
+            </View>
+          )}
+          <View style={styles.inputGroup}>
+            <Text style={styles.label}>Title</Text>
             <TextInput
-              placeholder="0.00"
-              value={price}
-              onChangeText={setPrice}
-              style={styles.priceInput}
-              keyboardType="numeric"
+              placeholder="What are you selling?"
+              value={title}
+              onChangeText={setTitle}
+              style={styles.largeInput}
             />
-          </View>
-        </View>
 
-        <View style={styles.pickerGroup}>
-          <Text style={styles.label}>Category</Text>
-          <View style={styles.pickerContainer}>
-            <RNPickerSelect
-              onValueChange={(itemValue, itemIndex) => setCategory(itemValue)}
-              value={category}
-              items={[
-                { label: "Clothing", value: "0" },
-                { label: "Electronics", value: "1" },
-                { label: "Home", value: "2" },
-                { label: "Vehicles", value: "3" },
-                { label: "Education", value: "4" },
-                { label: "Collectibles", value: "5" },
-                { label: "Health & Beauty", value: "6" },
-                { label: "Sports & Outdoors", value: "7" },
-                { label: "Arts & Crafts", value: "8" },
-                { label: "Pet", value: "9" },
-                { label: "Tools & Equipment", value: "10" },
-                { label: "Others", value: "11" },
-              ]}
-              useNativeAndroidPickerStyle={false} // To customize the picker style on Android
-              style={{
-                inputIOS: styles.pickerInput,
-                iconContainer: styles.pickerIconContainer,
-              }}
-              placeholder={{ label: "Select a category...", value: null }}
-              Icon={() => {
-                return <Entypo name="chevron-down" size={24} color="grey" />;
-              }}
+            <Text style={styles.label}>Description</Text>
+            <TextInput
+              placeholder="Decribe your item..."
+              value={description}
+              onChangeText={setDescription}
+              multiline
+              style={[styles.largeInput, styles.descriptionInput]}
             />
+
+            <Text style={styles.label}>Price</Text>
+            <View style={styles.priceInputContainer}>
+              <FontAwesome
+                name="dollar"
+                size={20}
+                color={COLORS.yellow}
+                style={styles.dollarIcon}
+              />
+              <TextInput
+                placeholder="0.00"
+                value={price}
+                onChangeText={setPrice}
+                style={styles.priceInput}
+                keyboardType="numeric"
+              />
+            </View>
           </View>
-        </View>
 
-        <Text style={styles.label}>Condition</Text>
-        <View style={styles.choicesContainer}>
-          {options.map((option, index) => (
-            <TouchableOpacity
-              key={index}
-              style={[
-                styles.choice,
-                condition === option.value ? styles.choiceSelected : null,
-              ]}
-              onPress={() => setCondition(option.value)}
-            >
-              <Text style={styles.choiceText}>{option.label}</Text>
-            </TouchableOpacity>
-          ))}
-        </View>
+          <View style={styles.pickerGroup}>
+            <Text style={styles.label}>Category</Text>
+            <View style={styles.pickerContainer}>
+              <RNPickerSelect
+                onValueChange={(itemValue, itemIndex) => setCategory(itemValue)}
+                value={category}
+                items={[
+                  { label: "Clothing", value: "0" },
+                  { label: "Electronics", value: "1" },
+                  { label: "Home", value: "2" },
+                  { label: "Vehicles", value: "3" },
+                  { label: "Education", value: "4" },
+                  { label: "Collectibles", value: "5" },
+                  { label: "Health & Beauty", value: "6" },
+                  { label: "Sports & Outdoors", value: "7" },
+                  { label: "Arts & Crafts", value: "8" },
+                  { label: "Pet", value: "9" },
+                  { label: "Tools & Equipment", value: "10" },
+                  { label: "Others", value: "11" },
+                ]}
+                useNativeAndroidPickerStyle={false} // To customize the picker style on Android
+                style={{
+                  inputIOS: styles.pickerInput,
+                  iconContainer: styles.pickerIconContainer,
+                }}
+                placeholder={{ label: "Select a category...", value: null }}
+                Icon={() => {
+                  return <Entypo name="chevron-down" size={24} color="grey" />;
+                }}
+              />
+            </View>
+          </View>
 
-        <View style={styles.imageUploadRow}>
-          <TouchableOpacity
-            style={styles.imageUploadContainer}
-            onPress={selectImage}
-          >
-            {imageUrl ? (
-              <Image source={{ uri: imageUrl }} style={styles.imagePreview} />
-            ) : (
-              <>
-                <Entypo name="image" size={28} color="grey" />
-                <Text style={styles.uploadImageText}>Add Image</Text>
-              </>
-            )}
-            {imageUrl && (
+          <Text style={styles.label}>Condition</Text>
+          <View style={styles.choicesContainer}>
+            {options.map((option, index) => (
               <TouchableOpacity
-                style={styles.editIcon}
-                onPress={selectImage} // assuming this is the method to change the image
+                key={index}
+                style={[
+                  styles.choice,
+                  condition === option.value ? styles.choiceSelected : null,
+                ]}
+                onPress={() => setCondition(option.value)}
               >
-                <AntDesign name="pluscircle" size={24} color={COLORS.yellow} />
+                <Text style={styles.choiceText}>{option.label}</Text>
               </TouchableOpacity>
+            ))}
+          </View>
+
+          <View style={styles.imageUploadRow}>
+            <TouchableOpacity
+              style={styles.imageUploadContainer}
+              onPress={selectImage}
+            >
+              {imageUrl ? (
+                <Image source={{ uri: imageUrl }} style={styles.imagePreview} />
+              ) : (
+                <>
+                  <Entypo name="image" size={28} color="grey" />
+                  <Text style={styles.uploadImageText}>Add Image</Text>
+                </>
+              )}
+              {imageUrl && (
+                <TouchableOpacity
+                  style={styles.editIcon}
+                  onPress={selectImage} // assuming this is the method to change the image
+                >
+                  <AntDesign
+                    name="pluscircle"
+                    size={24}
+                    color={COLORS.yellow}
+                  />
+                </TouchableOpacity>
+              )}
+            </TouchableOpacity>
+            <View style={styles.imageDetailsContainer}>
+              {/* Place other elements related to the image here if necessary */}
+            </View>
+          </View>
+
+          <TouchableOpacity
+            style={styles.postItemButton}
+            onPress={handleSubmit}
+            disabled={isPosting}
+          >
+            {isPosting ? (
+              <ActivityIndicator color="#FFF" />
+            ) : (
+              <Text style={styles.postItemButtonText}>Post Item</Text>
             )}
           </TouchableOpacity>
-          <View style={styles.imageDetailsContainer}>
-            {/* Place other elements related to the image here if necessary */}
-          </View>
         </View>
-
-        <TouchableOpacity
-          style={styles.postItemButton}
-          onPress={handleSubmit}
-          disabled={isPosting}
-        >
-          {isPosting ? (
-            <ActivityIndicator color="#FFF" />
-          ) : (
-            <Text style={styles.postItemButtonText}>Post Item</Text>
-          )}
-        </TouchableOpacity>
-      </View>
       </ScrollView>
     </TouchableWithoutFeedback>
   );
@@ -443,6 +447,7 @@ const styles = StyleSheet.create({
     padding: 10,
     margin: 5,
     flexGrow: 1,
+    
   },
   choiceSelected: {
     backgroundColor: COLORS.yellow,
@@ -604,7 +609,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   editIcon: {
-    position: 'absolute',
+    position: "absolute",
     right: 5,
     bottom: 5,
   },
