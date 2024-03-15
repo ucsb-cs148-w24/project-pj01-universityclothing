@@ -20,6 +20,7 @@ import { getAuth } from "firebase/auth";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
+import AntDesign from "@expo/vector-icons/AntDesign";
 import {
   addDoc,
   collection,
@@ -260,7 +261,7 @@ const PostCreationScreen = ({ navigation }) => {
             <FontAwesome
               name="dollar"
               size={20}
-              color="grey"
+              color={COLORS.yellow}
               style={styles.dollarIcon}
             />
             <TextInput
@@ -334,6 +335,14 @@ const PostCreationScreen = ({ navigation }) => {
                 <Entypo name="image" size={28} color="grey" />
                 <Text style={styles.uploadImageText}>Add Image</Text>
               </>
+            )}
+            {imageUrl && (
+              <TouchableOpacity
+                style={styles.editIcon}
+                onPress={selectImage} // assuming this is the method to change the image
+              >
+                <AntDesign name="pluscircle" size={24} color={COLORS.yellow} />
+              </TouchableOpacity>
             )}
           </TouchableOpacity>
           <View style={styles.imageDetailsContainer}>
@@ -492,9 +501,10 @@ const styles = StyleSheet.create({
     // Your text styles
   },
   imagePreview: {
-    width: 100, // Adjust your image preview size
-    height: 100,
+    width: "100%",
+    height: "100%",
     borderRadius: 10,
+    resizeMode: "cover",
   },
   imageUploadContainer: {
     backgroundColor: "#f0f0f0",
@@ -573,10 +583,10 @@ const styles = StyleSheet.create({
     transform: [{ translateY: -12 }],
   },
   priceInputContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     borderWidth: 1,
-    borderColor: '#ddd',
+    borderColor: "#ddd",
     paddingLeft: 10,
     borderRadius: 10,
     marginBottom: 15,
@@ -589,6 +599,11 @@ const styles = StyleSheet.create({
     padding: 10,
     fontSize: 16,
     borderRadius: 10,
+  },
+  editIcon: {
+    position: 'absolute',
+    right: 5,
+    bottom: 5,
   },
 });
 
