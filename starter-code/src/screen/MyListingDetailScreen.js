@@ -71,7 +71,9 @@ const MyListingDetailScreen = ({ route }) => {
                     text: "OK",
                     onPress: () => {
                         // Navigate back to my listingsafter deletion
-                        navigation.navigate("MyListings");
+                        // navigation.navigate("MyListings");
+                        navigation.goBack();
+                        navigation.goBack();
                     },
                 },
             ]);
@@ -117,7 +119,27 @@ const MyListingDetailScreen = ({ route }) => {
                 <Button style={styles.editButton} onPress={handleEdit}>
                     Edit
                 </Button>
-                <Button style={styles.deleteButton} onPress={handleDelete}>
+                <Button
+                    style={styles.deleteButton}
+                    onPress={() => {
+                        // Show an alert to confirm before proceeding
+                        Alert.alert(
+                            "Confirmation",
+                            "Are you sure you want to delete?",
+                            [
+                                {
+                                    text: "Cancel",
+                                    style: "cancel",
+                                },
+                                {
+                                    text: "OK",
+                                    onPress: handleDelete, // Proceed with delete if user confirms
+                                },
+                            ],
+                            { cancelable: false }
+                        );
+                    }}
+                >
                     Delete
                 </Button>
             </View>

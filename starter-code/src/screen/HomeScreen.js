@@ -88,15 +88,17 @@ const HomeScreen = ({ navigation }) => {
                                 (item) => item.imageURL !== removedImageURL
                             )
                         );
-                        // } else if (change.type === "modified") {
-                        //     // Handle modified documents
-                        //     setFiles([]);
-                        //     setFilteredItems(
-                        //         getItemList(categoryIndex.category, [
-                        //             ...listings,
-                        //             ...items,
-                        //         ])
-                        //     );
+                    } else if (change.type === "modified") {
+                        // the modified document
+                        const modifiedData = change.doc.data();
+                        console.log("modifiedData", modifiedData);
+                        setFiles((prevFiles) =>
+                            prevFiles.map((item) =>
+                                item.timePosted === modifiedData.timePosted
+                                    ? modifiedData
+                                    : item
+                            )
+                        );
                     }
                 });
             }

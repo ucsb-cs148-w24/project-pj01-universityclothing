@@ -126,18 +126,10 @@ const EditListingScreen = ({ route }) => {
 
         // Display the formatted data in an alert
         alert("Listing Updated");
-        // Alert.alert("Listing Updated", [
-        //     {
-        //         text: "OK",
-        //         onPress: () => {
-        //             // Navigate back to my listingsafter deletion
-        //             navigation.navigate("MyListings");
-        //             // navigation.goBack();
-        //         },
-        //     },
-        // ]);
+
         console.log("HERE");
         // navigation.navigate("MyListings");
+        navigation.goBack();
         navigation.goBack();
         navigation.goBack();
 
@@ -357,7 +349,24 @@ const EditListingScreen = ({ route }) => {
 
                 <TouchableOpacity
                     style={styles.postItemButton}
-                    onPress={handleSubmit}
+                    onPress={() => {
+                        // Show an alert to confirm before proceeding
+                        Alert.alert(
+                            "Confirmation",
+                            "Are you sure you want to update the listing?",
+                            [
+                                {
+                                    text: "Cancel",
+                                    style: "cancel",
+                                },
+                                {
+                                    text: "OK",
+                                    onPress: handleSubmit, // Proceed to handle submit if user confirms
+                                },
+                            ],
+                            { cancelable: false }
+                        );
+                    }}
                     disabled={isPosting}
                 >
                     {isPosting ? (
@@ -368,6 +377,7 @@ const EditListingScreen = ({ route }) => {
                         </Text>
                     )}
                 </TouchableOpacity>
+
                 <TouchableOpacity
                     style={styles.postItemButton}
                     onPress={() => navigation.goBack()}
