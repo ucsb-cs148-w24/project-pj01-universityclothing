@@ -12,6 +12,7 @@ import ChatRoom from "./src/screen/ChatRoom";
 import { ItemsProvider } from "./src/components/ItemsContext";
 import MyListings from "./src/screen/MyListings";
 import MyListingDetailScreen from "./src/screen/MyListingDetailScreen";
+import Favorites from "./src/components/Favorites";
 import EditListingScreen from "./src/screen/EditListingScreen";
 
 const Stack = createNativeStackNavigator();
@@ -64,6 +65,14 @@ const App = () => {
                                   navigation: navigation,
                                 })}
                             ></Stack.Screen>
+                            <Stack.Screen
+                                name="Favorites"
+                                component={Favorites}
+                                options={({ navigation }) => ({
+                                    navigation: navigation,
+                                })}
+                            ></Stack.Screen>
+
                         </Stack.Navigator>
                     </NavigationContainer>
                 ) : (

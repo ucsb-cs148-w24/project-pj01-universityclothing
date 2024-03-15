@@ -146,12 +146,12 @@ const ProfileScreen = () => {
       </View>
 
       <View style={styles.menuWrapper}>
-        <TouchableRipple onPress={() => {}}>
+      <TouchableOpacity onPress={() => navigation.navigate("Favorites")}>
           <View style={styles.menuItem}>
             <Entypo name="heart-outlined" color={COLORS.yellow} size={25} />
             <Text style={styles.menuItemText}>Favorites</Text>
           </View>
-        </TouchableRipple>
+        </TouchableOpacity>
         <TouchableRipple onPress={() => {}}>
           <View style={styles.menuItem}>
             <MaterialIcons name="contact-mail" color={COLORS.yellow} size={25} />
