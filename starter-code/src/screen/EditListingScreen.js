@@ -10,6 +10,7 @@ import {
     TouchableOpacity,
     Keyboard,
     TouchableWithoutFeedback,
+    Alert,
 } from "react-native";
 import { useItems } from "../components/ItemsContext";
 import { firebaseApp, firestore, db, storage } from "../../firebaseConfig";
@@ -125,9 +126,20 @@ const EditListingScreen = ({ route }) => {
 
         // Display the formatted data in an alert
         alert("Listing Updated");
-
-        // Navigate back
-        navigation.navigate("MyListings");
+        // Alert.alert("Listing Updated", [
+        //     {
+        //         text: "OK",
+        //         onPress: () => {
+        //             // Navigate back to my listingsafter deletion
+        //             navigation.navigate("MyListings");
+        //             // navigation.goBack();
+        //         },
+        //     },
+        // ]);
+        console.log("HERE");
+        // navigation.navigate("MyListings");
+        navigation.goBack();
+        navigation.goBack();
 
         setIsPosting(false);
     };

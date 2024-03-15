@@ -18,7 +18,13 @@ import Entypo from "@expo/vector-icons/Entypo";
 import { Colors } from "react-native/Libraries/NewAppScreen";
 import { COLORS, FONTFAMILY, FONTSIZE, SPACING } from "../theme/theme";
 import { useItems } from "../components/ItemsContext";
-import { addDoc, collection, onSnapshot, query, orderBy } from "firebase/firestore";
+import {
+    addDoc,
+    collection,
+    onSnapshot,
+    query,
+    orderBy,
+} from "firebase/firestore";
 import { db, storage } from "../../firebaseConfig";
 import { useEffect } from "react";
 
@@ -59,7 +65,7 @@ const getItemList = (category, data) => {
 const HomeScreen = ({ navigation }) => {
     // const navigation = useNavigation();
     const [listings, setFiles] = useState([]);
-    
+
     useEffect(() => {
         const unsubscribe = onSnapshot(
             query(collection(db, "listings"), orderBy("timePosted", "asc")),
@@ -82,6 +88,15 @@ const HomeScreen = ({ navigation }) => {
                                 (item) => item.imageURL !== removedImageURL
                             )
                         );
+                        // } else if (change.type === "modified") {
+                        //     // Handle modified documents
+                        //     setFiles([]);
+                        //     setFilteredItems(
+                        //         getItemList(categoryIndex.category, [
+                        //             ...listings,
+                        //             ...items,
+                        //         ])
+                        //     );
                     }
                 });
             }
