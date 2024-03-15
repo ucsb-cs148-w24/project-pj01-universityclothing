@@ -234,6 +234,10 @@ const ChatRoom = ({ route }) => {
           placeholder="Type a message"
           value={textInput}
           onChangeText={(txt) => setTextInput(txt)}
+          // multiline={true}
+          // onContentSizeChange={({ nativeEvent }) => {
+          //   nativeEvent.contentSize.height;
+          // }}
         />
         <TouchableOpacity
           style={styles.button}
@@ -307,20 +311,25 @@ const styles = StyleSheet.create({
     elevation: 4,
     marginTop: 5,
     paddingLeft: 3,
+    marginBottom: 5,
   },
   sendMsgInput: {
     backgroundColor: "#e8e8e8",
     flexBasis: 0,
     flexGrow: 1,
     paddingLeft: 7,
+    borderTopLeftRadius: 10,
+    borderBottomLeftRadius: 10,
   },
   button: {
-    backgroundColor: "#2196F3",
+    backgroundColor: "#1689FF",
     borderRadius: 2,
     elevation: 4,
     height: 50,
     width: 50,
     justifyContent: "center",
+    borderTopRightRadius: 10,
+    borderBottomRightRadius: 10,
   },
   buttonText: {
     color: "white",
