@@ -8,7 +8,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import Navigator from "./src/components/Navigator";
 import HomeScreen from "./src/screen/HomeScreen";
 import ItemScreen from "./src/screen/ItemScreen";
-import ChatRoom from "./src/screen/ChatRoom";
+import logInPage from "./src/screen/logInPage"
 import { ItemsProvider } from "./src/components/ItemsContext";
 import MyListings from "./src/screen/MyListings";
 import MyListingDetailScreen from "./src/screen/MyListingDetailScreen";
@@ -21,7 +21,7 @@ const App = () => {
         <ItemsProvider>
             <SafeAreaView style={{ flex: 1, backgroundColor: "white" }}>
                 {isLoggedIn ? (
-                    <NavigationContainer>
+                    <NavigationContainer independent={true}>
                         <Stack.Navigator screenOptions={{ headerShown: false }}>
                             <Stack.Screen
                                 name="Tab"
@@ -31,6 +31,13 @@ const App = () => {
                             <Stack.Screen
                                 name="ItemDetails"
                                 component={ItemScreen}
+                                options={({ navigation }) => ({
+                                    navigation: navigation,
+                                })}
+                            ></Stack.Screen>
+                            <Stack.Screen
+                                name="Login"
+                                component={App}
                                 options={({ navigation }) => ({
                                     navigation: navigation,
                                 })}
@@ -47,13 +54,6 @@ const App = () => {
                                 component={MyListings}
                                 options={({ navigation }) => ({
                                     navigation: navigation,
-                                })}
-                            ></Stack.Screen>
-                            <Stack.Screen
-                                name="ChatRoom"
-                                component={ChatRoom}
-                                options={({ navigation }) => ({
-                                  navigation: navigation,
                                 })}
                             ></Stack.Screen>
                         </Stack.Navigator>

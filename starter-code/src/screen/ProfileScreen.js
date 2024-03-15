@@ -1,12 +1,11 @@
-import React, { useState, useEffect } from "react";
+import { React, useState, useEffect } from "react";
 import {
-  StatusBar,
-  SafeAreaView,
-  StyleSheet,
-  Text,
-  View,
-  TouchableOpacity,
-  Modal,
+    StatusBar,
+    SafeAreaView,
+    StyleSheet,
+    Text,
+    View,
+    TouchableOpacity,
 } from "react-native";
 import {
     Avatar,
@@ -17,7 +16,9 @@ import {
     TouchableRipple,
     Switch,
 } from "react-native-paper";
+import { getAuth, signOut } from "firebase/auth";
 import { useAuthState } from "react-firebase-hooks/auth";
+
 import {
     getDoc,
     doc,
@@ -26,122 +27,121 @@ import {
     onSnapshot,
     query,
     where,
-    updateDoc,
 } from "firebase/firestore";
 import { firebaseApp, firestore, db, storage } from "../../firebaseConfig";
 import { COLORS } from "../theme/theme";
 import ProfileHeader from "../components/ProfileHeader";
-import EditProfileScreen from "./EditProfileScreen";
 import Entypo from "@expo/vector-icons/Entypo";
+import { MaterialIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
-import { getAuth } from "firebase/auth";
 
 const ProfileScreen = () => {
-  const navigation = useNavigation();
-  const auth = getAuth(firebaseApp);
-  const [num_myListings, setNum_myListings] = useState(0);
-  const [isEditModalVisible, setEditModalVisible] = useState(false);
-  const [profileImageURL, setProfileImageURL] = useState(null);
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");
-  const [location, setLocation] = useState("");
-  const [user, loading, error] = useAuthState(auth);
-  let user_email = user.email;
+    const navigation = useNavigation();
+    const auth = getAuth(firebaseApp);
+    const [num_myListings, setNum_myListings] = useState(0);
 
-  const handleEditPress = () => {
-    setEditModalVisible(true);
-  };
+    const [user, loading, error] = useAuthState(auth);
 
-  useEffect(() => {
-    const fetchUserProfile = async () => {
-      if (user && user.email) {
-        const docRef = doc(firestore, "users", user.email);
-        const docSnap = await getDoc(docRef);
+    useEffect(() => {
+      if (!user && !loading) {
+          console.log("User is not logged in, redirecting to login page.");
+          navigation.navigate("Login");
+      }
+    }, [user, loading, navigation]);
 
-        if (docSnap.exists()) {
-          const userData = docSnap.data();
-          setProfileImageURL(userData.profileImage);
-          setName(userData.name || user.displayName);
-          setEmail(user.email); // Assuming the email won't change
-          setPhone(userData.phone);
-          setLocation(userData.location);
-          const myListings = docSnap.data().myListings;
-          setNum_myListings(myListings.length);
-        } else {
-          console.log("No profile found in Firestore");
-        }
+    let user_email = user?.email;
+
+    // this will get the docement of the current user from the database
+    // we can extract data such like name and listing from here
+    useEffect(() => {
+        if (!user_email) return; // Early return if user_email is undefined or null
+        const docRef = doc(db, "users", user_email); // Construct a reference to the user document
+
+        const unsubscribe = onSnapshot(
+            docRef,
+            (docSnapshot) => {
+                if (!docSnapshot.exists()) {
+                    console.log("No matching user document found.");
+                    return;
+                }
+
+                // Print the entire user document
+                // console.log("User document:", docSnapshot.data());
+
+                // Get the 'myListings' array from the user document
+                const myListings = docSnapshot.data().myListings;
+                setNum_myListings(myListings.length);
+            },
+            (error) => {
+                console.error("Error fetching user document:", error);
+            }
+        );
+
+        return () => unsubscribe();
+    }, []);
+    console.log("num_myListings:", num_myListings);
+
+    const handleLogOut = async () => {
+      try {
+          await signOut(auth); 
+          // Optionally, navigate to the login screen or show a message
+          console.log("User signed out successfully!");
+          navigation.navigate("Login");
+      } catch (error) {
+          console.error("Error signing out: ", error);
       }
     };
 
-    fetchUserProfile();
-  }, [user]);
+    return (
+        <SafeAreaView style={styles.ScreenContainer}>
+            <ProfileHeader title="Profile" />
+            {/* User Icon, Name, ID */}
+            <View style={styles.userInfoSection}>
+                <View style={{ flexDirection: "row", marginTop: 15 }}>
+                    <Avatar.Image
+                        style={styles.avatarStyle}
+                        source={{
+                            uri: "https://wow.zamimg.com/uploads/screenshots/normal/1084904.jpg",
+                        }}
+                        size={80}
+                    />
+                    <View style={{ marginLeft: 20 }}>
+                        <Title
+                            style={[
+                                styles.title,
+                                {
+                                    marginTop: 15,
+                                    marginBottom: 5,
+                                },
+                            ]}
+                        >
+                            User Name
+                        </Title>
+                        <Caption style={styles.caption}>@u_name</Caption>
+                    </View>
+                </View>
+            </View>
 
-  const onProfileUpdate = async () => {
-    if (user && user.email) {
-      const docRef = doc(firestore, "users", user.email);
-      const docSnap = await getDoc(docRef);
-
-      if (docSnap.exists()) {
-        const userData = docSnap.data();
-        setProfileImageURL(userData.profileImage);
-        setName(userData.name || user.displayName);
-        setEmail(user.email); // Assuming the email won't change
-        setPhone(userData.phone);
-        setLocation(userData.location);
-      } else {
-        console.log("No profile found in Firestore");e
-      }
-    }
-  };
-
-  return (
-    <SafeAreaView style={styles.ScreenContainer}>
-      <ProfileHeader title="Profile" onEditPress={handleEditPress} />
-
-      {/* User Icon, Name, ID */}
-      <View style={styles.userInfoSection}>
-        <View style={{ flexDirection: "row", marginTop: 15 }}>
-        <View style={styles.avatarContainer}>
-      <Avatar.Image
-        source={{ uri: profileImageURL }}
-        size={80} // Adjust if needed
-      />
-    </View>
-
-          <View style={{ marginLeft: 20 }}>
-            <Title
-              style={[
-                styles.title,
-                {
-                  marginTop: 15,
-                  marginBottom: 5,
-                },
-              ]}
-            >
-              {name || user?.displayName}
-            </Title>
-            <Caption style={styles.caption}>{user?.email}</Caption>
-          </View>
-        </View>
-      </View>
-
-      <View style={styles.userInfoSection}>
-
-        <View style={styles.row}>
-          <Entypo name="phone" color={COLORS.darkBlue} size={20} />
-          <Text style={{ color: "#777777", marginLeft: 20 }}>
-            {" "}
-            {phone || "______________"}{" "}
-          </Text>
-        </View>
-        <View style={styles.row}>
-          <Entypo name="location" color={COLORS.darkBlue} size={20} />
-          <Text style={{ color: "#777777", marginLeft: 20 }}>
-            {location || " ______________"}
-          </Text>
-        </View>
-      </View>
+            <View style={styles.userInfoSection}>
+                <View style={styles.row}>
+                    <Entypo name="location" color={COLORS.darkBlue} size={20} />
+                    <Text style={{ color: "#777777", marginLeft: 20 }}>
+                        IV, Santa Barbara
+                    </Text>
+                </View>
+                <View style={styles.row}>
+                    <Entypo name="phone" color={COLORS.darkBlue} size={20} />
+                    <Text style={{ color: "#777777", marginLeft: 20 }}>
+                        000-000-0000
+                    </Text>
+                </View>
+                <View style={styles.row}>
+                    <Entypo name="email" color={COLORS.darkBlue} size={20} />
+                    <Text style={{ color: "#777777", marginLeft: 20 }}>
+                        user@email.com
+                    </Text>
+                </View>
+            </View>
 
             <View style={styles.infoBoxWrapper}>
                 <TouchableOpacity
@@ -170,112 +170,99 @@ const ProfileScreen = () => {
                 </TouchableOpacity>
             </View>
 
-      <View style={styles.menuWrapper}>
-        <TouchableRipple onPress={() => {}}>
-          <View style={styles.menuItem}>
-            <Entypo name="heart-outlined" color={COLORS.yellow} size={25} />
-            <Text style={styles.menuItemText}>Favorites</Text>
-          </View>
-        </TouchableRipple>
-        <TouchableRipple onPress={() => {}}>
-          <View style={styles.menuItem}>
-            <Entypo name="back-in-time" color={COLORS.yellow} size={25} />
-            <Text style={styles.menuItemText}>Browse History</Text>
-          </View>
-        </TouchableRipple>
-        <TouchableRipple onPress={() => {}}>
-          <View style={styles.menuItem}>
-            <Entypo name="wallet" color={COLORS.yellow} size={25} />
-            <Text style={styles.menuItemText}>Payment</Text>
-          </View>
-        </TouchableRipple>
-        <TouchableRipple onPress={() => {}}>
-          <View style={styles.menuItem}>
-            <Entypo name="cog" color={COLORS.yellow} size={25} />
-            <Text style={styles.menuItemText}>Setting</Text>
-          </View>
-        </TouchableRipple>
-      </View>
-      <Modal
-        animationType="slide"
-        visible={isEditModalVisible}
-        onRequestClose={() => setEditModalVisible(false)}
-      >
-        <EditProfileScreen
-          onClose={() => setEditModalVisible(false)}
-          onProfileUpdate={onProfileUpdate}
-        />
-      </Modal>
-    </SafeAreaView>
-  );
+            <View style={styles.menuWrapper}>
+                <TouchableRipple onPress={() => {}}>
+                    <View style={styles.menuItem}>
+                        <Entypo
+                            name="heart-outlined"
+                            color={COLORS.yellow}
+                            size={25}
+                        />
+                        <Text style={styles.menuItemText}>Favorites</Text>
+                    </View>
+                </TouchableRipple>
+                <TouchableRipple onPress={() => {}}>
+                    <View style={styles.menuItem}>
+                        <Entypo
+                            name="back-in-time"
+                            color={COLORS.yellow}
+                            size={25}
+                        />
+                        <Text style={styles.menuItemText}>Browse History</Text>
+                    </View>
+                </TouchableRipple>
+                <TouchableRipple onPress={() => {}}>
+                    <View style={styles.menuItem}>
+                        <Entypo name="wallet" color={COLORS.yellow} size={25} />
+                        <Text style={styles.menuItemText}>Payment</Text>
+                    </View>
+                </TouchableRipple>
+                <TouchableRipple onPress={handleLogOut}>
+                    <View style={styles.menuItem}>
+                        <MaterialIcons name="logout" color={COLORS.yellow} size={25} />
+                        <Text style={styles.menuItemText}>Log Out</Text>
+                    </View>
+                </TouchableRipple>
+            </View>
+        </SafeAreaView>
+    );
 };
 
 const styles = StyleSheet.create({
-  ScreenContainer: {
-    flex: 1,
-    color: "#f5f5f5",
-    // marginTop: 20
-  },
-  userInfoSection: {
-    paddingHorizontal: 30,
-    marginBottom: 25,
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: "bold",
-  },
-  caption: {
-    fontSize: 14,
-    lineHeight: 14,
-    fontWeight: "500",
-  },
-  row: {
-    flexDirection: "row",
-    marginBottom: 10,
-  },
-  infoBoxWrapper: {
-    borderBottomColor: "#dddddd",
-    borderBottomWidth: 1,
-    borderTopColor: "#dddddd",
-    borderTopWidth: 1,
-    flexDirection: "row",
-    height: 100,
-  },
-  infoBox: {
-    width: "33.3%",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  menuWrapper: {
-    marginTop: 5,
-  },
-  menuItem: {
-    flexDirection: "row",
-    paddingVertical: 10,
-    paddingHorizontal: 30,
-  },
-  menuItemText: {
-    color: "#777777",
-    marginLeft: 20,
-    fontWeight: "600",
-    fontSize: 16,
-    lineHeight: 26,
-  },
-  avatarStyle: {
-    borderColor: COLORS.darkBlue,
-    borderRadius: 40,
-  },
-  avatarContainer: {
-    // height: 84, 
-    // width: 84, 
-    // borderRadius: 42, 
-    // borderWidth: 2, 
-    // borderColor: COLORS.darkBlue, 
-    // justifyContent: 'center',
-    // alignItems: 'center',
-    // overflow: 'hidden', 
-  },
+    ScreenContainer: {
+        flex: 1,
+        color: "#f5f5f5",
+        // marginTop: 20
+    },
+    userInfoSection: {
+        paddingHorizontal: 30,
+        marginBottom: 25,
+    },
+    title: {
+        fontSize: 24,
+        fontWeight: "bold",
+    },
+    caption: {
+        fontSize: 14,
+        lineHeight: 14,
+        fontWeight: "500",
+    },
+    row: {
+        flexDirection: "row",
+        marginBottom: 10,
+    },
+    infoBoxWrapper: {
+        borderBottomColor: "#dddddd",
+        borderBottomWidth: 1,
+        borderTopColor: "#dddddd",
+        borderTopWidth: 1,
+        flexDirection: "row",
+        height: 100,
+    },
+    infoBox: {
+        width: "33.3%",
+        alignItems: "center",
+        justifyContent: "center",
+    },
+    menuWrapper: {
+        marginTop: 5,
+    },
+    menuItem: {
+        flexDirection: "row",
+        paddingVertical: 10,
+        paddingHorizontal: 30,
+    },
+    menuItemText: {
+        color: "#777777",
+        marginLeft: 20,
+        fontWeight: "600",
+        fontSize: 16,
+        lineHeight: 26,
+    },
+    avatarStyle: {
+        borderColor: COLORS.darkBlue,
+        borderRadius: 40,
+    },
 });
 
 export default ProfileScreen;
-
