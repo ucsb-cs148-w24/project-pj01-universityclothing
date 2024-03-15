@@ -3,7 +3,6 @@ import { StyleSheet, Text, View, Button } from "react-native";
 // app.tsx
 import { ImageBackground } from "react-native";
 import { TouchableOpacity } from "react-native";
-
 import * as WebBrowser from "expo-web-browser";
 import * as Linking from "expo-linking";
 import { initializeApp } from "firebase/app";
@@ -118,7 +117,10 @@ const signInWithGoogle = async (setIsLoggedIn) => {
                             // console.log("Signed in user:", user);
                             const id = user.email;
                             const data = {
-                                name: user.displayName,
+                                phone: "",
+                                location: "",
+                                profileImage: user?.photoURL,
+                                name: user?.displayName,
                                 myListings: [],
                                 mySaved: [],
                             };

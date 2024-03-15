@@ -18,7 +18,7 @@ import Entypo from "@expo/vector-icons/Entypo";
 import { Colors } from "react-native/Libraries/NewAppScreen";
 import { COLORS, FONTFAMILY, FONTSIZE, SPACING } from "../theme/theme";
 import { useItems } from "../components/ItemsContext";
-import { addDoc, collection, onSnapshot } from "firebase/firestore";
+import { addDoc, collection, onSnapshot, query, orderBy } from "firebase/firestore";
 import { db, storage } from "../../firebaseConfig";
 import { useEffect } from "react";
 
@@ -59,18 +59,18 @@ const getItemList = (category, data) => {
 const HomeScreen = ({ navigation }) => {
     // const navigation = useNavigation();
     const [listings, setFiles] = useState([]);
-
+    
     useEffect(() => {
         const unsubscribe = onSnapshot(
-            collection(db, "listings"),
+            query(collection(db, "listings"), orderBy("timePosted", "asc")),
             (snapshot) => {
                 snapshot.docChanges().forEach((change) => {
                     console.log("change", change.type);
                     if (change.type === "added") {
                         // Handle added documents
                         setFiles((prevFiles) => [
-                            ...prevFiles,
                             change.doc.data(),
+                            ...prevFiles,
                         ]);
                     } else if (change.type === "removed") {
                         // Handle removed documents
