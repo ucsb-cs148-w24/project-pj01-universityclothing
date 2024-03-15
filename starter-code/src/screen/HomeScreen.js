@@ -178,35 +178,6 @@ const HomeScreen = ({ navigation }) => {
         }
     };
 
-  const renderItem = ({ item }) => (
-    <TouchableOpacity
-      onPress={() => navigation.navigate("ItemDetails", { navigation, item })}
-      style={styles.itemContainer}
-    >
-      <Image source={{ uri: item.imageURL }} style={styles.itemImage} />
-       {/* Date posted */}
-       <Text style={styles.datePosted}>{formatDate(item.datePosted)}</Text>
-      <View style={styles.itemDetails}>
-      <Text style={styles.itemTitle}>{truncateTitle(item.title, 25)}</Text>
-        <Text style={styles.itemPrice}>
-          <FontAwesome name="dollar" size={13} color={COLORS.yellow} />
-          {item.price.toFixed(2)}
-        </Text>
-        <Text style={styles.itemSeller}>ID: {item.listerDisplayName}</Text>
-        <Text style={styles.itemSeller}>
-          <Entypo name="email" size={14} color={"gray"} /> {item.lister}
-        </Text>
-       
-      </View>
-    </TouchableOpacity>
-  );
-
-    const truncateTitle = (title, maxLength) => {
-        return title.length > maxLength
-            ? title.substring(0, maxLength) + "..."
-            : title;
-    };
-
     const renderItem = ({ item }) => (
         <TouchableOpacity
             onPress={() =>
@@ -216,7 +187,7 @@ const HomeScreen = ({ navigation }) => {
         >
             <Image source={{ uri: item.imageURL }} style={styles.itemImage} />
             {/* Date posted */}
-            <Text style={styles.datePosted}>{formatDate(item.timePosted)}</Text>
+            <Text style={styles.datePosted}>{formatDate(item.datePosted)}</Text>
             <View style={styles.itemDetails}>
                 <Text style={styles.itemTitle}>
                     {truncateTitle(item.title, 25)}
@@ -239,6 +210,12 @@ const HomeScreen = ({ navigation }) => {
             </View>
         </TouchableOpacity>
     );
+
+    const truncateTitle = (title, maxLength) => {
+        return title.length > maxLength
+            ? title.substring(0, maxLength) + "..."
+            : title;
+    };
 
     return (
         <View style={styles.ScreenContainer}>
