@@ -60,12 +60,14 @@ const PostCreationScreen = ({ navigation }) => {
     const handleSubmit = async () => {
         if (isPosting) return;
 
-        if (!title || !price || !description || !category || condition === "") {
+        if (!title || !price || !description || !category || condition === "" || !imageUrl) {
             alert("Please fill in all required fields");
             return;
         }
 
         setIsPosting(true);
+
+        const currentTime = new Date();
 
         // upload the image here
         console.log(imageUrl);
@@ -96,6 +98,8 @@ const PostCreationScreen = ({ navigation }) => {
             imageURL: downloadURL,
             lister: user_email, // Assuming user_email is defined elsewhere in your code
             isSelling: true,
+            timePosted: currentTime.toISOString(),
+
         };
 
         // Show the data for debugging purposes
@@ -111,7 +115,7 @@ const PostCreationScreen = ({ navigation }) => {
         setTitle("");
         setPrice("");
         setDescription("");
-        setCategory("");
+        setCategory(null);
         setImageUrl("");
         setCondition("");
         setDescription("");
@@ -223,8 +227,7 @@ const PostCreationScreen = ({ navigation }) => {
                     <View style={styles.overlayStyle}>
                         <ActivityIndicator size="large" color="#FFF" />
                         <Text style={styles.loadingText}>
-                            Posting
-                            {Math.round(uploadProgress)}%
+                            Posting {Math.round(uploadProgress)}%
                         </Text>
                     </View>
                 )}
@@ -258,6 +261,7 @@ const PostCreationScreen = ({ navigation }) => {
                     onValueChange={(itemValue, itemIndex) =>
                         setCategory(itemValue)
                     }
+                    value={category}
                     items={[
                         { label: "Clothing", value: "0" },
                         { label: "Electronics", value: "1" },
