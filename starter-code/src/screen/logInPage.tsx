@@ -221,7 +221,7 @@ const styles = StyleSheet.create({
         borderRadius: 20, // Border-radius of 20px
         padding: 10, // Add padding for better visual appearance
         alignSelf: "center", // Center content horizontally
-        marginTop: "100%",
+        marginTop: "160%",
         width: "70%",
     },
     googleSignInButtonText: {
