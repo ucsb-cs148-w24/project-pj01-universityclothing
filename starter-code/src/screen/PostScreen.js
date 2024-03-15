@@ -1,5 +1,5 @@
 // PostCreationScreen.js
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import RNPickerSelect from "react-native-picker-select";
 
 import {
@@ -50,9 +50,33 @@ const PostCreationScreen = ({ navigation }) => {
 
   // get the auth instance
   const auth = getAuth(firebaseApp);
-
+  const [userDisplayName, setUserDisplayName] = useState("");
+  const [userLocation, setUserLocation] = useState("");
   const [user, loading, error] = useAuthState(auth);
+  const [imageWidth, setImageWidth] = useState(null);
+  const [imageHeight, setImageHeight] = useState(null);
+
   let user_email = user.email;
+
+  useEffect(() => {
+    // Function to fetch user profile
+    const fetchUserProfile = async () => {
+      if (user && user.email) {
+        const docRef = doc(firestore, "users", user.email);
+        const docSnap = await getDoc(docRef);
+
+        if (docSnap.exists()) {
+          const userData = docSnap.data();
+          setUserDisplayName(userData.name || user.displayName); // Use Firestore name or Auth display name
+          setUserLocation(userData.location); // Fetch location from Firestore
+        } else {
+          console.log("No user profile found in Firestore");
+        }
+      }
+    };
+
+    fetchUserProfile();
+  }, [user]);
 
   const options = [
     { label: "New", value: 0 },
@@ -81,6 +105,13 @@ const PostCreationScreen = ({ navigation }) => {
 
     const currentTime = new Date();
 
+    const timePosted = {
+      dayOfWeek: currentTime.toLocaleString('en-US', { weekday: 'long' }), // Eg. Monday
+      date: currentTime.getDate(), // Day of the month
+      month: currentTime.toLocaleString('en-US', { month: 'long' }), // Eg. December
+      year: currentTime.getFullYear(), // Year
+    };
+
     // upload the image here
     console.log(imageUrl);
     const downloadURL = await uploadImage(imageUrl, "image");
@@ -108,9 +139,14 @@ const PostCreationScreen = ({ navigation }) => {
       category: numericCategory,
       condition: numericCondition,
       imageURL: downloadURL,
+      imageWidth: imageWidth,
+      imageHeight: imageHeight,
       lister: user_email, // Assuming user_email is defined elsewhere in your code
       isSelling: true,
       timePosted: currentTime.toISOString(),
+      listerDisplayName: userDisplayName,
+      listerLocation: userLocation,
+      timePosted: timePosted,
     };
 
     // Show the data for debugging purposes
@@ -190,6 +226,11 @@ const PostCreationScreen = ({ navigation }) => {
       // if we want multiple images we can make a for loop that iterates thru
       // assets from indices 0 -> n
       setImageUrl(result.assets[0].uri);
+      setImageWidth(result.assets[0].width);
+    setImageHeight(result.assets[0].height);
+
+      console.log(result.assets[0].width);
+      console.log(result.assets[0].height);
       // await uploadImage(result.assets[0].uri, "image");
     }
   };
@@ -447,7 +488,6 @@ const styles = StyleSheet.create({
     padding: 10,
     margin: 5,
     flexGrow: 1,
-    
   },
   choiceSelected: {
     backgroundColor: COLORS.yellow,
