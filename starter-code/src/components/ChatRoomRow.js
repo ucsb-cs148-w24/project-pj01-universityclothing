@@ -1,5 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { StyleSheet, Text, TouchableOpacity, View, Image, LogBox } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+  Image,
+  LogBox,
+} from "react-native";
 
 import { firebaseApp, firestore } from "../../firebaseConfig";
 import { getAuth } from "firebase/auth";
@@ -48,9 +55,8 @@ const ChatRoomRow = ({ room, navigation }) => {
     fetchData();
   }, []);
 
-  const shortenTitle = (title) => {
-    const limit = 33;
-    return title.length > limit ? title.substring(0, limit - 3) + "..." : title;
+  const shortenText = (text, limit) => {
+    return text.length > limit ? text.substring(0, limit - 3) + "..." : text;
   };
 
   return (
@@ -64,9 +70,11 @@ const ChatRoomRow = ({ room, navigation }) => {
       <Image source={{ uri: listing.imageURL }} style={styles.ListingImg} />
       <View>
         <Text style={styles.RoomTitle}>
-          {shortenTitle(otherUser + " ∙ " + listing.title)}
+          {shortenText(otherUser + " ∙ " + listing.title, 35)}
         </Text>
-        <Text style={styles.LatestMsg}>{room.latestMsg.text}</Text>
+        <Text style={styles.LatestMsg}>
+          {shortenText(room.latestMsg.text, 43)}
+        </Text>
       </View>
     </TouchableOpacity>
   );
