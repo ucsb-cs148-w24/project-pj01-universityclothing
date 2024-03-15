@@ -12,6 +12,7 @@ import {
   TouchableOpacity,
   Keyboard,
   TouchableWithoutFeedback,
+  ScrollView,
 } from "react-native";
 import { useItems } from "../components/ItemsContext";
 import { firebaseApp, firestore, db, storage } from "../../firebaseConfig";
@@ -229,6 +230,7 @@ const PostCreationScreen = ({ navigation }) => {
   return (
     // here are the inputs that users enter on the screen
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
+        <ScrollView style={{ flex: 1 }}>
       <View style={styles.container}>
         {isPosting && (
           <View style={styles.overlayStyle}>
@@ -362,6 +364,7 @@ const PostCreationScreen = ({ navigation }) => {
           )}
         </TouchableOpacity>
       </View>
+      </ScrollView>
     </TouchableWithoutFeedback>
   );
 };
