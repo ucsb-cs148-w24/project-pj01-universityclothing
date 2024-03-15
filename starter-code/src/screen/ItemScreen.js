@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
     ScrollView,
     StatusBar,
@@ -14,9 +14,79 @@ import {
 import { useBottomTabBarHeight } from "@react-navigation/bottom-tabs";
 import ExitHeaderBar from "../components/ExitHeaderBar";
 import { COLORS } from "../theme/theme";
+import { firebaseApp, firestore } from "../../firebaseConfig";
+import { getAuth } from "firebase/auth";
+import { useAuthState } from "react-firebase-hooks/auth";
+import {
+    doc,
+    getDoc,
+    setDoc,
+    addDoc,
+    collection,
+    query,
+    getDocs,
+    where,
+    limit,
+    Timestamp,
+} from "firebase/firestore";
 
 const ItemScreen = ({ route }) => {
     const { navigation, item } = route.params;
+
+    const [sellerName, setSellerName] = useState("");
+
+    const auth = getAuth(firebaseApp);
+    const [user] = useAuthState(auth);
+
+    useEffect(() => {
+        const fetchSeller = async () => {
+            const sellerSnap = await getDoc(
+                doc(firestore, "users", item.lister)
+            );
+
+            if (!sellerSnap.exists()) {
+                console.log("Error: seller " + item.lister + " does not exist");
+            }
+
+            setSellerName(sellerSnap.data().name);
+        };
+
+        fetchSeller();
+    }, []);
+    
+    const startChat = async () => {
+        const listingQ = query(
+            collection(firestore, "listings"),
+            where("timePosted", "==", item.timePosted),
+            where("title", "==", item.title),
+            where("lister", "==", item.lister),
+            limit(1)
+        );
+        const listingSnap = await getDocs(listingQ);
+        
+        const lid = listingSnap.docs[0].id;
+
+        const newRoomRef = await addDoc(collection(firestore, "messageRooms"), {
+            listing: lid,
+            users: [user.email, item.lister],
+        });
+        await addDoc(collection(firestore, "messageRooms", newRoomRef.id, "messages"), {
+            from: user.email,
+            sentAt: Timestamp.now(),
+            text: "",
+        });
+
+        await setDoc(
+            doc(firestore, "users", user.email, "myMessageRooms", newRoomRef.id),
+            {}
+        );
+        await setDoc(
+            doc(firestore, "users", item.lister, "myMessageRooms", newRoomRef.id),
+            {}
+        );
+
+        navigation.navigate("ChatRoom", { navigation, room: newRoomRef.id });
+    };
 
     const renderItem = ({ item }) => (
         <View style={styles.itemContainer}>
@@ -24,11 +94,19 @@ const ItemScreen = ({ route }) => {
             <View style={styles.itemDetails}>
                 <Text style={styles.itemTitle}>{item.title}</Text>
                 <Text style={styles.itemPrice}>${item.price.toFixed(2)}</Text>
-                <Text style={styles.itemSeller}>Seller: {item.lister}</Text>
+                <Text style={styles.itemSeller}>Seller: {sellerName}</Text>
                 <Text style={styles.itemDescription}>
                     Description: {item.desc}
                 </Text>
             </View>
+            <TouchableOpacity
+                style={styles.msgButton}
+                onPress={startChat}
+            >
+                <Text style={styles.msgButtonText}>
+                    Message {sellerName}
+                </Text>
+            </TouchableOpacity>
         </View>
     );
 
@@ -93,6 +171,19 @@ const styles = StyleSheet.create({
     itemDescription: {
         fontSize: 14,
         color: COLORS.gray,
+    },
+    msgButton: {
+        backgroundColor: COLORS.lightBlue, // Bright blue background
+        borderRadius: 20, // Border-radius of 20px
+        padding: 10, // Add padding for better visual appearance
+        alignSelf: "center", // Center content horizontally
+        width: "70%",
+        marginTop: 20,
+        marginBottom: 8,
+    },
+    msgButtonText: {
+        color: "#fff", // Text color is white
+        textAlign: "center",
     },
 });
 

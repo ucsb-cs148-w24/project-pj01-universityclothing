@@ -34,6 +34,8 @@ import { useNavigation } from "@react-navigation/native";
 const ChatMessage = ({ message, user }) => {
   const { text, from } = message;
 
+  if (text.length === 0) return null;
+
   const msgStyle = from === user ? styles.sentMsg : styles.receivedMsg;
 
   return (
