@@ -73,7 +73,7 @@ const MyListings = ({ navigation }) => {
     const auth = getAuth(firebaseApp);
 
     const [user, loading, error] = useAuthState(auth);
-    let user_email = user.email;
+    let user_email = user?.email;
 
     useEffect(() => {
         if (!user_email) return;
