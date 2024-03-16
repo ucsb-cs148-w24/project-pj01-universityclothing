@@ -26,8 +26,6 @@ Sellers: <br/>
 Sellers are able to log in using school credentials, and can create listing to the marketplace for the items they are selling. <br/>
 Should also be able to contact potential buyers through the app. <br/>
 
-## Deployment
-
 # Deployment
 
 Our project is developed using Expo and can be easily tested using the Expo Go app. Below are the instructions to run our application on your device using Expo Go.
@@ -35,18 +33,23 @@ Our project is developed using Expo and can be easily tested using the Expo Go a
 ## Running the Project with Expo Go
 
 ### Prerequisites
+Before you begin, ensure you have the following installed:
+- Node.js (download from [Node.js](https://nodejs.org/))
+- npm (comes installed with Node.js)
+- Git (download from [Git](https://git-scm.com/downloads))
+- Expo CLI (`npm install -g expo-cli`)
 - Ensure that you have the Expo Go app installed on your mobile device. Since our database is made for iOS, you should download Expo Go for iOS
   - [Expo Go for iOS](https://apps.apple.com/app/expo-go/id982107779)
+ 
+### Installing Dependencies
+Navigate to the project directory and install the necessary dependencies:
+``` npm install
+```
 
 ### Steps to Run the Application
 1. Open the Expo Go app on your mobile device.
 2. Scan the QR code provided below with your device. The QR code will open the project directly in Expo Go.
 3. Alternatively, you can manually enter the provided link in the Expo Go app to start the application.
-
-**QR Code for Expo Project:**  
-![QR Code](<insert your QR code image link here>)
-
-**Expo Project Link:** [Expo Project Link](<insert your Expo project link here>)
 
 ### Assistance
 If you encounter any difficulties or require assistance with running the app on your device, please feel free to reach out to us, and we would be happy to assist you.
