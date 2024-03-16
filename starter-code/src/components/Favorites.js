@@ -99,8 +99,21 @@ const Favorites = ({navigation}) => {
                     //console.log("before")
                     const q = query(docRef, where("id", "==", savedList[i]));
                     const docSnap = await getDocs(q);
-                    //console.log("passed: ", docSnap.docs[0].data());
-                    setFiles((prevFiles) => [...prevFiles, docSnap.docs[0].data()]);
+                    if (docSnap.empty) {
+                        //console.log("runned: ", i);
+                        const index = myListings.findIndex(item => item.id === savedList[i]);
+                        //console.log("runned: ", index);
+                        if (index !== -1){
+                            myListings.splice(index, 1);
+                        }
+                        //console.log("Listing ID:", myListings);
+                        await updateDoc(userDocRef, { mySaved: myListings });
+                        //console.log("Listing ID1:", myListings);
+                    } else {
+                        // If documents are found, add the first document's data to the 'files' state
+                        setFiles((prevFiles) => [...prevFiles, docSnap.docs[0].data()]);
+                    }
+
                 }
                 setSavedList(savedList);
                 setMyListings(myListings);
