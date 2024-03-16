@@ -28,8 +28,28 @@ Should also be able to contact potential buyers through the app. <br/>
 
 ## Deployment
 
-We are use ExpoGo to run our app.
-Basically, you need to download the ExpoGo app, and use "npm start" to generate a demo.
+# Deployment
+
+Our project is developed using Expo and can be easily tested using the Expo Go app. Below are the instructions to run our application on your device using Expo Go.
+
+## Running the Project with Expo Go
+
+### Prerequisites
+- Ensure that you have the Expo Go app installed on your mobile device. Since our database is made for iOS, you should download Expo Go for iOS
+  - [Expo Go for iOS](https://apps.apple.com/app/expo-go/id982107779)
+
+### Steps to Run the Application
+1. Open the Expo Go app on your mobile device.
+2. Scan the QR code provided below with your device. The QR code will open the project directly in Expo Go.
+3. Alternatively, you can manually enter the provided link in the Expo Go app to start the application.
+
+**QR Code for Expo Project:**  
+![QR Code](<insert your QR code image link here>)
+
+**Expo Project Link:** [Expo Project Link](<insert your Expo project link here>)
+
+### Assistance
+If you encounter any difficulties or require assistance with running the app on your device, please feel free to reach out to us, and we would be happy to assist you.
 
 ## Installation
 ### Prerequisites
