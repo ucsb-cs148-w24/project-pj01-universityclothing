@@ -34,7 +34,7 @@ import ProfileHeader from "../components/ProfileHeader";
 import EditProfileScreen from "./EditProfileScreen";
 import Entypo from "@expo/vector-icons/Entypo";
 import { useNavigation } from "@react-navigation/native";
-import { getAuth } from "firebase/auth";
+import { getAuth, signOut } from "firebase/auth";
 import { MaterialIcons } from '@expo/vector-icons';
 
 
@@ -49,9 +49,10 @@ const ProfileScreen = () => {
   const [phone, setPhone] = useState("");
   const [location, setLocation] = useState("");
   const [user, loading, error] = useAuthState(auth);
-  let user_email = user.email;
+  let user_email = user?.email;
 
   const handleEditPress = () => {
+    if (!user_email) {return;}
     setEditModalVisible(true);
   };
 
@@ -95,6 +96,17 @@ const ProfileScreen = () => {
         console.log("No profile found in Firestore");
         e;
       }
+    }
+  };
+
+  const handleLogOut = async () => {
+    try {
+        await signOut(auth); 
+        // Optionally, navigate to the login screen or show a message
+        console.log("User signed out successfully!");
+        navigation.navigate("Login");
+    } catch (error) {
+        console.error("Error signing out: ", error);
     }
   };
 
@@ -158,13 +170,12 @@ const ProfileScreen = () => {
             <Text style={styles.menuItemText}>Contact Us</Text>
           </View>
         </TouchableRipple>
-        <TouchableRipple onPress={() => {}}>
+        <TouchableRipple onPress={handleLogOut}>
           <View style={styles.menuItem}>
-            <Entypo name="cog" color={COLORS.yellow} size={25} />
-            <Text style={styles.menuItemText}>Setting</Text>
+              <MaterialIcons name="logout" color={COLORS.yellow} size={25} />
+              <Text style={styles.menuItemText}>Log Out</Text>
           </View>
         </TouchableRipple>
-
       </View>
       <Modal
         animationType="slide"

@@ -73,7 +73,7 @@ const MyListings = ({ navigation }) => {
     const auth = getAuth(firebaseApp);
 
     const [user, loading, error] = useAuthState(auth);
-    let user_email = user.email;
+    let user_email = user?.email;
 
     useEffect(() => {
         const docRef = doc(db, "users", user_email); // Construct a reference to the user document
