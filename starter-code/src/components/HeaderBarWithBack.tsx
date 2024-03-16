@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         alignItems: "center",
         backgroundColor: COLORS.darkBlue,
-        height: 50,
+        height: 70,
     },
     backButton: {
         color: COLORS.yellow,

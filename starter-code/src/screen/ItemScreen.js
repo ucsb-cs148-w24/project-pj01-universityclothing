@@ -9,7 +9,7 @@ import {
   FlatList,
   Image,
   View,
-  ToastAndroid,
+  SafeAreaView
 } from "react-native";
 import {useBottomTabBarHeight} from '@react-navigation/bottom-tabs';
 import ExitHeaderBar from "../components/ExitHeaderBar";
@@ -165,7 +165,7 @@ const ItemScreen = ({ route }) => {
 
 
   return (
-    <View style={styles.screenContainer}>
+    <SafeAreaView style={styles.screenContainer}>
       <StatusBar backgroundColor="#F2F1EB" />
       {/* Header Bar */}
       <ExitHeaderBar navigation={navigation} />
@@ -175,14 +175,14 @@ const ItemScreen = ({ route }) => {
         renderItem={renderItem}
         keyExtractor={(item) => item.imageURL}
       />
-    </View>
+    </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
   screenContainer: {
     flex: 1,
-    backgroundColor: COLORS.lightGray,
+    backgroundColor: COLORS.lightGrey,
   },
   itemContainer: {
     backgroundColor: '#ffffff',

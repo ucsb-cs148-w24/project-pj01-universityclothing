@@ -116,9 +116,6 @@ const MyListingDetailScreen = ({ route }) => {
                 keyExtractor={(item) => item.imageURL}
             />
             <View style={styles.buttonContainer}>
-                <Button style={styles.editButton} onPress={handleEdit}>
-                    Edit
-                </Button>
                 <Button
                     style={styles.deleteButton}
                     onPress={() => {
@@ -142,6 +139,9 @@ const MyListingDetailScreen = ({ route }) => {
                 >
                     Delete
                 </Button>
+                <Button style={styles.editButton} onPress={handleEdit}>
+                    Edit
+                </Button>
             </View>
         </View>
     );
@@ -150,7 +150,8 @@ const MyListingDetailScreen = ({ route }) => {
 const styles = StyleSheet.create({
     screenContainer: {
         flex: 1,
-        backgroundColor: COLORS.lightGray,
+        //backgroundColor: COLORS.l,
+        height:"100%",
     },
     itemContainer: {
         backgroundColor: "#ffffff",
@@ -201,18 +202,21 @@ const styles = StyleSheet.create({
         marginBottom: 16,
     },
     editButton: {
-        backgroundColor: "#4287f5", // Blue color
+        flex:2,
+        backgroundColor: COLORS.lightYellow, // Blue color
         paddingHorizontal: 20,
         paddingVertical: 10,
-        borderRadius: 8,
+        borderRadius: 20,
     },
 
     deleteButton: {
-        backgroundColor: "#ff5252", // Red color
+        flex:1,
+        backgroundColor: COLORS.lightGrey, // Red color
         paddingHorizontal: 20,
         paddingVertical: 10,
-        borderRadius: 8,
+        borderRadius: 20,
+        marginRight:10,
     },
-});
+  });
 
 export default MyListingDetailScreen;
