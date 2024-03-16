@@ -32,10 +32,10 @@ import {
     Timestamp,
 } from "firebase/firestore";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
-import { Button } from "react-native-paper";
 
 const ItemScreen = ({ route }) => {
     const { navigation, item } = route.params;
+    const [isLiked, setIsLiked] = useState(false);
 
     const [sellerName, setSellerName] = useState("");
 
@@ -43,6 +43,7 @@ const ItemScreen = ({ route }) => {
     const [user] = useAuthState(auth);
 
     const saveListing = async () => {
+      setIsLiked(!isLiked);
       try {
         console.log("SAVE");
         console.log("EMAIL: ", user.email);
@@ -56,7 +57,12 @@ const ItemScreen = ({ route }) => {
   
   
         if (updatedMySaved.some(savedItem => savedItem.id === item.id)) {
-          alert("It's already saved");
+          const index = updatedMySaved.findIndex(savedItem => savedItem.id === item.id);
+          //console.log("runned: ", index);
+          if (index !== -1){
+              userData.mySaved.splice(index, 1);
+          }
+          await updateDoc(userDocRef, { mySaved: userData.mySaved });
           return; // Exit the function if the listing is already saved
         }
   
@@ -65,7 +71,6 @@ const ItemScreen = ({ route }) => {
           imageURL: item.imageURL,
           id: item.id,
       });
-  
   
         // Update the user document with the updated mySaved array
         await updateDoc(userDocRef, { mySaved: updatedMySaved});//cause error
@@ -162,8 +167,6 @@ const ItemScreen = ({ route }) => {
         ? title.substring(0, maxLength) + "..."
         : title;
 };
-const handleclick = () => {
-};
 
 
   return (
@@ -180,11 +183,12 @@ const handleclick = () => {
       <View style={styles.buttonContainer}>
                 <TouchableOpacity
                     style={styles.saveButton}
-                    onPress={saveListing}                >
+                    onPress={saveListing}
+                >
                   <Entypo
                     name = "heart"
                     size = {25}
-                    color = {"#FF0000"}
+                    color={isLiked ? "#FF0000" : "#FFFFFF"}
                   />
                 </TouchableOpacity>
                 {user.email !== item.lister && (

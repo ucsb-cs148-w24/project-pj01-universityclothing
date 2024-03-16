@@ -64,10 +64,10 @@ const Favorites = ({navigation}) => {
     const [user] = useAuthState(auth);
     let user_email = user.email
     useEffect(() => {
-        const docRef = doc(db, "users", user_email); // Construct a reference to the user document
+        const userDocRef = doc(db, "users", user_email); // Construct a reference to the user document
 
         const unsubscribe = onSnapshot(
-            docRef,
+            userDocRef,
             async (docSnapshot) => {
                 if (!docSnapshot.exists()) {
                     console.log("No matching user document found.");
