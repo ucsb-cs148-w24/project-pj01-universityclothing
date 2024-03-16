@@ -170,7 +170,7 @@ const Favorites = ({navigation}) => {
             // and the doc id and imageURl of the listing
             // so we can delete it later
             onPress={() =>
-                navigation.navigate("ItemDetails", {
+                navigation.navigate("SavedItems", {
                     navigation,
                     item,
                     myListing: myListings.find(

@@ -14,6 +14,7 @@ import MyListings from "./src/screen/MyListings";
 import MyListingDetailScreen from "./src/screen/MyListingDetailScreen";
 import Favorites from "./src/components/Favorites";
 import EditListingScreen from "./src/screen/EditListingScreen";
+import SavedItems from "./src/screen/SavedItems";
 
 const Stack = createNativeStackNavigator();
 const App = () => {
@@ -72,7 +73,13 @@ const App = () => {
                                     navigation: navigation,
                                 })}
                             ></Stack.Screen>
-
+                            <Stack.Screen
+                                name="SavedItems"
+                                component={SavedItems}
+                                options={({ navigation }) => ({
+                                    navigation: navigation,
+                                })}
+                            ></Stack.Screen>
                         </Stack.Navigator>
                     </NavigationContainer>
                 ) : (

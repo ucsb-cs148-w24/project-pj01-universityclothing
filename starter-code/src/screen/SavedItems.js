@@ -33,7 +33,7 @@ import {
 } from "firebase/firestore";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 
-const ItemScreen = ({ route }) => {
+const SavedItems = ({ route }) => {
     const { navigation, item } = route.params;
 
     const [sellerName, setSellerName] = useState("");
@@ -53,23 +53,15 @@ const ItemScreen = ({ route }) => {
         const userData = userDocSnap.data();
         const updatedMySaved = userData.mySaved || [];
   
-  
-        if (updatedMySaved.some(savedItem => savedItem.id === item.id)) {
-          alert(
-            "It is already saved in your favorites."
-          )
-          return; // Exit the function if the listing is already saved
+
+        const index = updatedMySaved.findIndex(savedItem => savedItem.id === item.id);
+        //console.log("runned: ", index);
+        if (index !== -1){
+            userData.mySaved.splice(index, 1);
         }
+        await updateDoc(userDocRef, { mySaved: userData.mySaved });
   
-        updatedMySaved.push({
-          name: item.title,
-          imageURL: item.imageURL,
-          id: item.id,
-      });
-  
-        // Update the user document with the updated mySaved array
-        await updateDoc(userDocRef, { mySaved: updatedMySaved});//cause error
-        console.log("SAVE SUCCESS");
+        console.log("cancel SUCCESS");
       } catch (error) {
         console.error("Error saving listing:", error);
       }
@@ -180,11 +172,7 @@ const ItemScreen = ({ route }) => {
                     style={styles.saveButton}
                     onPress={saveListing}
                 >
-                  <Entypo
-                    name = "heart"
-                    size = {25}
-                    color={"#FF0000"}
-                  />
+                  <Text>Cancel</Text>
                 </TouchableOpacity>
                 {user.email !== item.lister && (
                 <TouchableOpacity
@@ -283,4 +271,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ItemScreen;
+export default SavedItems;
