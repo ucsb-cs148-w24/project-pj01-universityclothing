@@ -28,7 +28,8 @@ Should also be able to contact potential buyers through the app. <br/>
 
 ## Deployment
 
-Will put the link here in the future when deployment is ready.
+We are use ExpoGo to run our app.
+Basically, you need to download the ExpoGo app, and use "npm start" to generate a demo.
 
 ## Installation
 ### Prerequisites
