@@ -30,8 +30,6 @@ Should also be able to contact potential buyers through the app. <br/>
 
 Our project is developed using Expo and can be easily tested using the Expo Go app. Below are the instructions to run our application on your device using Expo Go.
 
-### Running the Project with Expo Go
-
 #### Prerequisites
 Before you begin, ensure you have the following installed:
 - Node.js (download from [Node.js](https://nodejs.org/))
