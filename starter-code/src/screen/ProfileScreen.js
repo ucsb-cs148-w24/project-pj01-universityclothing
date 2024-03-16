@@ -34,7 +34,7 @@ import ProfileHeader from "../components/ProfileHeader";
 import EditProfileScreen from "./EditProfileScreen";
 import Entypo from "@expo/vector-icons/Entypo";
 import { useNavigation } from "@react-navigation/native";
-import { getAuth } from "firebase/auth";
+import { getAuth, signOut } from "firebase/auth";
 import { MaterialIcons } from '@expo/vector-icons';
 
 
@@ -49,9 +49,10 @@ const ProfileScreen = () => {
   const [phone, setPhone] = useState("");
   const [location, setLocation] = useState("");
   const [user, loading, error] = useAuthState(auth);
-  let user_email = user.email;
+  let user_email = user?.email;
 
   const handleEditPress = () => {
+    if (!user_email) {return;}
     setEditModalVisible(true);
   };
 
@@ -98,6 +99,17 @@ const ProfileScreen = () => {
     }
   };
 
+  const handleLogOut = async () => {
+    try {
+        await signOut(auth); 
+        // Optionally, navigate to the login screen or show a message
+        console.log("User signed out successfully!");
+        navigation.navigate("Login");
+    } catch (error) {
+        console.error("Error signing out: ", error);
+    }
+  };
+
   return (
     <SafeAreaView style={styles.ScreenContainer}>
       <ProfileHeader title="Profile" onEditPress={handleEditPress} />
@@ -108,7 +120,7 @@ const ProfileScreen = () => {
           <View style={styles.avatarContainer}>
             <Avatar.Image
               source={{ uri: profileImageURL }}
-              size={100} // Adjust if needed
+              size={80} // Adjust if needed
             />
           </View>
 
@@ -134,37 +146,41 @@ const ProfileScreen = () => {
           <Entypo name="phone" color={COLORS.darkBlue} size={20} />
           <Text style={{ color: "#777777", marginLeft: 20 }}>
             {" "}
-            {phone || "______________"}{" "}
+            {phone || "000-000-0000"}{" "}
           </Text>
         </View>
         <View style={styles.row}>
           <Entypo name="location" color={COLORS.darkBlue} size={20} />
           <Text style={{ color: "#777777", marginLeft: 20 }}>
-            {location || " ______________"}
+            {" "}
+            {location || "Your Location"}
           </Text>
         </View>
       </View>
 
       <View style={styles.menuWrapper}>
-      <TouchableOpacity onPress={() => navigation.navigate("Favorites")}>
+        <TouchableOpacity onPress={() => navigation.navigate("Favorites")}>
           <View style={styles.menuItem}>
             <Entypo name="heart-outlined" color={COLORS.yellow} size={25} />
             <Text style={styles.menuItemText}>Favorites</Text>
           </View>
         </TouchableOpacity>
-        <TouchableRipple onPress={() => {}}>
+        <TouchableOpacity onPress={() => navigation.navigate("ContactUs")}>
           <View style={styles.menuItem}>
-            <MaterialIcons name="contact-mail" color={COLORS.yellow} size={25} />
+            <MaterialIcons
+              name="contact-mail"
+              color={COLORS.yellow}
+              size={25}
+            />
             <Text style={styles.menuItemText}>Contact Us</Text>
           </View>
-        </TouchableRipple>
-        <TouchableRipple onPress={() => {}}>
+        </TouchableOpacity>
+        <TouchableRipple onPress={handleLogOut}>
           <View style={styles.menuItem}>
-            <Entypo name="cog" color={COLORS.yellow} size={25} />
-            <Text style={styles.menuItemText}>Setting</Text>
+              <MaterialIcons name="logout" color={COLORS.yellow} size={25} />
+              <Text style={styles.menuItemText}>Log Out</Text>
           </View>
         </TouchableRipple>
-
       </View>
       <Modal
         animationType="slide"
@@ -221,15 +237,15 @@ const styles = StyleSheet.create({
   },
   menuItem: {
     flexDirection: "row",
-    paddingVertical: 15,  // Increased padding for better spacing
+    paddingVertical: 15, // Increased padding for better spacing
     paddingHorizontal: 20,
-    borderWidth: 1,      // Adds border around each menu item
-    borderColor: '#d1d1d1', // Light grey border color
-    borderRadius: 10,    // Rounded corners
-    backgroundColor: '#fff', // White background
-    marginVertical: 5,   // Adds vertical margin between menu items
+    borderWidth: 1, // Adds border around each menu item
+    borderColor: "#d1d1d1", // Light grey border color
+    borderRadius: 10, // Rounded corners
+    backgroundColor: "#fff", // White background
+    marginVertical: 5, // Adds vertical margin between menu items
     marginHorizontal: 10, // Adds horizontal margin for some spacing from screen edges
-    alignItems: 'center', 
+    alignItems: "center",
   },
   menuItemText: {
     color: "#777777",

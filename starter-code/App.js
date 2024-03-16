@@ -15,6 +15,7 @@ import MyListingDetailScreen from "./src/screen/MyListingDetailScreen";
 import Favorites from "./src/components/Favorites";
 import EditListingScreen from "./src/screen/EditListingScreen";
 import SavedItems from "./src/screen/SavedItems";
+import ContactUsScreen from './src/screen/ContactUsScreen';
 
 const Stack = createNativeStackNavigator();
 const App = () => {
@@ -24,12 +25,19 @@ const App = () => {
         <ItemsProvider>
             <SafeAreaView style={{ flex: 1, backgroundColor: "white" }}>
                 {isLoggedIn ? (
-                    <NavigationContainer>
+                    <NavigationContainer independent={true}>
                         <Stack.Navigator screenOptions={{ headerShown: false }}>
                             <Stack.Screen
                                 name="Tab"
                                 component={Navigator}
                                 options={{ animation: "slide_from_bottom" }}
+                            ></Stack.Screen>
+                            <Stack.Screen
+                                name="Login"
+                                component={App}
+                                options={({ navigation }) => ({
+                                    navigation: navigation,
+                                })}
                             ></Stack.Screen>
                             <Stack.Screen
                                 name="ItemDetails"
@@ -74,12 +82,20 @@ const App = () => {
                                 })}
                             ></Stack.Screen>
                             <Stack.Screen
+                                name="ContactUs"
+                                component={ContactUsScreen}
+                                options={({ navigation }) => ({
+                                    navigation: navigation,
+                                })}
+                            ></Stack.Screen>
+                            <Stack.Screen
                                 name="SavedItems"
                                 component={SavedItems}
                                 options={({ navigation }) => ({
                                     navigation: navigation,
                                 })}
                             ></Stack.Screen>
+
                         </Stack.Navigator>
                     </NavigationContainer>
                 ) : (
