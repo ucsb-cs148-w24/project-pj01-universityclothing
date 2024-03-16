@@ -57,9 +57,9 @@ const MyListingDetailScreen = ({ route }) => {
             await updateDoc(userDocRef, { myListings: myListingsArray });
 
             // Delete the document from user's mySaved collection
-            await deleteDoc(
-                doc(db, "users", item.lister, "mySaved", delListingID)
-            );
+            // await deleteDoc(
+            //     doc(db, "users", item.lister, "mySaved", delListingID)
+            // );
 
             // Delete image from Firebase Storage
             const imageRef = ref(storage, delURL);

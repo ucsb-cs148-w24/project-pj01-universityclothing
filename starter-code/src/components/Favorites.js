@@ -15,7 +15,7 @@ import { useItems } from "../components/ItemsContext";
 import { db, storage, firebaseApp, firestore} from "../../firebaseConfig";
 import { getAuth } from "firebase/auth";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { collection, doc, updateDoc, getDocs, getDoc, onSnapshot, query,where } from 'firebase/firestore';
+import { collection, doc, updateDoc, getDocs, getDoc, onSnapshot, query,where,deleteDoc } from 'firebase/firestore';
 import { useEffect } from "react";
 import FavoritesHeader from "./FavoritesHeader";
 
@@ -64,10 +64,10 @@ const Favorites = ({navigation}) => {
     const [user] = useAuthState(auth);
     let user_email = user.email
     useEffect(() => {
-        const docRef = doc(db, "users", user_email); // Construct a reference to the user document
+        const userDocRef = doc(db, "users", user_email); // Construct a reference to the user document
 
         const unsubscribe = onSnapshot(
-            docRef,
+            userDocRef,
             async (docSnapshot) => {
                 if (!docSnapshot.exists()) {
                     console.log("No matching user document found.");
@@ -94,15 +94,30 @@ const Favorites = ({navigation}) => {
                 // You can then perform any action with the listings array, such as displaying it in your UI
                 // we go through the list of listing IDs associated with the user, and get each doc from the listings collection
                 // and add it to the listings array to disprlay in the UI
+
                 for (let i = 0; i < savedList.length; i++) {
                     const docRef = collection(db, "listings");
-                    //console.log("before")
+
                     const q = query(docRef, where("imageURL", "==", savedList[i]));
-                    //console.log("after")
-                    //console.log(savedList[i]);
+  
                     const docSnap = await getDocs(q);
                     //console.log("passed: ", docSnap.docs[0].data());
-                    setFiles((prevFiles) => [...prevFiles, docSnap.docs[0].data()]);
+                    // Check if the query returned any documents
+                    if (docSnap.empty) {
+                        console.log("runned: ", i);
+                        const index = myListings.findIndex(item => item.imageURL === savedList[i]);
+                        console.log("runned: ", index);
+                        if (index !== -1){
+                            myListings.splice(index, 1);
+                        }
+                        console.log("Listing ID:", myListings);
+                        await updateDoc(userDocRef, { mySaved: myListings });
+                        console.log("Listing ID1:", myListings);
+                    } else {
+                        // If documents are found, add the first document's data to the 'files' state
+                        setFiles((prevFiles) => [...prevFiles, docSnap.docs[0].data()]);
+                    }
+                    //setFiles((prevFiles) => [...prevFiles, docSnap.docs[0].data()]);
                 }
                 setSavedList(savedList);
                 setMyListings(myListings);

@@ -45,6 +45,7 @@ const PostCreationScreen = ({ navigation }) => {
   const [category, setCategory] = useState("");
   const [imageUrl, setImageUrl] = useState("");
   const [condition, setCondition] = useState("");
+  const [itemId, setItemId] = useState("");  //a new attributes
   const [isPosting, setIsPosting] = useState(false);
   const [uploadProgress, setUploadProgress] = useState(0);
 
@@ -178,7 +179,7 @@ const PostCreationScreen = ({ navigation }) => {
 
     // const imgURL = data.imageURL;
     const userEmail = data.lister;
-
+    console.log("passed")
     // Add a new document with a generated id
     // await addDoc(listingCol, data);
 
