@@ -155,7 +155,7 @@ const PostCreationScreen = ({ navigation }) => {
 
     // Add the listing with the data
     await addListing(data);
-    console.log("after: ", data.id);
+    //console.log("after: ", data.id);
     
     // Display the formatted data in an alert
     alert("Listing Added");
@@ -185,7 +185,7 @@ const PostCreationScreen = ({ navigation }) => {
     // await addDoc(listingCol, data);
 
     const docRef = await addDoc(listingCol, data);
-    console.log("data: ", data.id);
+   //console.log("data: ", data.id);
 
     const userDocRef = doc(usersCol, userEmail);
     console.log("Get doc user ref: ", userDocRef);

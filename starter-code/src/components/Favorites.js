@@ -82,7 +82,7 @@ const Favorites = ({navigation}) => {
                 //console.log("myListings: ", myListings)
                 let savedList = [];
                 for (let i = 0; i < myListings.length; i++) {
-                    savedList.push(myListings[i].imageURL);
+                    savedList.push(myListings[i].id);
                     //console.log("Listing ID:", myListings[i].name);
                 }
 
@@ -97,9 +97,7 @@ const Favorites = ({navigation}) => {
                 for (let i = 0; i < savedList.length; i++) {
                     const docRef = collection(db, "listings");
                     //console.log("before")
-                    const q = query(docRef, where("imageURL", "==", savedList[i]));
-                    //console.log("after")
-                    //console.log(savedList[i]);
+                    const q = query(docRef, where("id", "==", savedList[i]));
                     const docSnap = await getDocs(q);
                     //console.log("passed: ", docSnap.docs[0].data());
                     setFiles((prevFiles) => [...prevFiles, docSnap.docs[0].data()]);

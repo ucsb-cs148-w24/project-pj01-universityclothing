@@ -53,7 +53,7 @@ const ItemScreen = ({ route }) => {
         const updatedMySaved = userData.mySaved || [];
   
   
-        if (updatedMySaved.some(savedItem => savedItem.imageURL === item.imageURL)) {
+        if (updatedMySaved.some(savedItem => savedItem.id === item.id)) {
           alert("It's already saved");
           return; // Exit the function if the listing is already saved
         }
@@ -61,6 +61,7 @@ const ItemScreen = ({ route }) => {
         updatedMySaved.push({
           name: item.title,
           imageURL: item.imageURL,
+          id: item.id,
       });
   
   
