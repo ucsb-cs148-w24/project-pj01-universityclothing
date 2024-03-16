@@ -31,6 +31,7 @@ import {
     limit,
     Timestamp,
 } from "firebase/firestore";
+import FontAwesome from "@expo/vector-icons/FontAwesome";
 
 const ItemScreen = ({ route }) => {
     const { navigation, item } = route.params;
@@ -140,8 +141,16 @@ const ItemScreen = ({ route }) => {
     <View style={styles.itemContainer}>
       <Image source={{ uri: item.imageURL }} style={styles.itemImage} />
       <View style={styles.itemDetails}>
-        <Text style={styles.itemTitle}>{item.title}</Text>
-        <Text style={styles.itemPrice}>${item.price.toFixed(2)}</Text>
+        <Text style={styles.itemTitle}>{truncateTitle(item.title, 25)}</Text>
+        
+        <Text style={styles.itemPrice}>
+          <FontAwesome
+                name="dollar"
+                size={13}
+                color={COLORS.yellow}
+            />
+            {item.price.toFixed(2)}
+        </Text>
         <Text style={styles.itemSeller}>Seller: {sellerName}</Text>
         <Text style={styles.itemDescription}>Description: {item.desc}</Text>
         <TouchableOpacity style={styles.saveButton} onPress={saveListing}>
@@ -162,6 +171,12 @@ const ItemScreen = ({ route }) => {
             )}
     </View>
   );
+  const truncateTitle = (title, maxLength) => {
+    return title.length > maxLength
+        ? title.substring(0, maxLength) + "..."
+        : title;
+};
+
 
 
   return (
@@ -215,8 +230,9 @@ const styles = StyleSheet.create({
   },
   itemPrice: {
     fontSize: 16,
-    color: COLORS.primary,
-    marginBottom: 8,
+    color: COLORS.yellow,
+    marginBottom: 4,
+    fontWeight: "bold",
   },
   itemSeller: {
     fontSize: 14,

@@ -32,6 +32,8 @@ import HeaderBarWithBack from "../components/HeaderBarWithBack";
 import { COLORS } from "../theme/theme";
 import { Button } from "react-native-paper";
 import { useNavigation } from "@react-navigation/native"; // Import the useNavigation hook
+import FontAwesome from "@expo/vector-icons/FontAwesome";
+
 
 const MyListingDetailScreen = ({ route }) => {
     const { navigation, item, myListing } = route.params;
@@ -94,16 +96,27 @@ const MyListingDetailScreen = ({ route }) => {
         <View style={styles.itemContainer}>
             <Image source={{ uri: item.imageURL }} style={styles.itemImage} />
             <View style={styles.itemDetails}>
-                <Text style={styles.itemTitle}>{item.title}</Text>
-                <Text style={styles.itemPrice}>${item.price.toFixed(2)}</Text>
+                <Text style={styles.itemTitle}>{truncateTitle(item.title, 25)}</Text>
+                <Text style={styles.itemPrice}>
+                    <FontAwesome
+                            name="dollar"
+                            size={13}
+                            color={COLORS.yellow}
+                        />
+                    {item.price.toFixed(2)}
+                </Text>
                 <Text style={styles.itemSeller}>Seller: {item.lister}</Text>
                 <Text style={styles.itemDescription}>
-                    Description: {item.desc}
+                        Description: {item.desc}
                 </Text>
             </View>
         </View>
     );
-
+    const truncateTitle = (title, maxLength) => {
+        return title.length > maxLength
+            ? title.substring(0, maxLength) + "..."
+            : title;
+    };
     return (
         <View style={styles.screenContainer}>
             <StatusBar backgroundColor="#F2F1EB" />
@@ -183,8 +196,9 @@ const styles = StyleSheet.create({
     },
     itemPrice: {
         fontSize: 16,
-        color: COLORS.primary,
-        marginBottom: 8,
+        color: COLORS.yellow,
+        marginBottom: 4,
+        fontWeight: "bold",
     },
     itemSeller: {
         fontSize: 14,
