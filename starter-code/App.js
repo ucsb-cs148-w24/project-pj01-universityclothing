@@ -14,6 +14,7 @@ import MyListings from "./src/screen/MyListings";
 import MyListingDetailScreen from "./src/screen/MyListingDetailScreen";
 import Favorites from "./src/components/Favorites";
 import EditListingScreen from "./src/screen/EditListingScreen";
+import ContactUsScreen from './src/screen/ContactUsScreen';
 
 const Stack = createNativeStackNavigator();
 const App = () => {
@@ -75,6 +76,13 @@ const App = () => {
                             <Stack.Screen
                                 name="Favorites"
                                 component={Favorites}
+                                options={({ navigation }) => ({
+                                    navigation: navigation,
+                                })}
+                            ></Stack.Screen>
+                            <Stack.Screen
+                                name="ContactUs"
+                                component={ContactUsScreen}
                                 options={({ navigation }) => ({
                                     navigation: navigation,
                                 })}
