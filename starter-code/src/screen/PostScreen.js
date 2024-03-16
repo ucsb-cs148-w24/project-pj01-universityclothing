@@ -45,6 +45,7 @@ const PostCreationScreen = ({ navigation }) => {
   const [category, setCategory] = useState("");
   const [imageUrl, setImageUrl] = useState("");
   const [condition, setCondition] = useState("");
+  const [itemId, setItemId] = useState("") //add a new attribute
   const [isPosting, setIsPosting] = useState(false);
   const [uploadProgress, setUploadProgress] = useState(0);
 
@@ -147,14 +148,15 @@ const PostCreationScreen = ({ navigation }) => {
       listerDisplayName: userDisplayName,
       listerLocation: userLocation,
       datePosted: timePosted,
+      id: itemId,
     };
 
     // Show the data for debugging purposes
 
     // Add the listing with the data
     await addListing(data);
-    console.log(data);
-
+    //console.log("after: ", data.id);
+    
     // Display the formatted data in an alert
     alert("Listing Added");
 
@@ -183,8 +185,7 @@ const PostCreationScreen = ({ navigation }) => {
     // await addDoc(listingCol, data);
 
     const docRef = await addDoc(listingCol, data);
-
-    console.log("After listing await");
+   //console.log("data: ", data.id);
 
     const userDocRef = doc(usersCol, userEmail);
     console.log("Get doc user ref: ", userDocRef);
@@ -197,7 +198,7 @@ const PostCreationScreen = ({ navigation }) => {
       listingId: docRef.id,
       imageURL: data.imageURL,
     });
-
+    await updateDoc(docRef, { id: docRef.id });
     console.log("Before await update doc");
 
     // Update the user document with the updated myListings array

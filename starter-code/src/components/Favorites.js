@@ -64,10 +64,10 @@ const Favorites = ({navigation}) => {
     const [user] = useAuthState(auth);
     let user_email = user.email
     useEffect(() => {
-        const docRef = doc(db, "users", user_email); // Construct a reference to the user document
+        const userDocRef = doc(db, "users", user_email); // Construct a reference to the user document
 
         const unsubscribe = onSnapshot(
-            docRef,
+            userDocRef,
             async (docSnapshot) => {
                 if (!docSnapshot.exists()) {
                     console.log("No matching user document found.");
@@ -82,7 +82,7 @@ const Favorites = ({navigation}) => {
                 //console.log("myListings: ", myListings)
                 let savedList = [];
                 for (let i = 0; i < myListings.length; i++) {
-                    savedList.push(myListings[i].imageURL);
+                    savedList.push(myListings[i].id);
                     //console.log("Listing ID:", myListings[i].name);
                 }
 
@@ -97,12 +97,23 @@ const Favorites = ({navigation}) => {
                 for (let i = 0; i < savedList.length; i++) {
                     const docRef = collection(db, "listings");
                     //console.log("before")
-                    const q = query(docRef, where("imageURL", "==", savedList[i]));
-                    //console.log("after")
-                    //console.log(savedList[i]);
+                    const q = query(docRef, where("id", "==", savedList[i]));
                     const docSnap = await getDocs(q);
-                    //console.log("passed: ", docSnap.docs[0].data());
-                    setFiles((prevFiles) => [...prevFiles, docSnap.docs[0].data()]);
+                    if (docSnap.empty) {
+                        //console.log("runned: ", i);
+                        const index = myListings.findIndex(item => item.id === savedList[i]);
+                        //console.log("runned: ", index);
+                        if (index !== -1){
+                            myListings.splice(index, 1);
+                        }
+                        //console.log("Listing ID:", myListings);
+                        await updateDoc(userDocRef, { mySaved: myListings });
+                        //console.log("Listing ID1:", myListings);
+                    } else {
+                        // If documents are found, add the first document's data to the 'files' state
+                        setFiles((prevFiles) => [...prevFiles, docSnap.docs[0].data()]);
+                    }
+
                 }
                 setSavedList(savedList);
                 setMyListings(myListings);
@@ -159,7 +170,7 @@ const Favorites = ({navigation}) => {
             // and the doc id and imageURl of the listing
             // so we can delete it later
             onPress={() =>
-                navigation.navigate("ItemDetails", {
+                navigation.navigate("SavedItems", {
                     navigation,
                     item,
                     myListing: myListings.find(
