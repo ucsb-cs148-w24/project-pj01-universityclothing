@@ -134,6 +134,21 @@ const EditProfileScreen = ({ onClose, onProfileUpdate }) => {
     }
   };
 
+  const formatPhoneNumber = (value) => {
+    if (!value) return value;
+
+    const phoneNumber = value.replace(/[^\d]/g, "");
+    const phoneNumberLength = phoneNumber.length;
+
+    if (phoneNumberLength < 4) return phoneNumber;
+
+    if (phoneNumberLength < 7) {
+      return `${phoneNumber.slice(0, 3)}-${phoneNumber.slice(3)}`;
+    }
+
+    return `${phoneNumber.slice(0, 3)}-${phoneNumber.slice(3, 6)}-${phoneNumber.slice(6, 10)}`;
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <BackHeader title="Edit Profile" onBackPress={onClose} />
@@ -193,6 +208,7 @@ const EditProfileScreen = ({ onClose, onProfileUpdate }) => {
             placeholderTextColor="#666666"
             autoCorrect={false}
             value={username}
+            maxLength={15}
             onChangeText={setUsername}
             style={[
               styles.textInput,
@@ -210,7 +226,8 @@ const EditProfileScreen = ({ onClose, onProfileUpdate }) => {
             keyboardType="number-pad"
             autoCorrect={false}
             value={phoneNumber}
-            onChangeText={setPhoneNumber}
+            maxLength={12}
+            onChangeText={(text) => setPhoneNumber(formatPhoneNumber(text))}
             style={[
               styles.textInput,
               {

@@ -171,7 +171,7 @@ const Login = ({ setIsLoggedIn }) => {
         onPress={() => signInWithGoogle(setIsLoggedIn, showPopup)}
       >
         <Text data-prompt="select_account" style={styles.googleSignInButtonText}>
-          Sign In with Google
+        Sign In with UCSB Email Address
         </Text>
       </TouchableOpacity>
       <Modal
