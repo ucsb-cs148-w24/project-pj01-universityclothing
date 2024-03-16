@@ -60,8 +60,8 @@ const PostCreationScreen = ({ navigation }) => {
 
   useEffect(() => {
     // Function to fetch user profile
-    if (!user_email) return; 
     const fetchUserProfile = async () => {
+      if (!user_email) return; 
       if (user && user.email) {
         const docRef = doc(firestore, "users", user.email);
         const docSnap = await getDoc(docRef);
