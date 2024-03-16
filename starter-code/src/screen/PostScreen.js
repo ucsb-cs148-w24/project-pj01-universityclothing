@@ -56,7 +56,7 @@ const PostCreationScreen = ({ navigation }) => {
   const [imageWidth, setImageWidth] = useState(null);
   const [imageHeight, setImageHeight] = useState(null);
 
-  let user_email = user.email;
+  let user_email = user?.email;
 
   useEffect(() => {
     // Function to fetch user profile

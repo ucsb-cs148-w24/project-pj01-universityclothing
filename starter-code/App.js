@@ -24,12 +24,19 @@ const App = () => {
         <ItemsProvider>
             <SafeAreaView style={{ flex: 1, backgroundColor: "white" }}>
                 {isLoggedIn ? (
-                    <NavigationContainer>
+                    <NavigationContainer independent={true}>
                         <Stack.Navigator screenOptions={{ headerShown: false }}>
                             <Stack.Screen
                                 name="Tab"
                                 component={Navigator}
                                 options={{ animation: "slide_from_bottom" }}
+                            ></Stack.Screen>
+                            <Stack.Screen
+                                name="Login"
+                                component={App}
+                                options={({ navigation }) => ({
+                                    navigation: navigation,
+                                })}
                             ></Stack.Screen>
                             <Stack.Screen
                                 name="ItemDetails"
