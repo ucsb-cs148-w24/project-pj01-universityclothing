@@ -32,6 +32,7 @@ import {
     Timestamp,
 } from "firebase/firestore";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
+import { Button } from "react-native-paper";
 
 const ItemScreen = ({ route }) => {
     const { navigation, item } = route.params;
@@ -153,22 +154,7 @@ const ItemScreen = ({ route }) => {
         </Text>
         <Text style={styles.itemSeller}>Seller: {sellerName}</Text>
         <Text style={styles.itemDescription}>Description: {item.desc}</Text>
-        <TouchableOpacity style={styles.saveButton} onPress={saveListing}>
-
-        <Text style={styles.saveButtonText}>Liked</Text>
-        </TouchableOpacity>
       </View>
-      
-            {user.email !== item.lister && (
-                <TouchableOpacity
-                    style={styles.msgButton}
-                    onPress={openChat}
-                >
-                    <Text style={styles.msgButtonText}>
-                        Message {sellerName}
-                    </Text>
-                </TouchableOpacity>
-            )}
     </View>
   );
   const truncateTitle = (title, maxLength) => {
@@ -176,7 +162,8 @@ const ItemScreen = ({ route }) => {
         ? title.substring(0, maxLength) + "..."
         : title;
 };
-
+const handleclick = () => {
+};
 
 
   return (
@@ -187,9 +174,30 @@ const ItemScreen = ({ route }) => {
       {/* FlatList to render the item details */}
       <FlatList
         data={[item]} // Wrap item in an array since FlatList expects an array of data
-        renderItem={renderItem}
+        renderItem={renderItem} 
         keyExtractor={(item) => item.imageURL}
       />
+      <View style={styles.buttonContainer}>
+                <TouchableOpacity
+                    style={styles.saveButton}
+                    onPress={saveListing}                >
+                  <Entypo
+                    name = "heart"
+                    size = {25}
+                    color = {"#FF0000"}
+                  />
+                </TouchableOpacity>
+                {user.email !== item.lister && (
+                <TouchableOpacity
+                    style={styles.msgButton}
+                    onPress={openChat}
+                >
+                    <Text style={styles.msgButtonText}>
+                        Message {sellerName}
+                    </Text>
+                </TouchableOpacity>
+            )}
+            </View>
     </SafeAreaView>
   );
 };
@@ -197,7 +205,7 @@ const ItemScreen = ({ route }) => {
 const styles = StyleSheet.create({
   screenContainer: {
     flex: 1,
-    backgroundColor: COLORS.lightGrey,
+    //backgroundColor: COLORS.lightGrey,
   },
   itemContainer: {
     backgroundColor: '#ffffff',
@@ -243,32 +251,37 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: COLORS.gray,
   },
+  msgButton: {
+      flex:2,
+      backgroundColor: COLORS.lightYellow, // Bright blue background
+      borderRadius: 20, // Border-radius of 20px
+      alignSelf: "center", // Center content horizontally
+      paddingHorizontal: 20,
+      paddingVertical: 10,
+      //marginBottom: 8,
+  },
+  msgButtonText: {
+      color: COLORS.darkBlue, // Text color is white
+      textAlign: "center",
+      fontWeight:"bold",
+  },
+  buttonContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginHorizontal: 16,
+    marginBottom: 16,
+},
+
   saveButton: {
-    backgroundColor: '#0C356A',
-    borderRadius: 8,
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginTop: 8,
+      flex:1,
+      backgroundColor: COLORS.lightGrey, // Red color
+      paddingHorizontal: 20,
+      paddingVertical: 10,
+      borderRadius: 20,
+      alignItems: 'center',
+      justifyContent: 'center',
+      marginRight:10,
   },
-  saveButtonText: {
-    color: '#FFC436',
-    fontWeight: 'bold',
-  },
-    msgButton: {
-        backgroundColor: COLORS.lightBlue, // Bright blue background
-        borderRadius: 20, // Border-radius of 20px
-        padding: 10, // Add padding for better visual appearance
-        alignSelf: "center", // Center content horizontally
-        width: "70%",
-        marginTop: 20,
-        marginBottom: 8,
-    },
-    msgButtonText: {
-        color: "#fff", // Text color is white
-        textAlign: "center",
-    },
 });
 
 export default ItemScreen;
