@@ -40,11 +40,6 @@ Before you begin, ensure you have the following installed:
 - Expo CLI (`npm install -g expo-cli`)
 - Ensure that you have the Expo Go app installed on your mobile device. Since our database is made for iOS, you should download Expo Go for iOS
   - [Expo Go for iOS](https://apps.apple.com/app/expo-go/id982107779)
- 
-### Installing Dependencies
-Navigate to the project directory and install the necessary dependencies:
-``` npm install
-```
 
 ### Steps to Run the Application
 1. Open the Expo Go app on your mobile device.
