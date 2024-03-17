@@ -1,5 +1,5 @@
 # UniversityClothing
-UniversityClothing is a mobile application that allows university students and community near university to buy and sell items freely.
+UniversityClothing is a mobile application that allows university students to buy and sell used items freely.
 It aims to solve problem of common scams on other online marketplaces by verifying user's university related identity before letting them join.
 
 ## Group members
@@ -20,11 +20,15 @@ Backend: Firebase <br/>
 
 Buyers: <br/>
 Buyers are able to log in using school credentials, and can browse through the marketplace to see the listings. <br/>
-Buyers are also able to search in the marketplace for the item they are looking for, and send messages to the seller if needed. <br/>
+Buyers are able to search in the marketplace for the item they are looking for, and send messages to the seller if needed. <br/>
+Buyers are able to save items they are interested in, so they do not need to search for the items again.  <br/>
+Buyers are able to change their profile information and easily log out. <br/>
 
 Sellers: <br/>
-Sellers are able to log in using school credentials, and can create listing to the marketplace for the items they are selling. <br/>
-Should also be able to contact potential buyers through the app. <br/>
+Sellers are able to log in using school credentials, and can upload a post about the items they are selling. <br/>
+Sellers are able to contact with potential customers in the chat room. <br/>
+Sellers are able to check what they are posted in myListings screen, and edit the item information, or they could delete the item from the marketplace. <br/>
+Sellers are able to change their profile information and easily log out. <br/>
 
 ## Deployment
 
