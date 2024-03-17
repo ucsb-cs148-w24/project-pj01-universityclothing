@@ -1,6 +1,6 @@
 **Mentor:** Self-Mentored
 
-**Meeting Time: 21, Feb, 2024** 
+**Meeting Time: 26, Feb, 2024** 
 
 **Type of Meeting:** Daily Scrum
 
@@ -10,10 +10,10 @@
 
 ## **Zhen Bi:**  
 ### **I DID**  
-- 
+- wrote the USER_FEEDBACK_NEEDS.md
 
 ### **I WILL DO**  
-- 
+- write the dev.md and the UX/UI design file
 
 ### **BLOCKERS**  
 - 
