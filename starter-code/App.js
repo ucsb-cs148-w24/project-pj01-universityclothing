@@ -2,7 +2,7 @@ import Login from "./src/screen/logInPage";
 import React, { useState } from "react";
 
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View, SafeAreaView } from "react-native";
+import { StyleSheet, Text, View, SafeAreaView, LogBox } from "react-native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { NavigationContainer } from "@react-navigation/native";
 import Navigator from "./src/components/Navigator";
@@ -19,6 +19,8 @@ import ContactUsScreen from './src/screen/ContactUsScreen';
 
 const Stack = createNativeStackNavigator();
 const App = () => {
+    LogBox.ignoreAllLogs();
+    
     //pass func setIsLoggedIn usestate to login component usestate, setisloggedin = setisloggedin, call func on true
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     return (
