@@ -10,10 +10,10 @@
 
 ## **Zhen Bi:**  
 ### **I DID**  
-- 
+- I wrote the Design document
 
 ### **I WILL DO**  
-- 
+- improve the search algorithm, and implement the recent search feature
 
 ### **BLOCKERS**  
 - 
