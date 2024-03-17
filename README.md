@@ -52,12 +52,14 @@ Before you begin, ensure you have the following installed:
 TODO: List which libraries/add-ons you added to the project, and the purpose each of those add-ons serves in your app.
 
 ## Known Problems
-TODO: Describe any known issues, bugs, odd behaviors or code smells. Provide steps to reproduce the problem and/or name a file or a function where the problem lives.
+Not Founded yet.
 
 ### Assistance
 If you encounter any difficulties or require assistance with running the app on your device, please feel free to reach out to us, and we would be happy to assist you.
+You also could check the information in "Contact us" in our app.
 
 ### Contributing
+
 * Fork it!
 * Create your feature branch: git checkout -b my-new-feature
 * Commit your changes: git commit -am 'Add some feature'
