@@ -10,10 +10,10 @@
 
 ## **Zhen Bi:**  
 ### **I DID**  
-- 
+- implemented search feature, users could use the name to find the items in the marketplace
 
 ### **I WILL DO**  
-- 
+- decided to delete the search screen and will implement the search bar in the home screen
 
 ### **BLOCKERS**  
 - 
