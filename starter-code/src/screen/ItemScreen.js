@@ -106,6 +106,7 @@ const ItemScreen = ({ route }) => {
         const roomQ = query(
             collection(firestore, "messageRooms"),
             where("listing", "==", lid),
+            where("users", "array-contains", user.email),
             limit(1)
         );
 
