@@ -10,10 +10,11 @@
 
 ## **Zhen Bi:**  
 ### **I DID**  
-- 
+- participated in the retro
+- figured out the cross icon's style
 
 ### **I WILL DO**  
-- 
+- change the header bar styles.
 
 ### **BLOCKERS**  
 - 
