@@ -49,8 +49,36 @@ Before you begin, ensure you have the following installed:
 3. Alternatively, you can manually enter the provided link in the Expo Go app to start the application.
 
 #### Dependencies
-TODO: List which libraries/add-ons you added to the project, and the purpose each of those add-ons serves in your app.
-
+    "@expo/config": "^8.1.1",
+    "@expo/metro-config": "^0.10.0",
+    "@firebase/firestore": "^4.4.2",
+    "@react-native-firebase/app": "^18.8.0",
+    "@react-native-firebase/auth": "^18.8.0",
+    "@react-native-firebase/crashlytics": "^18.8.0",
+    "@react-native-picker/picker": "^2.6.1",
+    "@react-navigation/bottom-tabs": "^6.5.11",
+    "@react-navigation/native": "^6.1.9",
+    "@react-navigation/native-stack": "^6.9.17",
+    "@react-navigation/stack": "^6.3.20",
+    "@types/react": "~18.2.45",
+    "expo": "~50.0.6",
+    "expo-google-sign-in": "^11.0.0",
+    "expo-image-picker": "~14.7.1",
+    "expo-linking": "~6.2.2",
+    "expo-status-bar": "~1.11.1",
+    "expo-web-browser": "~12.8.2",
+    "firebase": "^10.8.0",
+    "react": "18.2.0",
+    "react-firebase-hooks": "^5.1.1",
+    "react-native": "0.73.4",
+    "react-native-image-picker": "^7.1.0",
+    "react-native-keyboard-spacer": "^0.4.1",
+    "react-native-paper": "^5.12.3",
+    "react-native-picker-select": "^9.0.1",
+    "react-native-safe-area-context": "^4.8.2",
+    "react-native-screens": "^3.29.0",
+    "react-native-vector-icons": "^10.0.3",
+    "typescript": "^5.3.0"
 ## Known Problems
 Not Founded yet.
 
