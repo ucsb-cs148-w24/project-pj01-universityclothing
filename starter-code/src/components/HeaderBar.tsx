@@ -1,15 +1,22 @@
 import React, { useState, useEffect } from "react";
-import { StyleSheet, View, Text } from "react-native";
+import { StyleSheet, View, Text, LogBox } from "react-native";
 import { Avatar } from "react-native-paper";
+import { firebaseApp, firestore } from "../../firebaseConfig";
 import { getAuth } from "firebase/auth";
+import { useAuthState } from "react-firebase-hooks/auth";
 import { doc, getDoc } from "firebase/firestore";
-import { firestore } from "../../firebaseConfig";
 import { COLORS } from "../theme/theme";
 
 const HeaderBar = ({ title }) => {
-  const auth = getAuth();
-  const user = auth.currentUser;
-  const [profileImageURL, setProfileImageURL] = useState(user?.photoURL);
+  console.warn = () => {};
+  LogBox.ignoreLogs(["source.uri should not be an empty string"]);
+
+  const auth = getAuth(firebaseApp);
+  const [user] = useAuthState(auth);
+
+  const [profileImageURL, setProfileImageURL] = useState(
+    user ? user.photoURL : ""
+  );
 
   useEffect(() => {
     const fetchUserProfileImage = async () => {
@@ -45,9 +52,9 @@ const HeaderBar = ({ title }) => {
 
 const styles = StyleSheet.create({
   HeaderContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
     backgroundColor: COLORS.darkBlue,
     height: 70,
     paddingHorizontal: 10,
@@ -58,8 +65,8 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   RightContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
   },
   ImageContainer: {
     height: 36,
@@ -67,9 +74,9 @@ const styles = StyleSheet.create({
     borderRadius: 18,
     borderWidth: 2,
     borderColor: COLORS.yellow,
-    alignItems: 'center',
-    justifyContent: 'center',
-    overflow: 'hidden',
+    alignItems: "center",
+    justifyContent: "center",
+    overflow: "hidden",
   },
   avatarStyle: {
     borderColor: COLORS.darkBlue,
