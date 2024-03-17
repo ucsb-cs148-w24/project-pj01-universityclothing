@@ -1,6 +1,6 @@
 **Mentor:** Self-Mentored
 
-**Meeting Time:** 
+**Meeting Time:** 12.Mar.,2024
 
 **Type of Meeting:** Daily Scrum
 
@@ -10,13 +10,14 @@
 
 ## **Zhen Bi:**  
 ### **I DID**  
-- 
+- I tried to connect the front end with the firebase
+- learned the database structure
 
 ### **I WILL DO**  
 - 
 
 ### **BLOCKERS**  
-- 
+- stucks on search features
 
 ## **Kevin Chen:**  
 ### **I DID**  
