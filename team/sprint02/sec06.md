@@ -10,10 +10,11 @@
 
 ## **Zhen Bi:**  
 ### **I DID**  
-- 
+- completed survey for the MVP presentation
+- write the unit test for the navigator bar
 
 ### **I WILL DO**  
-- 
+- finish the search bar feature
 
 ### **BLOCKERS**  
 - 
