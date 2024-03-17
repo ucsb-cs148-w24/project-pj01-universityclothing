@@ -21,14 +21,23 @@ _Details on how users can browse through different categories and listings._
 ### Posting Items for Sale
 _Guidelines and steps for posting items on the platform._
 
+### Updating Items
+_Check items the seller posted in myListing, and could edit or delete a specific item in the item detail page._
+
 ### Communicating with Sellers/Buyers
 _Information on how to initiate and conduct conversations with other users on the app._
 
-### Arranging Pickups/Deliveries
-_Advice and recommendations for arranging safe and convenient pickups or deliveries._
+### Searching Items by names
+_Use the search bar to find targeted items quickly, and click cross button to cancel the search input._
+
+### Filter
+_Any pages could use the filter to narrow down items in a specific category_
 
 ### User Profile Management
 _How users can edit and manage their profiles, including privacy settings._
+
+### Save as favorites
+_Save items by clicking the heart button, and users could check what they saved in favorites button on the profile screen. Also, they could cancel saving in favorites page._
 
 ### Safety and Community Guidelines
 _Information on safety measures and community guidelines to ensure a positive and secure experience._
