@@ -1,6 +1,6 @@
 **Mentor:** Self-Mentored
 
-**Meeting Time: 19, Feb, 2024** 
+**Meeting Time: 21, Feb, 2024** 
 
 **Type of Meeting:** Daily Scrum
 
@@ -10,10 +10,10 @@
 
 ## **Zhen Bi:**  
 ### **I DID**  
-- 
+- implemented the search bar in the home screen
 
 ### **I WILL DO**  
-- 
+- fix front-end look of the reset search feature
 
 ### **BLOCKERS**  
 - 
