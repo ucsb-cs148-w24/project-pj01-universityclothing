@@ -51,10 +51,10 @@
 
 ## **Xinyao Song**  
 ### **I DID**  
-- 
+- Designed UI/UX for profile screen 
 
 ### **I WILL DO**  
-- 
+- Figure out how to connect user information to firebase 
 
 ### **BLOCKERS**  
 -
