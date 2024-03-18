@@ -64,6 +64,12 @@
 
 ### **I WILL DO**  
 - 
+## **Anika Misra**  
+### **I DID**  
+- Color correcting the UI to ensure that it matches the app properly
+- Fixing and debugging the pull request merge conflicts where the data is not being properly retrieved
 
+### **I WILL DO**  
+- Fix all merge conflicts so that the profile is properly constructed and the user is added into Firebase storage
 ### **BLOCKERS**  
 -
