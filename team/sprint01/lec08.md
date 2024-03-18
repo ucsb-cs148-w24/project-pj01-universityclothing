@@ -21,13 +21,14 @@
 
 ## **Kevin Chen:**  
 ### **I DID**  
-- 
+- Continue working on Changing item from hardcoded items to firebase
 
 ### **I WILL DO**  
-- 
+- Finish Work on Changing item from hardcoded items to firebase
 
 ### **BLOCKERS**  
-
+- None
+  
 ## **Anika Misra:**  
 ### **I DID**  
 - Worked on the UI for login
