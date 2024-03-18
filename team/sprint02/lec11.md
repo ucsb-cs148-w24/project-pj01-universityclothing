@@ -20,13 +20,13 @@
 
 ## **Kevin Chen:**  
 ### **I DID**  
-- 
+- Add images to firebase storage
 
 ### **I WILL DO**  
-- 
+- Configure these images to the posting screen.
 
 ### **BLOCKERS**  
-
+- None
 
 ## **Ridhit Garg:**  
 ### **I DID**  
