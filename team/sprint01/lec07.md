@@ -20,13 +20,13 @@
 
 ## **Kevin Chen:**  
 ### **I DID**  
-- 
+- Work on Changing item from hardcoded items to firebase
 
 ### **I WILL DO**  
-- 
+- Continue work
 
 ### **BLOCKERS**  
-- 
+- None
 
 ## **Ridhit Garg:**  
 ### **I DID**  
