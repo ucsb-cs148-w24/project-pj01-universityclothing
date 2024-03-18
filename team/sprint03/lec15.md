@@ -20,13 +20,13 @@
 
 ## **Kevin Chen:**  
 ### **I DID**  
-- 
+- Log out button working on
 
 ### **I WILL DO**  
-- 
+- Continue working on log out button
 
 ### **BLOCKERS**  
-- 
+- Lots of bugs and using navigation
 
 ## **Ridhit Garg:**  
 ### **I DID**  
