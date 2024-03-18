@@ -68,3 +68,11 @@
 
 ### **BLOCKERS**  
 -
+
+## **Anika Misra:**  
+### **I DID**  
+- Figuring out how to style a button in React
+- Styled the text in React
+
+### **I WILL DO**  
+- Figure out how to make this fit properly onto all phone screen sizes
