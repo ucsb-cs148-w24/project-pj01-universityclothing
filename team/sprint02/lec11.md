@@ -26,7 +26,7 @@
 - 
 
 ### **BLOCKERS**  
-- 
+
 
 ## **Ridhit Garg:**  
 ### **I DID**  
@@ -67,3 +67,9 @@
 
 ### **BLOCKERS**  
 -
+## **Anika Misra:**  
+### **I DID**  
+- Working on the bug for accepting permissions
+
+### **I WILL DO**  
+- Style the button and text
