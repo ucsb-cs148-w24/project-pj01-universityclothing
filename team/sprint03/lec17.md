@@ -68,3 +68,9 @@
 
 ### **BLOCKERS**  
 -
+## **Anika Misra**  
+### **I DID**  
+- Worked to fix Edit Listing page since the scroll didn't work
+
+### **I WILL DO**  
+- Test out the Edit listing page
