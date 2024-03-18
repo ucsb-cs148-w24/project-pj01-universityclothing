@@ -68,3 +68,9 @@
 
 ### **BLOCKERS**  
 -
+## **Anika Misra:**  
+### **I DID**  
+- We discussed RETRO 
+
+### **I WILL DO**  
+- Fix the backend bug where it doesn't redirect even with UCSB email
