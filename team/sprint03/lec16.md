@@ -69,7 +69,8 @@
 -
 ## **Anika Misra**  
 ### **I DID**  
-- Researched possible options for a popup
+- Created a popup in the event of unsuccessful login
 
 ### **I WILL DO**  
-- Finish implementing the popup for unsuccessful login
+- Making sure that people can retry logging in if the popup appears
+- Fixing the automatic login issue
