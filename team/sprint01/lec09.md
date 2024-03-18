@@ -51,13 +51,13 @@
 
 ## **Xinyao Song**  
 ### **I DID**  
-- 
+- implimented basic profile page 
 
 ### **I WILL DO**  
-- 
+- continue to firebase connection
 
 ### **BLOCKERS**  
--
+- not sure how to upload user images and make replacements when pfp updates 
 
 ## **Justin Chung**  
 ### **I DID**  
