@@ -21,13 +21,13 @@
 
 ## **Kevin Chen:**  
 ### **I DID**  
-- 
+- Watch videos on how to do Firebase configuration with project.
 
 ### **I WILL DO**  
-- 
+- Use what I learned to implement it into our project.
 
 ### **BLOCKERS**  
-- 
+- None
 
 ## **Ridhit Garg:**  
 ### **I DID**  
