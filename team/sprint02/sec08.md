@@ -67,3 +67,10 @@
 
 ### **BLOCKERS**  
 -
+## **Anika Misra:**  
+### **I DID**  
+- Discussed if we should have a login page or allow conditional viewing of home page
+
+
+### **I WILL DO**  
+- Update the UI for login since it doesn't match color scheme
