@@ -27,7 +27,7 @@ _Check your listings posted in myListing, at the bottom menue. You can edit or d
 _To communicate payment and purchase with a seller, simply click on the listing you are interested in and then click "message (Seller Name)". You will then start a chat by clicking this button, and can view this chat by pressing the chat icon in the bottom menu._
 
 ### Searching Items by names
-_Use the search bar to find targeted items quickly, and click cross button to cancel the search input._
+_In the homepage, users can use the search bar on top of the page to find targeted items quickly, and click cross button to cancel the search input._
 
 ### Filter
 _Any pages could use the filter to narrow down items in a specific category_
