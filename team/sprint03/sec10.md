@@ -67,3 +67,11 @@
 
 ### **BLOCKERS**  
 -
+## **Anika Misra**  
+### **I DID**  
+-Updated the Manual.MD 
+
+### **I WILL DO**  
+- Finish the Manual.MD
+- Work on my Google Slides for the presentation
+- Meet with team later to confirm final changes
