@@ -20,13 +20,13 @@
 
 ## **Kevin Chen:**  
 ### **I DID**  
-- 
+- Work on firebase rebasing.
 
 ### **I WILL DO**  
-- 
+- Continue firebase rebasing to fit new features being added.
 
 ### **BLOCKERS**  
-- 
+- None
 
 ## **Ridhit Garg:**  
 ### **I DID**  
