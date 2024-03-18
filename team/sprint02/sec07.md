@@ -68,3 +68,9 @@
 
 ### **BLOCKERS**  
 -
+## **Anika Misra:**  
+### **I DID**  
+- Participated in Retro
+
+### **I WILL DO**  
+- Work to communicate my changes more 
