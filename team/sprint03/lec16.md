@@ -67,3 +67,9 @@
 
 ### **BLOCKERS**  
 -
+## **Anika Misra**  
+### **I DID**  
+- Researched possible options for a popup
+
+### **I WILL DO**  
+- Finish implementing the popup for unsuccessful login
