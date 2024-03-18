@@ -21,13 +21,13 @@
 
 ## **Kevin Chen:**  
 ### **I DID**  
-- 
+- Added more features/need to do to Kanban Board
 
 ### **I WILL DO**  
-- 
+- Work on these features which are in backlog.
 
 ### **BLOCKERS**  
-- 
+- None
 
 ## **Ridhit Garg:**  
 ### **I DID**  
