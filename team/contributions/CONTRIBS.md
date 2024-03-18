@@ -49,7 +49,9 @@ I worked with Kevin Chen on the following issues:
 - Designed and created databases schemas on Firebase with Jon
 - Created firebase.configs with Jon
 - Designed database schema/backend for messaging system
-- Designed and implemented the frontend of the messaging system in the app
+- Designed and implemented the UI/UX design and frontend of the messaging system in the app
+  - Includes chat screen, individual chat rooms, and starting messages from individual item listings
+- Remaining bug fixes for release version
 
 
 ## Anika
