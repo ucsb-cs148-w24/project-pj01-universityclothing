@@ -68,3 +68,9 @@
 
 ### **BLOCKERS**  
 -
+## **Anika Misra:**  
+### **I DID**  
+- Fine tuned the design for the Login page
+
+### **I WILL DO**  
+- Figure out how to implement the proposed design into React
