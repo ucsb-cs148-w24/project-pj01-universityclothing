@@ -20,13 +20,14 @@
 
 ## **Kevin Chen:**  
 ### **I DID**  
-- 
+- Fixed bugs in the post screen
 
 ### **I WILL DO**  
-- 
+- Work on slides for presentation
+- More bug fixes
 
 ### **BLOCKERS**  
-- 
+- None
 
 ## **Ridhit Garg:**  
 ### **I DID**  
