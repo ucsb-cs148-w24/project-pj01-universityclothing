@@ -27,6 +27,15 @@
 - 
 
 ### **BLOCKERS**  
+
+## **Anika Misra:**  
+### **I DID**  
+- Worked on the UI for login
+
+### **I WILL DO**  
+- Figure out how to implement the proposed design into React
+
+### **BLOCKERS**  
 - 
 
 ## **Ridhit Garg:**  
