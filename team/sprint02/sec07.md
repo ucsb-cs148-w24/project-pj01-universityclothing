@@ -21,13 +21,13 @@
 
 ## **Kevin Chen:**  
 ### **I DID**  
-- 
+- Change categories to fix so that the tabs in the home page correctly sorts based on categories which are enumerated.
 
 ### **I WILL DO**  
-- 
+- Finish tab sorter fix.
 
 ### **BLOCKERS**  
-- 
+- None
 
 ## **Ridhit Garg:**  
 ### **I DID**  
