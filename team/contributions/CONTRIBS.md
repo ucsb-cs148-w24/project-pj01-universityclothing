@@ -25,6 +25,12 @@ I worked with Kevin Chen on the following issues:
 - Item details pulled from Firebase Firestore for item listings
 - Fixed post screen bugs and added styling/UX fixes
 
+Other issues:
+
+- Worked on saving item listings and saved posts to user database
+- Implemented button to save posts
+- Organized homescreen listings by time posted.
+
 ## XinYao
 - **Wireframe Design:** I designed the wireframes for the home and profile pages, laying the groundwork for the app's visual layout and user experience.
 - **UI/UX Design**: Designed and implemented UI/UX for the home screen (including item listings), post screen, profile screen, navigation bar, about us, and edit profile screen.
