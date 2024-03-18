@@ -20,13 +20,13 @@
 
 ## **Kevin Chen:**  
 ### **I DID**  
-- 
+- Worked on refreshing home screen so that it updates changes
 
 ### **I WILL DO**  
-- 
+- Finish refresh changes for home screen
 
 ### **BLOCKERS**  
-- 
+- None
 
 ## **Ridhit Garg:**  
 ### **I DID**  
