@@ -50,10 +50,10 @@
 
 ## **Xinyao Song**  
 ### **I DID**  
-- 
+- Finished up basic UI for feed structure
 
 ### **I WILL DO**  
-- 
+- Look into profile wireframe
 
 ### **BLOCKERS**  
 -
