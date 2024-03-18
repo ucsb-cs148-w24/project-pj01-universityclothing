@@ -84,7 +84,7 @@ Before you begin, ensure you have the following installed:
     "react-native-vector-icons": "^10.0.3",
     "typescript": "^5.3.0"
 ## Known Problems
-Not Founded yet.
+Deleting a listing causes existing chats to have ghost links to that listing.
 
 ### Assistance
 If you encounter any difficulties or require assistance with running the app on your device, please feel free to reach out to us, and we would be happy to assist you.
