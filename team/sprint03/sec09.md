@@ -67,3 +67,9 @@
 
 ### **BLOCKERS**  
 -
+## **Anika Misra**  
+### **I DID**  
+- Participated in Retro 03
+
+### **I WILL DO**  
+- Make sure to put all finishing touches on login page and do pull request to main
