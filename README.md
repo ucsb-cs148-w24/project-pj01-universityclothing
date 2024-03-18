@@ -45,7 +45,7 @@ Before you begin, ensure you have the following installed:
 
 #### Steps to Run the Application
 1. Download the project from Github.
-2. Change directory to the starter-code.
+2. Change directory to the starter-code 'cd starter-code'.
 3. Run `npm install`.
 4. Run `npx expo start`.
 5. Open the Expo Go app on your mobile device.
