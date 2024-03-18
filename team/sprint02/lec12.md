@@ -66,4 +66,11 @@
 - 
 
 ### **BLOCKERS**  
--
+
+## **Anika Misra:**  
+### **I DID**  
+- Fixed the permissions issue
+- Also made sure that the flow properly works so that it redirects to backend only if email ends in ucsb.edu
+
+### **I WILL DO**  
+- Style text and button
