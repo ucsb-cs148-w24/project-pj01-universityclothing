@@ -21,13 +21,13 @@
 
 ## **Kevin Chen:**  
 ### **I DID**  
-- 
+- Finished Work on Changing item from hardcoded items to firebase
 
 ### **I WILL DO**  
-- 
+- Work on refreshing the database so that if new items added (manually for now) it will update on home page
 
 ### **BLOCKERS**  
-- 
+- None
 
 ## **Ridhit Garg:**  
 ### **I DID**  
