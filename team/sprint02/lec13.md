@@ -21,13 +21,13 @@
 
 ## **Kevin Chen:**  
 ### **I DID**  
-- 
+- Posting screen can now use firebase images to seamlessly post JSON packages which are items with pictures.
 
 ### **I WILL DO**  
-- 
+- Change styling on Posting screen and make it look better it.
 
 ### **BLOCKERS**  
-- 
+- None
 
 ## **Ridhit Garg:**  
 ### **I DID**  
