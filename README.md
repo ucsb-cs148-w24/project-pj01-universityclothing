@@ -44,9 +44,13 @@ Before you begin, ensure you have the following installed:
   - [Expo Go for iOS](https://apps.apple.com/app/expo-go/id982107779)
 
 #### Steps to Run the Application
-1. Open the Expo Go app on your mobile device.
-2. Scan the QR code provided below with your device. The QR code will open the project directly in Expo Go.
-3. Alternatively, you can manually enter the provided link in the Expo Go app to start the application.
+1. Download the project from Github.
+2. Change directory to the starter-code.
+3. Run `npm install`.
+4. Run `npx expo start`.
+5. Open the Expo Go app on your mobile device.
+6. Scan the QR code provided below with your device. The QR code will open the project directly in Expo Go.
+7. Alternatively, you can manually enter the provided link in the Expo Go app to start the application.
 
 #### Dependencies
     "@expo/config": "^8.1.1",
