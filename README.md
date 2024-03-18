@@ -88,7 +88,7 @@ Deleting a listing causes existing chats to have ghost links to that listing.
 
 ### Assistance
 If you encounter any difficulties or require assistance with running the app on your device, please feel free to reach out to us, and we would be happy to assist you.
-You also could check the information in "Contact us" in our app.
+You can also check the information in the "Contact us" page on the profile screen of our app.
 
 ### Contributing
 
