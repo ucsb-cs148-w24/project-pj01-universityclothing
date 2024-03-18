@@ -20,13 +20,13 @@
 
 ## **Kevin Chen:**  
 ### **I DID**  
-- 
+- Worked on Bug Fixes
 
 ### **I WILL DO**  
-- 
+- Log out button
 
 ### **BLOCKERS**  
-- 
+- None
 
 ## **Ridhit Garg:**  
 ### **I DID**  
