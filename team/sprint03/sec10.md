@@ -20,13 +20,13 @@
 
 ## **Kevin Chen:**  
 ### **I DID**  
-- 
+- Fix bugs with post screen. non-numeric prices still pass due to small bug fix.
 
 ### **I WILL DO**  
-- 
+- Work on slides
 
 ### **BLOCKERS**  
-- 
+- None
 
 ## **Ridhit Garg:**  
 ### **I DID**  
