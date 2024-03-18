@@ -102,22 +102,6 @@ const PostCreationScreen = ({ navigation }) => {
       return;
     }
 
-    setIsPosting(true);
-
-    const currentTime = new Date();
-
-    const timePosted = {
-      dayOfWeek: currentTime.toLocaleString("en-US", { weekday: "long" }), // Eg. Monday
-      date: currentTime.getDate(), // Day of the month
-      month: currentTime.toLocaleString("en-US", { month: "long" }), // Eg. December
-      year: currentTime.getFullYear(), // Year
-    };
-
-    // upload the image here
-    console.log(imageUrl);
-    const downloadURL = await uploadImage(imageUrl, "image");
-    console.log(downloadURL);
-
     // Validate that price, condition, and category can be converted to numbers
     const numericPrice = Number(price);
     const numericCondition = Number(condition);
@@ -131,6 +115,25 @@ const PostCreationScreen = ({ navigation }) => {
       alert("Price, condition, and category must be numeric values");
       return;
     }
+
+    setIsPosting(true);
+
+    const currentTime = new Date();
+
+    const timePosted = {
+      dayOfWeek: currentTime.toLocaleString("en-US", { weekday: "long" }), // Eg. Monday
+      date: currentTime.getDate(), // Day of the month
+      month: currentTime.toLocaleString("en-US", { month: "long" }), // Eg. December
+      year: currentTime.getFullYear(), // Year
+    };
+
+
+
+    // upload the image here
+    console.log(imageUrl);
+    const downloadURL = await uploadImage(imageUrl, "image");
+    console.log(downloadURL);
+
 
     // Construct the data object with validated numeric values
     const data = {
