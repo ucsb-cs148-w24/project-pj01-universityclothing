@@ -20,13 +20,13 @@
 
 ## **Kevin Chen:**  
 ### **I DID**  
-- 
+- Support myListings / Favorited Listings
 
 ### **I WILL DO**  
-- 
+- Help finish adding the myListing/Favorite feature
 
 ### **BLOCKERS**  
-- 
+- None
 
 ## **Ridhit Garg:**  
 ### **I DID**  
