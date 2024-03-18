@@ -20,13 +20,13 @@
 
 ## **Kevin Chen:**  
 ### **I DID**  
-- 
+- Finished Logout button
 
 ### **I WILL DO**  
-- 
+- Work on bug fixes / edge cases that weren't considered before
 
 ### **BLOCKERS**  
-- 
+- none
 
 ## **Ridhit Garg:**  
 ### **I DID**  
