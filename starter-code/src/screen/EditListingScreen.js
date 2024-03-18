@@ -11,6 +11,7 @@ import {
     Keyboard,
     TouchableWithoutFeedback,
     Alert,
+    ScrollView,
 } from "react-native";
 import { useItems } from "../components/ItemsContext";
 import { firebaseApp, firestore, db, storage } from "../../firebaseConfig";
@@ -264,6 +265,7 @@ const EditListingScreen = ({ route }) => {
     return (
         // here are the inputs that users enter on the screen
         <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
+    <ScrollView style={{flex: 1}}>
             <View style={styles.container}>
                 {/* <HeaderBarWithBack /> */}
                 {isPosting && (
@@ -392,6 +394,7 @@ const EditListingScreen = ({ route }) => {
                     )}
                 </TouchableOpacity>
             </View>
+                        </ScrollView>
         </TouchableWithoutFeedback>
     );
 };
