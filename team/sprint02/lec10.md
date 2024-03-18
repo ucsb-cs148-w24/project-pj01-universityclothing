@@ -67,3 +67,10 @@
 
 ### **BLOCKERS**  
 -
+## **Anika Misra:**  
+### **I DID**  
+- Working on how to have a background image fill the whole background React
+- Start fixing the issue where someone can login even without permissions
+
+### **I WILL DO**  
+- Style the button as well as the text
