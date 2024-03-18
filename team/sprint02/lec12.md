@@ -20,13 +20,13 @@
 
 ## **Kevin Chen:**  
 ### **I DID**  
-- 
+- Posting screen configure with images pulled from firebase using url
 
 ### **I WILL DO**  
-- 
+- Finish configuring
 
 ### **BLOCKERS**  
-- 
+- None
 
 ## **Ridhit Garg:**  
 ### **I DID**  
