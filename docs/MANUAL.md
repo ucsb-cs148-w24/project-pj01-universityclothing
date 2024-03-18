@@ -40,5 +40,3 @@ _Save items by clicking the heart button, and users could check what they saved 
 
 ### Safety and Community Guidelines
 _We have implemented a UCSB member only system to ensure a positive and secure experience for users of the app. Everyone's UCSB email is available and so in th event of dishonest conduct, it is incredibly easy to ban someone from the app as well as know their real identity._
-
-## Screenshots
