@@ -31,13 +31,13 @@
 
 ## **Ridhit Garg:**  
 ### **I DID**  
-- 
+- helped test a lot of pull requests and fix bugs
 
 ### **I WILL DO**  
-- 
+- finish presentation
 
 ### **BLOCKERS**  
-- 
+- none
 
 ## **Jonathan Chen:**  
 ### **I DID**  
