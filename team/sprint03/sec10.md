@@ -30,13 +30,13 @@
 
 ## **Ridhit Garg:**  
 ### **I DID**  
-- 
+- pull request testing and bug fixes
 
 ### **I WILL DO**  
-- 
+- finish presentation
 
 ### **BLOCKERS**  
-- 
+- none
 
 ## **Jonathan Chen:**  
 ### **I DID**  
