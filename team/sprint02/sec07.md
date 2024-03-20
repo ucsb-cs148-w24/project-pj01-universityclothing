@@ -31,13 +31,13 @@
 
 ## **Ridhit Garg:**  
 ### **I DID**  
-- 
+- helped fix bugs with homescreen not displaying items correctly.
 
 ### **I WILL DO**  
-- 
+- fix more posting bugs
 
 ### **BLOCKERS**  
-- 
+- none
 
 ## **Jonathan Chen:**  
 ### **I DID**  
