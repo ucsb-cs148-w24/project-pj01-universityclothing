@@ -30,13 +30,13 @@
 
 ## **Ridhit Garg:**  
 ### **I DID**  
-- 
+- posting images connected to listing in firebase
 
 ### **I WILL DO**  
-- 
+- fix post bugs
 
 ### **BLOCKERS**  
-- 
+- none
 
 ## **Jonathan Chen:**  
 ### **I DID**  
