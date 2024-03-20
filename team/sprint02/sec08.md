@@ -30,13 +30,13 @@
 
 ## **Ridhit Garg:**  
 ### **I DID**  
-- 
+- created firebase collection for users to store listings and favorites
 
 ### **I WILL DO**  
-- 
+- save button
 
 ### **BLOCKERS**  
-- 
+-none
 
 ## **Jonathan Chen:**  
 ### **I DID**  
