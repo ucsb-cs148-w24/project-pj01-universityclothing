@@ -41,13 +41,13 @@
 
 ## **Ridhit Garg:**  
 ### **I DID**  
-- 
+- firebase item storage as lists
 
 ### **I WILL DO**  
-- 
+- display items on homescreen
 
 ### **BLOCKERS**  
-- 
+- None
 
 ## **Jonathan Chen:**  
 ### **I DID**  
