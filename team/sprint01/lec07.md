@@ -30,13 +30,13 @@
 
 ## **Ridhit Garg:**  
 ### **I DID**  
-- 
+- firebase item storage
 
 ### **I WILL DO**  
-- 
+- display items on homescreen
 
 ### **BLOCKERS**  
-- 
+- None
 
 ## **Jonathan Chen:**  
 ### **I DID**  
