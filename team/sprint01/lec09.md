@@ -31,23 +31,13 @@
 
 ## **Ridhit Garg:**  
 ### **I DID**  
-- 
+- firebase item display on homescreen
 
 ### **I WILL DO**  
-- 
+- updating homescreen with new listings
 
 ### **BLOCKERS**  
-- 
-
-## **Jonathan Chen:**  
-### **I DID**  
-- 
-
-### **I WILL DO**  
-- 
-
-### **BLOCKERS**  
-- 
+- None
 
 ## **Xinyao Song**  
 ### **I DID**  
