@@ -31,13 +31,14 @@
 
 ## **Ridhit Garg:**  
 ### **I DID**  
-- 
+- posting items stores properly in firebase and updates on homescreen
+- fixed bug when pressing post button multiple times
 
 ### **I WILL DO**  
-- 
+- work on additional screens
 
 ### **BLOCKERS**  
-- 
+- none
 
 ## **Jonathan Chen:**  
 ### **I DID**  
