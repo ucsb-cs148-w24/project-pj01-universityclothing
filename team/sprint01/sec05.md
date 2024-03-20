@@ -31,13 +31,13 @@
 
 ## **Ridhit Garg:**  
 ### **I DID**  
-- 
+- worked on making sure the item screen was ready for the mvp
 
 ### **I WILL DO**  
-- 
+- add more functionality
 
 ### **BLOCKERS**  
-- 
+- none
 
 ## **Jonathan Chen:**  
 ### **I DID**  
