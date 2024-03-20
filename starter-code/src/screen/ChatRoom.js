@@ -124,35 +124,6 @@ const ChatRoom = ({ route }) => {
     const fetchMsgs = async () => {
       if (otherUser === "") return;
 
-      // const unsubMsgs = onSnapshot(
-      //   messagesQ,
-      //   (snapshot) => {
-      //     // console.log(messages);
-      //     // console.log(snapshot.docChanges());
-
-      //     console.log("length: " + snapshot.docChanges().length);
-
-      //     // if (snapshot.docChanges().length === messages.length) return;
-      //     setMessages((prevMsgs) => {
-      //       console.log(prevMsgs);
-      //       snapshot.docChanges().forEach((change) => {
-      //         prevMsgs.push(change.doc);
-      //       });
-      //       console.log(prevMsgs);
-      //       return prevMsgs;
-      //     });
-      //     // snapshot.docChanges().forEach((change) => {
-      //     //   setMessages((prevMsgs) => [...prevMsgs, change.doc]);
-      //     //   // console.log(change.doc.data());
-      //     //   // if (change.type === "added") {
-      //     //   // }
-      //     // });
-      //   },
-      //   (error) => console.log(error.message)
-      // );
-
-      // return () => unsubMsgs();
-
       const messagesQ = query(
         collection(firestore, "messageRooms", room, "messages"),
         orderBy("sentAt", "asc")
@@ -248,10 +219,6 @@ const ChatRoom = ({ route }) => {
           placeholder="Type a message"
           value={textInput}
           onChangeText={(txt) => setTextInput(txt)}
-          // multiline={true}
-          // onContentSizeChange={({ nativeEvent }) => {
-          //   nativeEvent.contentSize.height;
-          // }}
         />
         <TouchableOpacity
           style={styles.button}

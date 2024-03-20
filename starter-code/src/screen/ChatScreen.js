@@ -33,6 +33,7 @@ const ChatScreen = ({ navigation }) => {
 
   const [msgRooms, setMsgRooms] = useState([]);
 
+  // move room with newer messages to the top
   const updateRooms = (room) => {
     setMsgRooms((prevMsgRooms) => {
       const newMsgRooms = prevMsgRooms.filter(
@@ -46,6 +47,7 @@ const ChatScreen = ({ navigation }) => {
   };
 
   useEffect(() => {
+    // set up listener for new message rooms
     const unsubMsgRooms = onSnapshot(
       collection(firestore, "users", user.email, "myMessageRooms"),
       (snapshot) => {
@@ -64,6 +66,7 @@ const ChatScreen = ({ navigation }) => {
             curRoom.listing = roomSnap.data().listing;
             curRoom.users = roomSnap.data().users;
 
+            // for each new message room, set up listener for latest message
             const latestMsgQ = query(
               collection(firestore, "messageRooms", change.doc.id, "messages"),
               orderBy("sentAt", "desc"),
@@ -86,10 +89,6 @@ const ChatScreen = ({ navigation }) => {
     <View style={styles.ScreenContainer}>
       <StatusBar backgroundColor="#F2F1EB" />
 
-      {/* <View style={styles.HeaderBar}>
-        <Text style={styles.ScreenHeader}>Messages</Text>
-      </View> */}
-
       {/* Header Bar */}
       <HeaderBar title="Messages" />
 
@@ -97,6 +96,7 @@ const ChatScreen = ({ navigation }) => {
         <ScrollView>
           <View style={{ height: 10 }}></View>
           {msgRooms.map((room) => (
+            // map each message room to a ChatRoomRow component
             <ChatRoomRow key={room.rid} room={room} navigation={navigation} />
           ))}
         </ScrollView>
