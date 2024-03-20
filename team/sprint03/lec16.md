@@ -30,13 +30,14 @@
 
 ## **Ridhit Garg:**  
 ### **I DID**  
-- 
+- helped configure the my listings collection and its navigation
+- sorted homescreen and my listings by time posted
 
 ### **I WILL DO**  
-- 
+- help other complete their parts
 
 ### **BLOCKERS**  
-- 
+- none
 
 ## **Jonathan Chen:**  
 ### **I DID**  
