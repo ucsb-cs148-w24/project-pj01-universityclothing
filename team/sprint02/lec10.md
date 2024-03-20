@@ -30,13 +30,13 @@
 
 ## **Ridhit Garg:**  
 ### **I DID**  
-- 
+-  worked on firebase storage for items with categories
 
 ### **I WILL DO**  
-- 
+- fix bugs with posting
 
 ### **BLOCKERS**  
-- 
+- none
 
 ## **Jonathan Chen:**  
 ### **I DID**  
