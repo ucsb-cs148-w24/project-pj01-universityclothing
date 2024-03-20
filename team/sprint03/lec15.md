@@ -30,10 +30,11 @@
 
 ## **Ridhit Garg:**  
 ### **I DID**  
-- 
+- save button
+- fixed issues with saving multiple times or logging in with exisitng user
 
 ### **I WILL DO**  
-- 
+- sort homescreen by time posted
 
 ### **BLOCKERS**  
 - 
