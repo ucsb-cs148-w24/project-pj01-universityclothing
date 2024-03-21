@@ -40,10 +40,10 @@
 
 ## **Jonathan Chen:**  
 ### **I DID**  
-- 
+- Made MyListing collection in the database
 
 ### **I WILL DO**  
-- 
+- Connect UI to actually display all the listings
 
 ### **BLOCKERS**  
 - 
