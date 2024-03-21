@@ -40,10 +40,10 @@
 
 ## **Jonathan Chen:**  
 ### **I DID**  
-- 
+- Continue working on deleting listing
 
 ### **I WILL DO**  
-- 
+- Add a new feature of edit listing so user can modify their posts after it's been posted.
 
 ### **BLOCKERS**  
 - 
