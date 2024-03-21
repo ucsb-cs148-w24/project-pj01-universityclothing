@@ -52,10 +52,10 @@
 
 ## **Xinyao Song**  
 ### **I DID**  
-- 
+- Modifield the over style sheet of the app
 
 ### **I WILL DO**  
-- 
+- correct all header bars to the same placement
 
 ### **BLOCKERS**  
 -
