@@ -41,10 +41,11 @@
 
 ## **Jonathan Chen:**  
 ### **I DID**  
-- 
+- Finished up the edit page
+- Tested app and reviewed PRs
 
 ### **I WILL DO**  
-- 
+- Help with teammates on making presentation and fixing bugs
 
 ### **BLOCKERS**  
 - 
