@@ -50,13 +50,13 @@
 
 ## **Xinyao Song**  
 ### **I DID**  
-- 
+- Tried to upload profile images to firebase. 
 
 ### **I WILL DO**  
-- 
+- Fix the firebase upload unsucessful issue. 
 
 ### **BLOCKERS**  
--
+- Difficulties with Effect() 
 
 ## **Justin Chung**  
 ### **I DID**  
