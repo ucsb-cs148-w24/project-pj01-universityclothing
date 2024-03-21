@@ -41,10 +41,10 @@
 
 ## **Jonathan Chen:**  
 ### **I DID**  
-- 
+- Wokring on the post screen, connect MVP already
 
 ### **I WILL DO**  
-- 
+- Actually adding to the database instead of storing as a temp variable.
 
 ### **BLOCKERS**  
 - 
