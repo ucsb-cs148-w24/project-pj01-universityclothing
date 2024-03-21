@@ -41,10 +41,10 @@
 
 ## **Jonathan Chen:**  
 ### **I DID**  
-- 
+- Worked on my listing navigation and started Edit page
 
 ### **I WILL DO**  
-- 
+- edit page should edit the document in the direbase instead of deleting them
 
 ### **BLOCKERS**  
 - 
