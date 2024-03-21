@@ -50,10 +50,10 @@
 
 ## **Xinyao Song**  
 ### **I DID**  
-- 
+- participated in retro 3
 
 ### **I WILL DO**  
-- 
+- finish additional testings for the app 
 
 ### **BLOCKERS**  
 -
