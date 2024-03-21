@@ -50,10 +50,10 @@
 
 ## **Xinyao Song**  
 ### **I DID**  
-- 
+- Sorted the Kanban board 
 
 ### **I WILL DO**  
-- 
+- continue with profile UI
 
 ### **BLOCKERS**  
 -
