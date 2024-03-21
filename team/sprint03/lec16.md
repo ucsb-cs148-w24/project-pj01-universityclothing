@@ -51,10 +51,10 @@
 
 ## **Xinyao Song**  
 ### **I DID**  
-- 
+- refined the UI/UX for the entire application
 
 ### **I WILL DO**  
-- 
+- allow user profile and information refetch when it is updated
 
 ### **BLOCKERS**  
 -
