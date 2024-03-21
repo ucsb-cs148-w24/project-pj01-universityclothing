@@ -50,13 +50,13 @@
 
 ## **Xinyao Song**  
 ### **I DID**  
-- 
+- Implimented a basic structure for edit profile page
 
 ### **I WILL DO**  
-- 
+- continue to find a way to connect profile to firebase
 
 ### **BLOCKERS**  
--
+- User icon naming issues
 
 ## **Justin Chung**  
 ### **I DID**  
