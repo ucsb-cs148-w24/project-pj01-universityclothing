@@ -42,13 +42,13 @@
 
 ## **Jonathan Chen:**  
 ### **I DID**  
-- 
+- Planned and work on firebase database
 
 ### **I WILL DO**  
-- 
+- Make the database and figure out firebase configs
 
 ### **BLOCKERS**  
-- 
+- None
 
 ## **Xinyao Song**  
 ### **I DID**  
