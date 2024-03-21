@@ -51,10 +51,11 @@
 
 ## **Xinyao Song**  
 ### **I DID**  
-- 
+- participated in the retro
+- edited icon design to navigation
 
 ### **I WILL DO**  
-- 
+- move to work on a new screen (possibly profile)
 
 ### **BLOCKERS**  
 -
