@@ -50,10 +50,11 @@
 
 ## **Xinyao Song**  
 ### **I DID**  
-- 
+- changed UI for homescreen and navigation bar so it is more rirect to the audience. 
 
 ### **I WILL DO**  
-- 
+- confirm features for code leases
+- review all prs 
 
 ### **BLOCKERS**  
 -
