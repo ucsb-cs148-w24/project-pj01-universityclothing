@@ -39,6 +39,16 @@
 ### **BLOCKERS**  
 - None
 
+- ## **Jonathan Chen:**  
+### **I DID**  
+- Post screen
+
+### **I WILL DO**  
+- connect posting screen and image storage on firebase
+
+### **BLOCKERS**  
+- None
+
 ## **Xinyao Song**  
 ### **I DID**  
 - implimented basic profile page 
