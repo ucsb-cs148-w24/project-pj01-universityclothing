@@ -50,10 +50,10 @@
 
 ## **Xinyao Song**  
 ### **I DID**  
-- 
+- Users are allowed to upload images under their uid, image will be replaced each time a new profile is uplaoded. 
 
 ### **I WILL DO**  
-- 
+- connect edit profile page to firebase
 
 ### **BLOCKERS**  
 -
