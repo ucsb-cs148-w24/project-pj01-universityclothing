@@ -41,10 +41,11 @@
 
 ## **Jonathan Chen:**  
 ### **I DID**  
-- 
+- Finished the delete function, it now removes listing correctly from database and from the app's UI
 
 ### **I WILL DO**  
-- 
+- Find out how to refetch on the homepage when we delete or edit a listing
+- Start editing page
 
 ### **BLOCKERS**  
 - 
