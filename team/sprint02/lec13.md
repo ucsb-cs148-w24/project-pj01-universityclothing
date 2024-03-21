@@ -53,10 +53,10 @@
 
 ## **Xinyao Song**  
 ### **I DID**  
-- 
+- worked on USER_FEEDBACK_NEEDS.md and UI/UX.md
 
 ### **I WILL DO**  
-- 
+- edit the UI for profile
 
 ### **BLOCKERS**  
 -
