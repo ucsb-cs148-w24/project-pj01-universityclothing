@@ -42,10 +42,11 @@
 
 ## **Jonathan Chen:**  
 ### **I DID**  
-- 
+- Fixed bugs on the post screen
+- Finishing up the temaplate for the mylisting screen
 
 ### **I WILL DO**  
-- 
+- Adding 'detele' features so users can remove listing.
 
 ### **BLOCKERS**  
 - 
