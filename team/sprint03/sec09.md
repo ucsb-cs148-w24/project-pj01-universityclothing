@@ -40,10 +40,10 @@
 
 ## **Jonathan Chen:**  
 ### **I DID**  
-- 
+- Retro 3
 
 ### **I WILL DO**  
-- 
+- more bug fixes and PR reviews
 
 ### **BLOCKERS**  
 - 
