@@ -50,10 +50,10 @@
 
 ## **Xinyao Song**  
 ### **I DID**  
-- 
+- allow users to replace uploaded images with same uid
 
 ### **I WILL DO**  
-- 
+- finish up with profile and edit profile
 
 ### **BLOCKERS**  
 -
