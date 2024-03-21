@@ -40,10 +40,10 @@
 
 ## **Jonathan Chen:**  
 ### **I DID**  
-- 
+- Finished setting up firebase confid, also set up a demo page for adding and retriving data from firebase
 
 ### **I WILL DO**  
-- 
+- Making the template page visible, work on post listing page.
 
 ### **BLOCKERS**  
 - 
