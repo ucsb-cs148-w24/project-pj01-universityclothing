@@ -51,10 +51,10 @@
 
 ## **Jonathan Chen:**  
 ### **I DID**  
-- 
+- Continue working on the post listing page, made a template and now trying to add to database
 
 ### **I WILL DO**  
-- 
+- Keep working on the posting page
 
 ### **BLOCKERS**  
 - 
