@@ -51,10 +51,10 @@
 
 ## **Xinyao Song**  
 ### **I DID**  
-- 
+- wrote unit test for homepage
 
 ### **I WILL DO**  
-- 
+- continue to other tests using jest
 
 ### **BLOCKERS**  
 -
