@@ -40,10 +40,10 @@
 
 ## **Jonathan Chen:**  
 ### **I DID**  
-- 
+- PR reviewing and UI testing
 
 ### **I WILL DO**  
-- 
+- more bug fixes and help with presentation
 
 ### **BLOCKERS**  
 - 
