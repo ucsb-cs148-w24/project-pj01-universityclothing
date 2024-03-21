@@ -34,10 +34,11 @@ Other issues:
 ## XinYao
 - **Wireframe Design:** I designed the wireframes for the home and profile pages, laying the groundwork for the app's visual layout and user experience.
 - **UI/UX Design**: Designed and implemented UI/UX for the home screen (including item listings), post screen, profile screen, navigation bar, about us, and edit profile screen.
-- **Category Structure Implementation:** I implemented the category structure for item selection, providing a systematic and user-friendly way for users to browse and categorize items.
-- **Header Bars Implementation:** I developed the header bar components for the home, profile, and edit profile screens. 
-- **Profile/Edit Profile Screen:** I implemented the profile and edit profile screen and connected user information to firebase, allowing users to customize and update their profiles easily.
-- **Post Screen Skeleton for MVP:** I developed the skeleton for the post screen as part of our Minimum Viable Product (MVP), setting the foundation for further development and feature integration.
+- **Category Structure Implementation:** Implemented the category structure for item selection, providing a systematic and user-friendly way for users to browse and categorize items.
+- **Header Bars Implementation:** Developed the header bar components for the home, profile, and edit profile screens. 
+- **Profile/Edit Profile Screen:** Implemented the profile and edit profile screen and connected user information to firebase, allowing users to customize and update their profiles easily.
+- **Post Screen Skeleton for MVP:** Developed the skeleton for the post screen as part of our Minimum Viable Product (MVP), setting the foundation for further development and feature integration.
+- Wrote second part of Design.md
 
 
 ## Zhen
