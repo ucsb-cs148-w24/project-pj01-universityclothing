@@ -52,10 +52,10 @@
 
 ## **Xinyao Song**  
 ### **I DID**  
-- 
+- attempedted to create a dnamic two column item lists 
 
 ### **I WILL DO**  
-- 
+- fix additional bugs and delays 
 
 ### **BLOCKERS**  
 -
