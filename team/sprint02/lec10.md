@@ -40,10 +40,10 @@
 
 ## **Jonathan Chen:**  
 ### **I DID**  
-- 
+- Finished up posting page
 
 ### **I WILL DO**  
-- 
+- Had to modify homepage so it refetch data correctly when there is a new listing in the database collection.
 
 ### **BLOCKERS**  
 - 
