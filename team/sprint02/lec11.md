@@ -40,10 +40,10 @@
 
 ## **Jonathan Chen:**  
 ### **I DID**  
-- 
+- Finishing up the homepage fetching from firebase collection
 
 ### **I WILL DO**  
-- 
+- Start working on my listing page where users can see all the listings they have created
 
 ### **BLOCKERS**  
 - 
