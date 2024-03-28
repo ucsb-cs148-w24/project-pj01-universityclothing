@@ -1,5 +1,5 @@
-# UniversityClothing
-UniversityClothing is a mobile application that allows university students to buy and sell used items freely.
+# UCSB MarketPlace
+UCSB MarketPlace is a mobile application that allows university students to buy and sell used items freely.
 It aims to solve problem of common scams on other online marketplaces by verifying user's university related identity before letting them join.
 
 ## Group members
